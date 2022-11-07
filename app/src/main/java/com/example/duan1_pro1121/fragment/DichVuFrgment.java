@@ -97,11 +97,7 @@ public class DichVuFrgment extends Fragment {
                     tvCheckMoney.setVisibility(View.VISIBLE);
                     return;
                 }
-                if(rdoHour.isChecked()){
-                    serviceBall.setProduct(false);
-                }else{
-                    serviceBall.setProduct(true);
-                }
+                serviceBall.setProduct(!rdoHour.isChecked());
 
                 MyDatabase.getInstance(getContext()).serviceDAO().insert(serviceBall);
                 serviceList = MyDatabase.getInstance(getContext()).serviceDAO().getAll();
@@ -128,6 +124,48 @@ public class DichVuFrgment extends Fragment {
         dialog.setContentView(R.layout.dialog_add_and_update_service);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        TextView tvTitle = dialog.findViewById(R.id.tv_title_dialog_add_and_update);
+        tvTitle.setText("Update dịch vụ");
+
+        EditText edtName = dialog.findViewById(R.id.edt_name_dialog_add_and_update_service);
+        edtName.setText(s.getName());
+        EditText edtMoney = dialog.findViewById(R.id.edt_money_dialog_add_and_update_service);
+        edtMoney.setText(s.getMoney()+"");
+        RadioButton rdoHour = dialog.findViewById(R.id.rdo_type_hour_dialog_add_and_update_service);
+
+        TextView tvCheckName = dialog.findViewById(R.id.tv_check_name_dialog_add_and_update_khachhang);
+        TextView tvCheckMoney = dialog.findViewById(R.id.tv_check_money_dialog_add_and_update_khachhang);
+
+        Button btn = dialog.findViewById(R.id.btn_add_and_update_service);
+        btn.setText("Update");
+        btn.setOnClickListener(v->{
+            String name = edtName.getText().toString();
+            String money = edtMoney.getText().toString();
+
+            if(name.length() <= 0){
+                invisible(tvCheckMoney,tvCheckName);
+                tvCheckName.setVisibility(View.VISIBLE);
+            }else{
+                ServiceBall serviceBall = new ServiceBall();
+                serviceBall.setId(s.getId());
+                serviceBall.setName(name);
+                try{
+                    serviceBall.setMoney(Integer.parseInt(money));
+                }catch(NumberFormatException e){
+                    invisible(tvCheckMoney,tvCheckName);
+                    tvCheckMoney.setVisibility(View.VISIBLE);
+                    return;
+                }
+                serviceBall.setProduct(!rdoHour.isChecked());
+
+                MyDatabase.getInstance(getContext()).serviceDAO().update(serviceBall);
+                serviceList = MyDatabase.getInstance(getContext()).serviceDAO().getAll();
+                adapter.setData(serviceList);
+
+                Toast.makeText(getContext(), "Update dịch vụ thành công", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FormActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg2"
+        android:rotation="180"
+        android:scaleType="fitXY" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="270dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="340dp"
+        android:layout_height="380dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/white_background"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="234dp"
+            android:layout_height="39dp"
+            android:gravity="center"
+            android:background="@drawable/tablayout_form_background">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout_form"
+                android:layout_width="230dp"
+                android:layout_height="35dp"
+                app:tabIndicatorHeight="0dp"
+                app:tabTextAppearance="@style/item_text_style"
+                app:tabRippleColor="@color/transparent"
+                app:tabTextColor="@color/tab_form_color"
+                app:tabBackground="@drawable/tab_form_background"
+                android:background="@color/transparent"/>
+        </LinearLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_marginTop="10dp"
+            android:id="@+id/viewpager_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/viewpager_form_background" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

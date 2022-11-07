@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:background="@color/transparent"
+    app:cardCornerRadius="6dp">
+
+    <LinearLayout
+        android:background="#4FFFFFFF"
+        android:paddingBottom="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:background="@color/dark_blue"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="Cập nhật số dư khách hàng"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_dialog_update_khachhang"
+                android:layout_marginTop="10dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/user_img"/>
+
+        <TextView
+            android:id="@+id/tv_check_phone_dialog_update_khachhang"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Số điện thoại không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_phone_dialog_update_khachhang"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Phone"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_name_dialog_update_khachhang"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Tên không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_name_dialog_update_khachhang"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Name"
+            android:drawableStart="@drawable/ic_user_circle"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_cmnd_dialog_update_khachhang"
+            style="@style/edt_style"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:drawableStart="@drawable/ic_user_circle"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:hint="Cmnd"
+            android:textColor="@color/my_blue" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_address_dialog_update_khachhang"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Địa chỉ không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_address_dialog_update_khachhang"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Address"
+            android:drawableStart="@drawable/ic_address"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="Số dư : "
+            android:textColor="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_money_dialog_update_khachhang"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="3dp"
+            android:hint="Nhập số dư"
+            android:drawableStart="@drawable/ic_dola"
+            android:drawablePadding="10dp"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_money_dialog_update_khachhang"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Số dư không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_update_khachhang"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="wrap_content"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_height="35dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

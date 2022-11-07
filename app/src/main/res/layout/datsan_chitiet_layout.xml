@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DatSanFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_blue"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_name_datsanchitiet"
+                android:drawableStart="@drawable/stadium"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/background_tv1"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Sân A1"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_date_datsanchitiet"
+                android:layout_width="185dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="2dp"
+                android:background="@drawable/background_tv1"
+                android:drawableStart="@drawable/ic_date"
+                android:drawableEnd="@drawable/ic_down"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:text="Fri 09/06/2022"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_customer_datsanchitiet"
+                android:layout_width="210dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/background_tv1"
+                android:drawableStart="@drawable/ic_user_circle"
+                android:drawableEnd="@drawable/ic_down"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/white"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:text="Khách hàng đặt"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_xemlichdau"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/background_tv1"
+            android:drawableEnd="@drawable/ic_down"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/white"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+            android:text="Xem lịch đấu ngày 09-06-2022"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="3"
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="10dp"
+                android:text="Thời gian "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:paddingStart="8dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_starttime_datsanchitiet"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingBottom="3dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:drawableTint="@color/white"
+                    android:drawableEnd="@drawable/ic_down"
+                    android:drawablePadding="10dp"
+                    android:backgroundTint="@color/my_blue"
+                    android:background="@drawable/background_tv1"
+                    android:text="0h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:text=" đến "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_endtime_datsanchitiet"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingBottom="3dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:drawableTint="@color/white"
+                    android:drawableEnd="@drawable/ic_down"
+                    android:drawablePadding="10dp"
+                    android:backgroundTint="@color/my_blue"
+                    android:background="@drawable/background_tv1"
+                    android:text="0h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="10dp"
+                android:text="Dịch vụ "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_service_datsanchitiet"
+                android:paddingStart="10dp"
+                android:text="2 trong tổng số 36"
+                android:layout_weight="4.8"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_chitiet_datsanchitiet"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="2"
+                android:background="@drawable/btn_background"
+                android:textSize="15sp"
+                android:text="Chi tiết"
+                style="@style/btn_style"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="10dp"
+                android:text="Tiền dịch vụ "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_money_service_datsanchitiet"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:text="90.000 VNĐ"
+                android:layout_weight="7"
+                android:textStyle="bold"
+                android:textColor="#23C82A"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="10dp"
+                android:text="Tiền sân bóng "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_money_san_datsanchitiet"
+                android:paddingStart="10dp"
+                android:textSize="15sp"
+                android:text="150.000 VNĐ"
+                android:layout_weight="7"
+                android:textStyle="bold"
+                android:textColor="#23C82A"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="10dp"
+                android:text="Tổng tiền "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_tongtien_datsanchitiet"
+                android:paddingStart="10dp"
+                android:textSize="18sp"
+                android:text="240.000 VNĐ"
+                android:layout_weight="7"
+                android:textStyle="bold"
+                android:textColor="#23C82A"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RadioGroup
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rdo_tt0_datsanchitiet"
+                android:text="Thanh toán bằng coin"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+
+            <RadioButton
+                android:id="@+id/rdo_tt1_datsanchitiet"
+                android:text="Thanh toán bằng tiền mặt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+
+            <RadioButton
+                android:id="@+id/rdo_tt2_datsanchitiet"
+                android:text="Thanh toán sau"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_datsan_datsanchitiet"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_background"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="18dp"
+        android:textSize="16sp"
+        android:text="Đặt sân"
+        style="@style/btn_style"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

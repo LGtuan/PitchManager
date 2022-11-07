@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/item_datsan"
+            android:icon="@drawable/order"
+            android:checked="true"
+            android:title="Đặt sân"/>
+        <item android:id="@+id/item_sanbong"
+            android:icon="@drawable/stadium"
+            android:title="Sân bóng"/>
+        <item android:id="@+id/item_khachhang"
+            android:title="Khách hàng"
+            android:icon="@drawable/custommer"/>
+        <item android:id="@+id/item_phieuthongtin"
+            android:title="Phiếu thông tin"
+            android:icon="@drawable/note"/>
+        <item android:id="@+id/item_dichvu"
+            android:title="Dịch vụ"
+            android:icon="@drawable/service"/>
+        <item android:title="Nhân viên"
+            android:icon="@drawable/employes"
+            android:id="@+id/item_nhanvien"/>
+        <item android:id="@+id/item_thongke"
+            android:icon="@drawable/statistical"
+            android:title="Thống kê"/>
+        <item android:id="@+id/item_dangxuat"
+            android:icon="@drawable/logout"
+            android:title="Đăng xuất"/>
+    </group>
+</menu>

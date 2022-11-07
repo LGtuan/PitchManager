@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ListServiceActivity">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:weightSum="10"
+        android:background="@color/my_blue"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_weight="9.6"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:text="Các dịch vụ đã chọn"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_complete_list_service"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:src="@drawable/v_ic"
+            app:shapeAppearanceOverlay="@style/circle_img"
+            android:background="@color/white"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list_service1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/my_blue"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:text="Danh sách các dịch vụ"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list_service2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

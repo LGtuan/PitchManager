@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.DatSanFragment">
+
+    <RadioGroup
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rd_all"
+            android:checked="true"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/my_blue"
+            android:text="All"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rd_5"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/my_blue"
+            android:text="Sân 5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rd_7"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/my_blue"
+            android:text="Sân 7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rd_11"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/my_blue"
+            android:text="Sân 11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/dark_blue"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_datsan"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

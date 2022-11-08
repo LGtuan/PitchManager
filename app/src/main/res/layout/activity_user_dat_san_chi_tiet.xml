@@ -57,7 +57,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_date_datsanchitiet"
-                android:layout_width="185dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="2dp"
                 android:background="@drawable/background_tv1"
@@ -69,24 +69,6 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
                 android:text="Fri 09/06/2022"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_customer_datsanchitiet"
-                android:layout_width="210dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/background_tv1"
-                android:drawableStart="@drawable/ic_user_circle"
-                android:drawableEnd="@drawable/ic_down"
-                android:drawablePadding="3dp"
-                android:drawableTint="@color/white"
-                android:gravity="center_vertical"
-                android:paddingStart="10dp"
-                android:paddingEnd="5dp"
-                android:text="Khách hàng đặt"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -122,20 +104,18 @@
 
         <LinearLayout
             android:layout_marginTop="15dp"
-            android:weightSum="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_weight="3"
                 android:paddingTop="10dp"
                 android:paddingStart="5dp"
                 android:paddingBottom="10dp"
                 android:text="Thời gian "
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
@@ -198,7 +178,6 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:weightSum="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -210,25 +189,22 @@
                 android:text="Dịch vụ "
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_weight="3"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_service_datsanchitiet"
                 android:paddingStart="10dp"
                 android:text="2 trong tổng số 36"
-                android:layout_weight="4.8"
                 android:textStyle="italic"
                 android:textColor="@color/black"
-                android:layout_width="0dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_chitiet_datsanchitiet"
-                android:layout_width="0dp"
+                android:layout_width="70dp"
                 android:layout_height="25dp"
-                android:layout_weight="2"
                 android:background="@drawable/btn_background"
                 android:textSize="15sp"
                 android:text="Chi tiết"
@@ -254,21 +230,24 @@
                 android:text="Tiền dịch vụ "
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_weight="3"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_money_service_datsanchitiet"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
-                android:text="90.000 VNĐ"
-                android:layout_weight="7"
+                android:text="90.000"
                 android:textStyle="bold"
                 android:textColor="#23C82A"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_dola"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
         </LinearLayout>
 
         <TextView
@@ -277,7 +256,6 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:weightSum="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -289,20 +267,24 @@
                 android:text="Tiền sân bóng "
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_weight="3"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_money_san_datsanchitiet"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
-                android:text="150.000 VNĐ"
-                android:layout_weight="7"
+                android:text="150.000"
                 android:textStyle="bold"
                 android:textColor="#23C82A"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_dola"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
         </LinearLayout>
 
@@ -312,7 +294,6 @@
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:weightSum="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -325,8 +306,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_weight="3"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -334,11 +314,16 @@
                 android:paddingStart="10dp"
                 android:textSize="18sp"
                 android:text="240.000 VNĐ"
-                android:layout_weight="7"
                 android:textStyle="bold"
                 android:textColor="#23C82A"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_dola"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
 
         </LinearLayout>
 
@@ -346,31 +331,6 @@
             android:background="@color/dark_blue"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
-
-        <RadioGroup
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/rdo_tt0_datsanchitiet"
-                android:text="Thanh toán bằng coin"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"/>
-
-            <RadioButton
-                android:id="@+id/rdo_tt1_datsanchitiet"
-                android:text="Thanh toán bằng tiền mặt"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"/>
-
-            <RadioButton
-                android:id="@+id/rdo_tt2_datsanchitiet"
-                android:text="Thanh toán sau"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"/>
-        </RadioGroup>
 
     </LinearLayout>
 

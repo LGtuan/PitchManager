@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

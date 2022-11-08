@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.adapter.ServiceAdapter;
+import com.example.duan1_pro1121.adapter.admin.ServiceAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.ServiceBall;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

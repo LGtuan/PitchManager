@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.adapter.CustomerAdapter;
+import com.example.duan1_pro1121.adapter.admin.CustomerAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

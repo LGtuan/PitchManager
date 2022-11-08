@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.duan1_pro1121.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PhieuThongTinFragment#newInstance} factory method to
+ * Use the {@link ThongKeFrgment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhieuThongTinFragment extends Fragment {
+public class ThongKeFrgment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class PhieuThongTinFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PhieuThongTinFragment() {
+    public ThongKeFrgment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class PhieuThongTinFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PhieuThongTinFragment.
+     * @return A new instance of fragment ThongKeFrgment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PhieuThongTinFragment newInstance(String param1, String param2) {
-        PhieuThongTinFragment fragment = new PhieuThongTinFragment();
+    public static ThongKeFrgment newInstance(String param1, String param2) {
+        ThongKeFrgment fragment = new ThongKeFrgment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class PhieuThongTinFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_phieu_thong_tin, container, false);
+        return inflater.inflate(R.layout.fragment_thong_ke_frgment, container, false);
     }
 }

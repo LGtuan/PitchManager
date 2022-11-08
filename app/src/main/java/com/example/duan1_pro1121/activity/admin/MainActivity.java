@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.activity;
+package com.example.duan1_pro1121.activity.admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.fragment.DatSanFragment;
-import com.example.duan1_pro1121.fragment.DichVuFrgment;
-import com.example.duan1_pro1121.fragment.KhachHangFragment;
-import com.example.duan1_pro1121.fragment.NhanVienFragment;
-import com.example.duan1_pro1121.fragment.PhieuThongTinFragment;
-import com.example.duan1_pro1121.fragment.SanBongFragment;
-import com.example.duan1_pro1121.fragment.ThongKeFrgment;
+import com.example.duan1_pro1121.fragment.adminfragment.DatSanFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.DichVuFrgment;
+import com.example.duan1_pro1121.fragment.adminfragment.KhachHangFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.NhanVienFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.PhieuThongTinFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.SanBongFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.ThongKeFrgment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {

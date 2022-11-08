@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.activity;
+package com.example.duan1_pro1121.activity.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 

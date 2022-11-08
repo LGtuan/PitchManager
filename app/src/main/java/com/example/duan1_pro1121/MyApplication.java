@@ -9,4 +9,7 @@ public class MyApplication extends Application {
     public static String ADDRESS_REGEX = "(\\w|\\s)+";
     public static String NAME_REGEX = "(\\w|\\s)+";
 
+    public static int TYPE_ADMIN = 0;
+    public static int TYPE_USER = 1;
+    public static int CURRENT_TYPE = -1;
 }

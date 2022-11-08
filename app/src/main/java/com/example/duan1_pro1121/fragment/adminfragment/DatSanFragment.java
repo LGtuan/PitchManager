@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.activity.LichHoatDongActivity;
-import com.example.duan1_pro1121.adapter.RecyclerDatSanAdapter;
+import com.example.duan1_pro1121.activity.admin.DatSanChiTietActivity;
+import com.example.duan1_pro1121.activity.user.UserDatSanChiTietActivity;
+import com.example.duan1_pro1121.adapter.admin.RecyclerDatSanAdapter;
 import com.example.duan1_pro1121.model.Pitch;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class DatSanFragment extends Fragment {
     public static List<Pitch> list = new ArrayList<>();
     RadioButton rd5,rd7,rd11,rdAll;
     RecyclerView recyclerView;
-
+    RecyclerDatSanAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +46,21 @@ public class DatSanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.recycler_datsan);
+        adapter =new RecyclerDatSanAdapter(getContext(),list);
+        adapter.setOnClickDatSan(() -> {
+            if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_ADMIN) {
+                Intent intent = new Intent(getContext(), DatSanChiTietActivity.class);
+                startActivity(intent);
+            }else if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER){
+                Intent intent = new Intent(getContext(), UserDatSanChiTietActivity.class);
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
+
         rd5 = view.findViewById(R.id.rd_5);
         rd5.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
@@ -55,7 +69,7 @@ public class DatSanFragment extends Fragment {
                     if(list.get(i).getCategoryId() == 0){
                         list1.add(list.get(i));
                     }
-                    setUp(list1);
+                    adapter.setData(list1);
                 }
             }
         });
@@ -67,7 +81,7 @@ public class DatSanFragment extends Fragment {
                     if(list.get(i).getCategoryId() == 1){
                         list1.add(list.get(i));
                     }
-                    setUp(list1);
+                    adapter.setData(list1);
                 }
             }
         });
@@ -79,26 +93,19 @@ public class DatSanFragment extends Fragment {
                     if(list.get(i).getCategoryId() == 2){
                         list1.add(list.get(i));
                     }
-                    setUp(list1);
+                    adapter.setData(list1);
                 }
             }
         });
         rdAll = view.findViewById(R.id.rd_all);
         rdAll.setOnCheckedChangeListener((btn,isChecked)->{
             if(isChecked){
-                setUp(list);
+                adapter.setData(list);
             }
         });
-
-        recyclerView = view.findViewById(R.id.recycler_datsan);
-        setUp(list);
     }
 
-    public void setUp(List<Pitch> listX){
-        RecyclerDatSanAdapter adapter =new RecyclerDatSanAdapter(getContext(),listX);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
-    }
+
 
     public void setData(){
         if(list.size()>0) return;

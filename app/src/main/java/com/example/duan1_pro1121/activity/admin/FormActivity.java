@@ -1,13 +1,12 @@
-package com.example.duan1_pro1121.activity;
+package com.example.duan1_pro1121.activity.admin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.adapter.AdapterForm;
+import com.example.duan1_pro1121.adapter.admin.AdapterForm;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 

@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.activity;
+package com.example.duan1_pro1121.activity.admin;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.duan1_pro1121.R;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class DatSanChiTietActivity extends AppCompatActivity {
 

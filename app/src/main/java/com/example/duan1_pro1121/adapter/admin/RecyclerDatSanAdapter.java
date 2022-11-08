@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.adapter;
+package com.example.duan1_pro1121.adapter.admin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.activity.DatSanChiTietActivity;
+import com.example.duan1_pro1121.activity.admin.DatSanChiTietActivity;
 import com.example.duan1_pro1121.model.Pitch;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.List;
 public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAdapter.ViewHolder> {
     private Context context;
     private List<Pitch> list;
+    private MyOnClickDatSan onClickDatSan;
 
     public RecyclerDatSanAdapter(Context context, List<Pitch> list) {
         this.context = context;
@@ -53,9 +54,21 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
             tv3 = itemView.findViewById(R.id.tv_money_item_datsan);
             tv4 = itemView.findViewById(R.id.tv_type_item_datsan);
             itemView.setOnClickListener(v->{
-                Intent intent = new Intent(context, DatSanChiTietActivity.class);
-                context.startActivity(intent);
+                onClickDatSan.myOnClick();
             });
         }
+    }
+
+    public void setOnClickDatSan(MyOnClickDatSan onClickDatSan) {
+        this.onClickDatSan = onClickDatSan;
+    }
+
+    public interface MyOnClickDatSan{
+        void myOnClick();
+    }
+
+    public void setData(List<Pitch> list){
+        this.list = list;
+        notifyDataSetChanged();
     }
 }

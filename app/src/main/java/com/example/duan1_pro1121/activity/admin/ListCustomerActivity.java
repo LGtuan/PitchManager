@@ -1,20 +1,15 @@
-package com.example.duan1_pro1121.activity;
+package com.example.duan1_pro1121.activity.admin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.adapter.CustomerAdapter;
+import com.example.duan1_pro1121.adapter.admin.CustomerAdapter;
 import com.example.duan1_pro1121.model.Customer;
 
 import java.util.ArrayList;

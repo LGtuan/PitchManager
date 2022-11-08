@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.adapter;
+package com.example.duan1_pro1121.adapter.admin;
 
 import android.content.Context;
 import android.view.LayoutInflater;

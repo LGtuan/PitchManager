@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.fragment;
+package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.activity.SplashActivity;
+import com.example.duan1_pro1121.activity.admin.SplashActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -37,7 +38,7 @@ public class LoginFragment extends Fragment {
         btn_user.setOnClickListener(v -> {
             if (getContext() != null) {
                 Intent intent = new Intent(getContext(), SplashActivity.class);
-                intent.putExtra("type_account","user");
+                MyApplication.CURRENT_TYPE = MyApplication.TYPE_USER;
                 getContext().startActivity(intent);
             }
         });
@@ -45,7 +46,7 @@ public class LoginFragment extends Fragment {
         btn_admin.setOnClickListener(v -> {
             if (getContext() != null) {
                 Intent intent = new Intent(getContext(), SplashActivity.class);
-                intent.putExtra("type_account","admin");
+                MyApplication.CURRENT_TYPE = MyApplication.TYPE_ADMIN;
                 getContext().startActivity(intent);
             }
         });

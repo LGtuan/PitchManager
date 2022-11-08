@@ -10,7 +10,6 @@ public class ServiceBall {
     private String name;
     private int money;
     private boolean isProduct;
-    private int count = 1;
 
     public ServiceBall() {
     }
@@ -43,14 +42,6 @@ public class ServiceBall {
 
     public void setMoney(int money) {
         this.money = money;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public boolean isProduct() {

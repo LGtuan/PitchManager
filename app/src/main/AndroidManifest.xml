@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,35 +14,45 @@
         android:theme="@style/Theme.DuAn1_PRO1121"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ListServiceActivity"
+            android:name=".activity.user.UserDatSanChiTietActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.ListCustomerActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activity.LichHoatDongActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.user.UserMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
-            android:exported="true" />
-        <activity android:name=".activity.DatSanChiTietActivity" />
+            android:name=".activity.admin.ListServiceActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
-            android:name=".activity.FormActivity"
+            android:name=".activity.admin.ListCustomerActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.admin.LichHoatDongActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.admin.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.admin.MainActivity"
+            android:exported="true" />
+        <activity android:name=".activity.admin.DatSanChiTietActivity" />
+        <activity
+            android:name=".activity.admin.FormActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -22,10 +22,10 @@ import com.example.duan1_pro1121.model.Pitch;
 import com.example.duan1_pro1121.model.PithCategory;
 import com.example.duan1_pro1121.model.ServiceBall;
 
-@Database(entities = {Customer.class,Manager.class, Order.class, OrderDetails.class, Pitch.class, PithCategory.class, ServiceBall.class, ManagerCategory.class}, version = 1)
+@Database(entities = {Customer.class,Manager.class, Order.class, OrderDetails.class, Pitch.class, PithCategory.class, ServiceBall.class, ManagerCategory.class}, version = 2)
 public abstract class MyDatabase extends RoomDatabase {
 
-    private static String DB_NAME = "PITCH_MANAGER2";
+    private static String DB_NAME = "PITCH_MANAGER3";
     private static MyDatabase instance;
 
     public static synchronized MyDatabase getInstance(Context context){

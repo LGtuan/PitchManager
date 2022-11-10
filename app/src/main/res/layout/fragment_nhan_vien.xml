@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.adminfragment.NhanVienFragment">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#F8F8F8"
+    tools:context=".activity.admin.ListCustomerActivity">
 
+    <LinearLayout
+        android:padding="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_searchNameCustomer_activity_customer"
+            android:hint="Tên nhân viên"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            style="@style/edt_style"/>
+
+        <ImageView
+            android:id="@+id/img_search_staff"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="54dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_person_search"
+            android:layout_height="45dp"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_staff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/ic_add"
+            android:id="@+id/btn_create_dialog_add_staff"
+            app:tint="@color/white"
+            app:maxImageSize="40dp"
+            android:backgroundTint="@color/my_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,144 +8,141 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="2dp"
-        android:background="#1B7C7C7C">
-
-        <TextView
-            android:id="@+id/tv1"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Phone : "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_phone_item_khachhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:text="0393692654"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/tv1"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_name_item_khachhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@color/dark_blue"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
             android:text="Lê Gia Tuấn"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tv_phone_item_khachhang"
-            app:layout_constraintTop_toBottomOf="@id/tv_phone_item_khachhang" />
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
 
-        <TextView
-            android:id="@+id/tv_address_item_khachhang"
-            android:layout_width="180dp"
-            android:maxLines="1"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingTop="3dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phúc Thọ - Hà Nội"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tv_name_item_khachhang"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_item_khachhang" />
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="2dp">
 
-        <TextView
-            android:id="@+id/tv_cmnd_item_khachhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="001203034204"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
-            app:layout_constraintTop_toBottomOf="@id/tv_address_item_khachhang" />
+            <TextView
+                android:id="@+id/tv1"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Phone : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_password_item_khachhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tuandeptrai"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
-            app:layout_constraintTop_toBottomOf="@id/tv_cmnd_item_khachhang" />
+            <TextView
+                android:id="@+id/tv_phone_item_khachhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:text="0393692654"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/tv1"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv2"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue"
-            app:layout_constraintTop_toBottomOf="@id/tv1"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Name :"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv3"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue"
-            app:layout_constraintTop_toBottomOf="@id/tv2"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Address :"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_address_item_khachhang"
+                android:layout_width="180dp"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:text="Phúc Thọ - Hà Nội"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_phone_item_khachhang"
+                app:layout_constraintTop_toBottomOf="@id/tv_phone_item_khachhang" />
 
-        <TextView
-            android:id="@+id/tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cmnd :"
-            android:textColor="@color/dark_blue"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv3" />
+            <TextView
+                android:id="@+id/tv_cmnd_item_khachhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="001203034204"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_item_khachhang" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password :"
-            android:textColor="@color/dark_blue"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv4" />
+            <TextView
+                android:id="@+id/tv_password_item_khachhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tuandeptrai"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
+                app:layout_constraintTop_toBottomOf="@id/tv_cmnd_item_khachhang" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView2"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/ic_dola"
-            app:layout_constraintEnd_toStartOf="@id/img_avatar_khachhang_fragment"
-            app:layout_constraintTop_toBottomOf="@id/img_avatar_khachhang_fragment" />
+            <TextView
+                android:id="@+id/tv3"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
+                app:layout_constraintTop_toBottomOf="@id/tv1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Address :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_coin_item_khachhang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3.000.000"
-            android:textColor="@color/dark_blue"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
-            app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
-            app:layout_constraintTop_toBottomOf="@+id/img_avatar_khachhang_fragment" />
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cmnd :"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv3" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_avatar_khachhang_fragment"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/user_img"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password :"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv4" />
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_dola"
+                app:layout_constraintEnd_toStartOf="@id/img_avatar_khachhang_fragment"
+                app:layout_constraintTop_toBottomOf="@id/img_avatar_khachhang_fragment" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_coin_item_khachhang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.000.000"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
+                app:layout_constraintTop_toBottomOf="@+id/img_avatar_khachhang_fragment" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_avatar_khachhang_fragment"
+                android:layout_marginEnd="10dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/user_img"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

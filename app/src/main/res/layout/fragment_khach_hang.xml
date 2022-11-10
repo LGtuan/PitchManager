@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="#F8F8F8"
     tools:context=".activity.admin.ListCustomerActivity">
 
     <LinearLayout

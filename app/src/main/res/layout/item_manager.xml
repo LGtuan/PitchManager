@@ -4,11 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
-    app:cardElevation="4dp"
+    app:cardElevation="5dp"
     app:cardCornerRadius="4dp">
 
     <LinearLayout
-        android:background="#1B7C7C7C"
         android:paddingBottom="3dp"
         android:orientation="vertical"
         android:layout_width="match_parent"

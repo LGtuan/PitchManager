@@ -54,7 +54,7 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
             tv3 = itemView.findViewById(R.id.tv_money_item_datsan);
             tv4 = itemView.findViewById(R.id.tv_type_item_datsan);
             itemView.setOnClickListener(v->{
-                onClickDatSan.myOnClick();
+                onClickDatSan.myOnClick(list.get(getAdapterPosition()));
             });
         }
     }
@@ -64,7 +64,7 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
     }
 
     public interface MyOnClickDatSan{
-        void myOnClick();
+        void myOnClick(Pitch pitch);
     }
 
     public void setData(List<Pitch> list){

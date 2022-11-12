@@ -21,6 +21,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_back_datsanchitiet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_gravity="center_vertical"
@@ -86,7 +87,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="5dp"
-                android:text="Khách hàng đặt"
+                android:text="Khách lẻ"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -193,6 +194,17 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_check_time_datsan_chitiet"
+            android:visibility="invisible"
+            android:layout_marginStart="120dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:text="* Khung giờ đã có người chơi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
             android:background="@color/dark_blue"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
@@ -237,6 +249,7 @@
         </LinearLayout>
 
         <TextView
+            android:layout_marginTop="10dp"
             android:background="@color/dark_blue"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

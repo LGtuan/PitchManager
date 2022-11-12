@@ -42,6 +42,10 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="corner_img_20">
+        <item name="cornerSize">25%</item>
+    </style>
+
     <style name="textActive">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>

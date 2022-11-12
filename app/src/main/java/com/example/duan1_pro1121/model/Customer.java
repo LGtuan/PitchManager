@@ -3,8 +3,10 @@ package com.example.duan1_pro1121.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "CUSTOMER")
-public class Customer {
+public class Customer implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String phone;

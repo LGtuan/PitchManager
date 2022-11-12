@@ -30,7 +30,8 @@
             android:layout_width="40dp"
             android:layout_height="35dp"
             android:src="@drawable/v_ic"
-            app:shapeAppearanceOverlay="@style/circle_img"
+            android:elevation="5dp"
+            app:shapeAppearanceOverlay="@style/corner_img_20"
             android:background="@color/white"/>
 
     </LinearLayout>

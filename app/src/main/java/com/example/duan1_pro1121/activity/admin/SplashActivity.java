@@ -16,15 +16,21 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        String stk = getIntent().getStringExtra("account");
 
         new Handler().postDelayed(() -> {
             if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_ADMIN) {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent.putExtra("account",stk);
                 startActivity(intent);
             }else if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER){
                 Intent intent = new Intent(SplashActivity.this, UserMainActivity.class);
                 startActivity(intent);
             }
         },3000);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

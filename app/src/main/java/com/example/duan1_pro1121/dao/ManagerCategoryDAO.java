@@ -15,7 +15,7 @@ public interface ManagerCategoryDAO {
     @Query("SELECT * FROM MANAGER_CATEGORY")
     List<ManagerCategory> getAll();
 
-    @Query("SELECT * FROM MANAGER_CATEGORY WHERE NAME != 'admin'")
+    @Query("SELECT * FROM MANAGER_CATEGORY WHERE NAME != 'Admin'")
     List<ManagerCategory> getAllStaff();
 
     @Insert
@@ -29,4 +29,10 @@ public interface ManagerCategoryDAO {
 
     @Query("SELECT * FROM MANAGER_CATEGORY WHERE ID = :id")
     List<ManagerCategory> getCategoryWithID(int id);
+
+    @Query("SELECT * FROM MANAGER_CATEGORY WHERE NAME = :s")
+    List<ManagerCategory> getIdAdmin(String s);
+
+    @Query("DELETE FROM MANAGER_CATEGORY")
+    void deleteAll();
 }

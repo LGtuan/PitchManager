@@ -155,6 +155,7 @@ public class NhanVienFragment extends Fragment {
                     manager.setSalary(salary);
                     if(listAllStaff.size() <= 0){
                         Toast.makeText(getContext(), "Cần thêm loại chức vụ", Toast.LENGTH_SHORT).show();
+                        return;
                     }else {
                         manager.setPosition(listAllStaff.get(spinner.getSelectedItemPosition()).getId());
                     }

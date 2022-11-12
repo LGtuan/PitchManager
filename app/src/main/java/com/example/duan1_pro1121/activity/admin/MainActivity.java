@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.fragment.adminfragment.DatSanFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.DichVuFrgment;
@@ -25,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String account = "";
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     public static int CURRENT_FRAGMENT = 0;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        account = getIntent().getStringExtra("account");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,15 +80,25 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new DichVuFrgment());
                     getSupportActionBar().setTitle("Dịch Vụ");
                 }else if(item.getItemId() == R.id.item_nhanvien && CURRENT_FRAGMENT!=5){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 5;
-                    replaceFragment(new NhanVienFragment());
-                    getSupportActionBar().setTitle("Nhân Viên");
+                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                        menu.findItem(item.getItemId()).setChecked(true);
+                        CURRENT_FRAGMENT = 5;
+                        replaceFragment(new NhanVienFragment());
+                        getSupportActionBar().setTitle("Nhân Viên");
+                    }else{
+                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                 }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=6){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 6;
-                    replaceFragment(new ThongKeFrgment());
-                    getSupportActionBar().setTitle("Thống Kê");
+                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                        menu.findItem(item.getItemId()).setChecked(true);
+                        CURRENT_FRAGMENT = 6;
+                        replaceFragment(new ThongKeFrgment());
+                        getSupportActionBar().setTitle("Thống Kê");
+                    }else{
+                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                 }else if(item.getItemId() == R.id.item_dangxuat){
                     Intent intent = new Intent(MainActivity.this,FormActivity.class);
                     startActivity(intent);

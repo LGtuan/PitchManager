@@ -4,6 +4,8 @@ import android.app.Application;
 
 public class MyApplication extends Application {
 
+    public static final String ADMIN_CATEGORY = "Admin";
+
     public static String PHONE_REGEX = "0[35789]\\d{8}";
     public static String PASS_REGEX = "(\\W|\\w){6,10}";
     public static String ADDRESS_REGEX = "(\\w|\\s)+";

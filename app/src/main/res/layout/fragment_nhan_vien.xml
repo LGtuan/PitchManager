@@ -6,30 +6,42 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="#F8F8F8"
-    tools:context=".activity.admin.ListCustomerActivity">
+    android:background="#F8F8F8">
 
     <LinearLayout
-        android:padding="8dp"
-        android:gravity="center"
+        android:padding="5dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_searchNameCustomer_activity_customer"
+            android:id="@+id/edt_searchNameStaff_activity_staff"
             android:hint="Tên nhân viên"
-            android:layout_width="300dp"
+            android:layout_width="240dp"
             android:layout_height="48dp"
             style="@style/edt_style"/>
 
         <ImageView
-            android:id="@+id/img_search_staff"
-            android:layout_marginStart="20dp"
+            android:id="@+id/img_search_staff_nhanvien_fragment"
+            android:layout_marginStart="5dp"
             android:background="@drawable/btn_background"
             android:layout_width="54dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_person_search"
+            android:layout_height="45dp"/>
+
+        <android.widget.Button
+            android:id="@+id/btn_show_loaiNhanvien"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_background"
+            android:text="Xem loại nhân viên"
+            android:layout_width="100dp"
             android:layout_height="45dp"/>
 
     </LinearLayout>

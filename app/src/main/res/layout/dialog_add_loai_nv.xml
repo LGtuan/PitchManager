@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:background="@color/transparent"
+    app:cardCornerRadius="6dp">
+
+    <LinearLayout
+        android:paddingBottom="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title_dialog_add_loainv"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:background="@color/dark_blue"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="Thêm loại nhân viên"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_marginTop="20dp"
+            android:id="@+id/edt_name_dialog_add_loainv"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Tên loại nhân viên"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_name_dialog_add_loainv"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Số tiền không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_loainv"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="wrap_content"
+            android:text="Thêm"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_height="35dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

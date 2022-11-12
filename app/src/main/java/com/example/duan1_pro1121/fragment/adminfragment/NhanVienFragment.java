@@ -153,7 +153,11 @@ public class NhanVienFragment extends Fragment {
                     manager.setBankName(bankName);
                     manager.setBankNumber(bankNumber);
                     manager.setSalary(salary);
-                    manager.setPosition(listAllStaff.get(spinner.getSelectedItemPosition()).getId());
+                    if(listAllStaff.size() <= 0){
+                        Toast.makeText(getContext(), "Cần thêm loại chức vụ", Toast.LENGTH_SHORT).show();
+                    }else {
+                        manager.setPosition(listAllStaff.get(spinner.getSelectedItemPosition()).getId());
+                    }
 
                     MyDatabase.getInstance(getContext()).managerDAO().insert(manager);
                     Toast.makeText(getContext(), "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();

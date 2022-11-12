@@ -9,6 +9,7 @@
     android:gravity="center_horizontal">
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_account_fragment_login"
         android:drawableStart="@drawable/ic_user_circle"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -33,6 +34,7 @@
         app:hintEnabled="false"
         app:boxStrokeWidthFocused="0dp">
         <android.widget.EditText
+            android:id="@+id/edt_password_fragment_login"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:hint="Nhập mật khẩu"
@@ -46,15 +48,16 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/cbx_remember"
-        android:text="Remember"
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/tv_check_account"
+        android:textSize="12sp"
         android:textStyle="bold"
-        android:textColor="@color/my_blue"
-        android:layout_marginStart="24dp"
-        android:layout_gravity="start"
-        android:textSize="14sp"
-        android:layout_width="wrap_content"
+        android:textColor="#FF0000"
+        android:text="* Tài khoản hoặc mật khẩu không hợp lệ"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <LinearLayout

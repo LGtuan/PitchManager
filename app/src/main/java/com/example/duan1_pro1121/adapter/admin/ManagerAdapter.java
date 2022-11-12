@@ -46,14 +46,15 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ManagerAdapter.ViewHolder holder, int position) {
 
-        holder.tv1.setText(list.get(position).getName());
-        holder.tv2.setText(list.get(position).getPhone());
         ManagerCategory category = MyDatabase.getInstance(context).managerCategoryDAO().getCategoryWithID(list.get(position).getCategory_id()).get(0);
         if(category != null) {
             holder.tv3.setText(category.getName());
         }else{
             holder.tv3.setText("Không có chức vụ");
         }
+
+        holder.tv1.setText(list.get(position).getName());
+        holder.tv2.setText(list.get(position).getPhone());
         holder.tv4.setText(list.get(position).getBankName());
         holder.tv5.setText(list.get(position).getBankNumber());
         holder.tv6.setText(list.get(position).getSalary()+"");
@@ -76,7 +77,13 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             tv6 = itemView.findViewById(R.id.tv_salary_item_manager);
 
             itemView.setOnClickListener(v->{
-                createDialogUpdate(list.get(getAdapterPosition()));
+                int idCategory = list.get(getAdapterPosition()).getCategory_id();
+                String nameCategory = MyDatabase.getInstance(context).managerCategoryDAO().getCategoryWithID(idCategory).get(0).getName();
+                if(!nameCategory.equals(MyApplication.ADMIN_CATEGORY)){
+                    createDialogUpdate(list.get(getAdapterPosition()));
+                }else{
+                    Toast.makeText(context, "Không thể chỉnh sửa admin", Toast.LENGTH_SHORT).show();
+                }
             });
         }
     }

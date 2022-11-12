@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Manager;
@@ -43,11 +44,6 @@ public class CategoryManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_manager);
 
         list = MyDatabase.getInstance(this).managerCategoryDAO().getAll();
-        if(list.size() == 0){
-            ManagerCategory managerCategory = new ManagerCategory();
-            managerCategory.setName("admin");
-            MyDatabase.getInstance(this).managerCategoryDAO().insert(managerCategory);
-        }
 
         recyclerView = findViewById(R.id.recycler_danhsach_loainv);
         img = findViewById(R.id.btn_back_danhsach_loai_nhanvien);
@@ -167,7 +163,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 tv2 = itemView.findViewById(R.id.tv_name_loai_nv);
 
                 itemView.setOnClickListener(v->{
-                    if(cList.get(getAdapterPosition()).getName().equals("admin")){
+                    if(cList.get(getAdapterPosition()).getName().equals(MyApplication.ADMIN_CATEGORY)){
                         Toast.makeText(CategoryManagerActivity.this, "Không thể chỉnh sửa Admin", Toast.LENGTH_SHORT).show();
                     }else{
                         createDialogUpdate(cList.get(getAdapterPosition()));

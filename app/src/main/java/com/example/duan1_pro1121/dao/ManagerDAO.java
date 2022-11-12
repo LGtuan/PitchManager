@@ -29,4 +29,7 @@ public interface ManagerDAO {
 
     @Query("SELECT * FROM MANAGER WHERE NAME LIKE :phone")
     List<Manager> getManagerWithName(String phone);
+
+    @Query("DELETE FROM MANAGER")
+    void deleteAll();
 }

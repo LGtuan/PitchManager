@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.duan1_pro1121.dao.CustomerDAO;
+import com.example.duan1_pro1121.dao.ManagerCategoryDAO;
 import com.example.duan1_pro1121.dao.ManagerDAO;
 import com.example.duan1_pro1121.dao.OrderDAO;
 import com.example.duan1_pro1121.dao.OrderDetailsDAO;
@@ -25,7 +26,7 @@ import com.example.duan1_pro1121.model.ServiceBall;
 @Database(entities = {Customer.class,Manager.class, Order.class, OrderDetails.class, Pitch.class, PithCategory.class, ServiceBall.class, ManagerCategory.class}, version = 2)
 public abstract class MyDatabase extends RoomDatabase {
 
-    private static String DB_NAME = "PITCH_MANAGER3";
+    private static String DB_NAME = "PITCH_MANAGER5";
     private static MyDatabase instance;
 
     public static synchronized MyDatabase getInstance(Context context){
@@ -44,5 +45,5 @@ public abstract class MyDatabase extends RoomDatabase {
     public abstract PitchCategoryDAO pitchCategoryDAO();
     public abstract PitchDAO pitchDao();
     public abstract ServiceDAO serviceDAO();
-
+    public abstract ManagerCategoryDAO managerCategoryDAO();
 }

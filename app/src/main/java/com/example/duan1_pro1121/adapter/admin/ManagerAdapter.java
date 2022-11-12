@@ -1,122 +1,130 @@
-package com.example.duan1_pro1121.fragment.adminfragment;
+package com.example.duan1_pro1121.adapter.admin;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.activity.admin.CategoryManagerActivity;
-import com.example.duan1_pro1121.adapter.admin.ManagerAdapter;
-import com.example.duan1_pro1121.adapter.admin.SpinnerLoaiNVAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.fragment.adminfragment.NhanVienFragment;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class NhanVienFragment extends Fragment {
+public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHolder>{
 
-    private List<Manager> managerList;
-    private RecyclerView recyclerView;
-    private ImageView imgSearch;
-    private EditText edtSearch;
-    private Button btnShowLoaiNhanVien;
-    private ManagerAdapter adapter;
-    FloatingActionButton btnAdd;
+    private List<Manager> list;
+    private Context context;
 
+    public ManagerAdapter(List<Manager> list, Context context) {
+        this.list = list;
+        this.context = context;
+    }
+
+    @NonNull
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        managerList = MyDatabase.getInstance(getContext()).managerDAO().getAll();
+    public ManagerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_manager,parent,false));
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_nhan_vien, container, false);
+    public void onBindViewHolder(@NonNull ManagerAdapter.ViewHolder holder, int position) {
+
+        holder.tv1.setText(list.get(position).getName());
+        holder.tv2.setText(list.get(position).getPhone());
+        ManagerCategory category = MyDatabase.getInstance(context).managerCategoryDAO().getCategoryWithID(list.get(position).getCategory_id()).get(0);
+        if(category != null) {
+            holder.tv3.setText(category.getName());
+        }else{
+            holder.tv3.setText("Không có chức vụ");
+        }
+        holder.tv4.setText(list.get(position).getBankName());
+        holder.tv5.setText(list.get(position).getBankNumber());
+        holder.tv6.setText(list.get(position).getSalary()+"");
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        recyclerView = view.findViewById(R.id.recycler_staff);
-        imgSearch = view.findViewById(R.id.img_search_staff_nhanvien_fragment);
-        edtSearch = view.findViewById(R.id.edt_searchNameStaff_activity_staff);
-        btnShowLoaiNhanVien = view.findViewById(R.id.btn_show_loaiNhanvien);
-        btnAdd = view.findViewById(R.id.btn_create_dialog_add_staff);
-
-        btnShowLoaiNhanVien.setOnClickListener(v->{
-            Intent intent = new Intent(getContext(), CategoryManagerActivity.class);
-            getContext().startActivity(intent);
-        });
-        btnAdd.setOnClickListener(v->{
-            createDialogAdd();
-        });
-        imgSearch.setOnClickListener(v->{
-            if(edtSearch.getText().toString().equals("")){
-                adapter.setData(managerList);
-            }else{
-                adapter.setData(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithName("%"+edtSearch.getText().toString()+"%"));
-            }
-        });
-
-        adapter = new ManagerAdapter(managerList,getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    public int getItemCount() {
+        return list.size();
     }
 
-    public void createDialogAdd(){
-        Dialog dialog = new Dialog(getContext());
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv1,tv2,tv3,tv4,tv5,tv6;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tv1 = itemView.findViewById(R.id.tv_name_item_manager);
+            tv2 = itemView.findViewById(R.id.tv_phone_item_manager);
+            tv3 = itemView.findViewById(R.id.tv_position_item_manager);
+            tv4 = itemView.findViewById(R.id.tv_bankname_item_manager);
+            tv5 = itemView.findViewById(R.id.tv_banknumber_item_manager);
+            tv6 = itemView.findViewById(R.id.tv_salary_item_manager);
+
+            itemView.setOnClickListener(v->{
+                createDialogUpdate(list.get(getAdapterPosition()));
+            });
+        }
+    }
+
+    public void createDialogUpdate(Manager manager){
+        Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_nv);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        EditText edtName = dialog.findViewById(R.id.edt_name_dialog_add_nhanvien);
-        EditText edtBankNumber = dialog.findViewById(R.id.edt_banknumber_dialog_add_nhanvien);
-        EditText edtBankName = dialog.findViewById(R.id.edt_bankname_dialog_add_nhanvien);
-        EditText edtPass = dialog.findViewById(R.id.edt_pass_dialog_add_nhanvien);
-        EditText edtPass2 = dialog.findViewById(R.id.edt_pass2_dialog_add_nhanvien);
-
-        Spinner spinner = dialog.findViewById(R.id.spinner_chucvu_dialog_add_nhanvien);
-        List<ManagerCategory> listAllStaff = MyDatabase.getInstance(getContext()).managerCategoryDAO().getAllStaff();
-        SpinnerLoaiNVAdapter spAdapter = new SpinnerLoaiNVAdapter(getContext(),R.layout.line_spinner_loai_nv,listAllStaff);
-        spinner.setAdapter(spAdapter);
+        TextView tv_title = dialog.findViewById(R.id.tv_title_dialog_add_nv);
+        tv_title.setText("Sửa đổi nhân viên");
 
         EditText edtSalary = dialog.findViewById(R.id.edt_salary_dialog_add_nhanvien);
+        edtSalary.setText(manager.getSalary()+"");
         EditText edtPhone = dialog.findViewById(R.id.edt_phone_dialog_add_nhanvien);
+        edtPhone.setText(manager.getPhone());
+        EditText edtName = dialog.findViewById(R.id.edt_name_dialog_add_nhanvien);
+        edtName.setText(manager.getName());
+        EditText edtBankNumber = dialog.findViewById(R.id.edt_banknumber_dialog_add_nhanvien);
+        edtBankNumber.setText(manager.getBankNumber());
+        EditText edtBankName = dialog.findViewById(R.id.edt_bankname_dialog_add_nhanvien);
+        edtBankName.setText(manager.getBankName());
+        EditText edtPass = dialog.findViewById(R.id.edt_pass_dialog_add_nhanvien);
+        edtPass.setText(manager.getPassword());
+        EditText edtPass2 = dialog.findViewById(R.id.edt_pass2_dialog_add_nhanvien);
+        edtPass2.setText(manager.getPassword());
+
+        Spinner spinner = dialog.findViewById(R.id.spinner_chucvu_dialog_add_nhanvien);
+        List<ManagerCategory> listAllStaff = MyDatabase.getInstance(context).managerCategoryDAO().getAllStaff();
+        SpinnerLoaiNVAdapter spAdapter = new SpinnerLoaiNVAdapter(context,R.layout.line_spinner_loai_nv,listAllStaff);
+        spinner.setAdapter(spAdapter);
+        for(int i = 0;i<listAllStaff.size();i++){
+            if(listAllStaff.get(i).getId() == manager.getCategory_id()){
+                spinner.setSelection(i);
+                break;
+            }
+        }
 
         TextView tvCheckName = dialog.findViewById(R.id.tv_check_name_dialog_add_nhanvien);
         TextView tvCheckPass1 = dialog.findViewById(R.id.tv_check_pass_dialog_add_nhanvien);
         TextView tvCheckPass2 = dialog.findViewById(R.id.tv_check_pass2_dialog_add_nhanvien);
         TextView tvCheckPhone = dialog.findViewById(R.id.tv_check_phone_dialog_add_nhanvien);
 
-        Button btnThem = dialog.findViewById(R.id.btn_add_nhanvien);
-        btnThem.setOnClickListener(v->{
+        Button btnSua = dialog.findViewById(R.id.btn_add_nhanvien);
+        btnSua.setText("Thay đổi");
+
+        btnSua.setOnClickListener(v->{
             String phone = edtPhone.getText().toString();
             String name = edtName.getText().toString();
             String pass = edtPass.getText().toString();
@@ -124,7 +132,6 @@ public class NhanVienFragment extends Fragment {
             String bankNumber = edtBankNumber.getText().toString();
             String bankName = edtBankName.getText().toString();
             int salary;
-
             if(!phone.matches(MyApplication.PHONE_REGEX)){
                 tvCheckPhone.setText("* Số điện thoại không hợp lệ");
                 invisible(tvCheckName,tvCheckPass1,tvCheckPhone,tvCheckPass2);
@@ -142,11 +149,10 @@ public class NhanVienFragment extends Fragment {
                 try{
                     salary = Integer.parseInt(edtSalary.getText().toString());
                 }catch (NumberFormatException e){
-                    Toast.makeText(getContext(), "Lương phải là số", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Lương phải là số", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Manager manager = new Manager();
-                if(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(phone,-1).size()==0) {
+                if(MyDatabase.getInstance(context).managerDAO().getManagerWithPhone(phone,manager.getId()).size()==0) {
                     manager.setPhone(phone);
                     manager.setName(name);
                     manager.setPassword(pass);
@@ -155,10 +161,11 @@ public class NhanVienFragment extends Fragment {
                     manager.setSalary(salary);
                     manager.setPosition(listAllStaff.get(spinner.getSelectedItemPosition()).getId());
 
-                    MyDatabase.getInstance(getContext()).managerDAO().insert(manager);
-                    Toast.makeText(getContext(), "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
-                    managerList = MyDatabase.getInstance(getContext()).managerDAO().getAll();
-                    adapter.setData(managerList);
+                    MyDatabase.getInstance(context).managerDAO().update(manager);
+                    Toast.makeText(context, "Update nhân viên thành công", Toast.LENGTH_SHORT).show();
+
+                    list = MyDatabase.getInstance(context).managerDAO().getAll();
+                    notifyDataSetChanged();
 
                     dialog.dismiss();
                 }else{
@@ -180,5 +187,10 @@ public class NhanVienFragment extends Fragment {
         for(TextView tv : tvs){
             tv.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void setData(List<Manager> list){
+        this.list = list;
+        notifyDataSetChanged();
     }
 }

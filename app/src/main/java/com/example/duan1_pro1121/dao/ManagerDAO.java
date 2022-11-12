@@ -24,5 +24,9 @@ public interface ManagerDAO {
 
     @Update
     void update(Manager manager);
+    @Query("SELECT * FROM MANAGER WHERE PHONE = :phone AND ID != :id")
+    List<Manager> getManagerWithPhone(String phone,int id);
 
+    @Query("SELECT * FROM MANAGER WHERE NAME LIKE :phone")
+    List<Manager> getManagerWithName(String phone);
 }

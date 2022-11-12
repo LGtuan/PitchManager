@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatSanFragment extends Fragment {
+
     public static List<Pitch> list = new ArrayList<>();
     RadioButton rd5,rd7,rd11,rdAll;
     RecyclerView recyclerView;
@@ -34,6 +35,7 @@ public class DatSanFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setData();
+
     }
 
     @Override
@@ -49,12 +51,14 @@ public class DatSanFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_datsan);
         adapter =new RecyclerDatSanAdapter(getContext(),list);
-        adapter.setOnClickDatSan(() -> {
+        adapter.setOnClickDatSan(pitch -> {
             if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_ADMIN) {
                 Intent intent = new Intent(getContext(), DatSanChiTietActivity.class);
+                intent.putExtra("PITCH",pitch);
                 startActivity(intent);
             }else if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER){
                 Intent intent = new Intent(getContext(), UserDatSanChiTietActivity.class);
+                intent.putExtra("PITCH",pitch);
                 startActivity(intent);
             }
         });
@@ -104,8 +108,6 @@ public class DatSanFragment extends Fragment {
             }
         });
     }
-
-
 
     public void setData(){
         if(list.size()>0) return;

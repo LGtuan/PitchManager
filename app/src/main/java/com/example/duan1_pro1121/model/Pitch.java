@@ -6,8 +6,10 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "PITCH",foreignKeys = @ForeignKey(entity = PithCategory.class,parentColumns = "id",childColumns = "categoryId",onDelete = CASCADE))
-public class Pitch {
+public class Pitch implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;

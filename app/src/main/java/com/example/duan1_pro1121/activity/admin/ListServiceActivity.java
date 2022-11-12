@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.ServiceBall;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListServiceActivity extends AppCompatActivity {
 
-    private List<ServiceBall> list1 = new ArrayList<>(),list2 = new ArrayList<>();
+    private List<ServiceBall> list1 = new ArrayList<>(),list2;
+    private List<Integer> listNumber = new ArrayList<>();
     private RecyclerView recy1,recy2;
     ImageView img;
 
@@ -28,15 +32,32 @@ public class ListServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_service);
+
+        list1 = (List<ServiceBall>) getIntent().getBundleExtra("bundle").getSerializable("LIST_SERVICE");
+        listNumber = (List<Integer>) getIntent().getBundleExtra("bundle").getSerializable("LIST_NUMBER");
+        list2 = MyDatabase.getInstance(this).serviceDAO().getAll();
+        for(int i = 0;i<list1.size();i++){
+            for(int j = 0;j<list2.size();j++){
+                if(list1.get(i).getId() == list2.get(j).getId()){
+                    list2.remove(j);
+                    break;
+                }
+            }
+        }
         initView();
         setup();
     }
 
-
     public void initView(){
         img = findViewById(R.id.img_complete_list_service);
         img.setOnClickListener(v->{
-            onBackPressed();
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("LIST_SERVICE", (Serializable) list1);
+            bundle.putSerializable("LIST_NUMBER", (Serializable) listNumber);
+            intent.putExtra("bundle",bundle);
+            setResult(RESULT_OK,intent);
+            finish();
         });
         recy1 = findViewById(R.id.recycler_list_service1);
         recy2 = findViewById(R.id.recycler_list_service2);
@@ -96,6 +117,7 @@ public class ListServiceActivity extends AppCompatActivity {
                 if(isAdd){
                     img.setOnClickListener(v->{
                         list1.add(list2.get(getAdapterPosition()));
+                        listNumber.add(1);
                         list2.remove(getAdapterPosition());
                         setup();
                     });
@@ -103,6 +125,7 @@ public class ListServiceActivity extends AppCompatActivity {
                     img.setOnClickListener(v->{
                         list2.add(list1.get(getAdapterPosition()));
                         list1.remove(getAdapterPosition());
+                        listNumber.remove(getAdapterPosition());
                         setup();
                     });
                 }

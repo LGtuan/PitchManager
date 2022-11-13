@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.duan1_pro1121.model.Pitch;
+import com.example.duan1_pro1121.model.PithCategory;
 
 import java.util.List;
 
@@ -25,4 +26,9 @@ public interface PitchDAO {
     @Update
     void update(Pitch pitch);
 
+    @Query("SELECT * FROM PITCH WHERE name = :name")
+    List<Pitch> getPitchWithName(String name);
+
+    @Query("SELECT * FROM PITCH WHERE categoryId = :categoryId")
+    List<Pitch> getPitchWithCategoryId(int categoryId);
 }

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_title_dialog_add_pitch"
             android:paddingBottom="3dp"
             android:paddingTop="3dp"
             android:background="@color/dark_blue"
@@ -26,12 +27,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <TextView
+            android:id="@+id/tv_check_name_dialog_add_pitch"
+            android:visibility="invisible"
+            android:layout_marginStart="25dp"
+            android:textColor="#FF1100"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="* Tên sân không được bỏ trống"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_tensan_dialog_add_pitch"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:hint="Tên Sân"
@@ -40,79 +51,131 @@
             android:drawableTint="@color/edt_color"
             android:textColor="@color/my_blue"
             style="@style/edt_style"/>
+
         <LinearLayout
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:text="Trạng Thái :"
-                android:textSize="20sp"
+                android:textColor="@color/dark_blue"
+                android:text="Trạng thái :"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <Spinner
-                android:id="@+id/spi_status"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_width="match_parent"
-                />
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:checked="true"
+                    android:id="@+id/rdo_hoatdong_dialog_add_pitch"
+                    android:layout_marginStart="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:text="Hoạt động"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+                <RadioButton
+                    android:id="@+id/rdo_baotri_dialog_add_pitch"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/dark_gray"
+                    android:textStyle="bold"
+                    android:text="Bảo trì"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+            </RadioGroup>
+
         </LinearLayout>
 
-
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_tiensan_dialog_add_pitch"
+        <LinearLayout
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:inputType="number"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="@color/dark_blue"
+                android:text="Loại sân : "
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/rdo_san5_dialog_add_pitch"
+                    android:checked="true"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#9C27B0"
+                    android:textStyle="bold"
+                    android:text="Sân 5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+                <RadioButton
+                    android:id="@+id/rdo_san7_dialog_add_pitch"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#9C27B0"
+                    android:textStyle="bold"
+                    android:text="Sân 7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+                <RadioButton
+                    android:id="@+id/rdo_san11_dialog_add_pitch"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="#9C27B0"
+                    android:textStyle="bold"
+                    android:text="Sân 11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_marginTop="5dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:hint="Tiền Sân"
-            android:drawableStart="@drawable/ic_money"
-            android:drawablePadding="10dp"
-            android:drawableTint="@color/edt_color"
-            android:textColor="@color/my_blue"
-            style="@style/edt_style"/>
-        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
             <TextView
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:text="Loai Sân :"
-                android:textSize="20sp"
+                android:text="Tiền sân :"
+                android:textSize="18sp"
+                android:textColor="@color/dark_blue"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <Spinner
-                android:id="@+id/spi_loaisan"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_width="match_parent"
-                />
+
+            <TextView
+                android:id="@+id/tv_money_dialog_add_pitch"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#FF1100"
+                android:text="80.000 VNĐ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
-
-
-
-
-
-
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_add_khachhang"
+            android:id="@+id/btn_add_sanbong"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_background"
             android:layout_width="wrap_content"
@@ -121,7 +184,6 @@
             android:textAllCaps="false"
             android:layout_height="35dp"
             android:layout_gravity="center"/>
-
     </LinearLayout>
 
 

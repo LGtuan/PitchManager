@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
@@ -60,9 +61,6 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.datsan_chitiet_layout);
-        //createDataCustommer();
-        //createDataCategoriesStaff();
-        //createDataStaff();
 
         pitch = (Pitch) getIntent().getSerializableExtra("PITCH");
 
@@ -256,103 +254,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             totalMoneyService += listService.get(i).getMoney() * numberOfService.get(i);
         }
 
-        tvServiceMoney.setText(changeToVND(totalMoneyService));
+        tvServiceMoney.setText(MyApplication.convertMoneyToString(totalMoneyService));
     }
 
-    public String changeToVND(int money) {
-        String s = "";
-        while (true) {
-            if (money / 100 >= 10) {
-                s += ".000";
-                money /= 1000;
-            } else {
-                s = money + s;
-                break;
-            }
-        }
-        return s;
-    }
-
-    public void createDataCustommer() {
-        Customer customer = new Customer();
-        customer.setName("Nguyễn Văn Nhân");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("0390292654");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-        customer = new Customer();
-        customer.setName("Nguyễn Văn Bình");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("0393692623");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-        customer = new Customer();
-        customer.setName("Lê Văn Đại");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("03936922233");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-        customer = new Customer();
-        customer.setName("Đoàn Văn Chiến");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("0394592623");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-        customer = new Customer();
-        customer.setName("Nguyễn Thị Cúc");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("0309292623");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-        customer = new Customer();
-        customer.setName("Đinh Công Sáng");
-        customer.setCoin(200000);
-        customer.setPassword("123456");
-        customer.setCmnd("98329831092");
-        customer.setAddress("Phúc thọ Hà Nội");
-        customer.setPhone("0393002623");
-        MyDatabase.getInstance(this).customerDAO().insert(customer);
-    }
-
-    public void createDataCategoriesStaff() {
-        ManagerCategory category = new ManagerCategory();
-        category.setName("Nhân viên");
-        MyDatabase.getInstance(this).managerCategoryDAO().insert(category);
-        category = new ManagerCategory();
-        category.setName("Admin");
-        MyDatabase.getInstance(this).managerCategoryDAO().insert(category);
-    }
-
-    public void createDataStaff() {
-        List<ManagerCategory> list = MyDatabase.getInstance(this).managerCategoryDAO().getAll();
-        if (list.size() > 0) {
-            Toast.makeText(this, "list > 0", Toast.LENGTH_SHORT).show();
-
-            Manager manager = new Manager();
-            manager.setName("Bùi Thị Xuân");
-            manager.setPassword("taolatuan");
-            manager.setPhone("0393699054");
-            manager.setBankName("Techcombank");
-            manager.setPosition(list.get(0).getId());
-            MyDatabase.getInstance(this).managerDAO().insert(manager);
-
-            manager = new Manager();
-            manager.setName("Bùi Thị Xuân");
-            manager.setPassword("taolatuan");
-            manager.setPhone("0393699054");
-            manager.setBankName("Techcombank");
-            manager.setPosition(list.get(0).getId());
-            MyDatabase.getInstance(this).managerDAO().insert(manager);
-        }
-    }
 }

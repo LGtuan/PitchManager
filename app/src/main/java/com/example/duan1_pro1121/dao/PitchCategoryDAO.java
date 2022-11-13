@@ -26,4 +26,6 @@ public interface PitchCategoryDAO {
     @Update
     void update(PithCategory category);
 
+    @Query("SELECT * FROM PITCH_CATEGORY WHERE id = :id")
+    List<PithCategory> getCategoryPitchWithId(int id);
 }

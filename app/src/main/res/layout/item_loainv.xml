@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tv_number_loai_nv"
-            android:background="@color/black"
+            android:background="@color/dark_blue"
             android:text="1"
             android:gravity="center"
             android:textColor="@color/white"

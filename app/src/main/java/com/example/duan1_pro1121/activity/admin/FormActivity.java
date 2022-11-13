@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
@@ -12,6 +11,7 @@ import com.example.duan1_pro1121.adapter.admin.AdapterForm;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
+import com.example.duan1_pro1121.model.PithCategory;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -25,7 +25,7 @@ public class FormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
 
-        createAdminData();
+        createData();
 
         AdapterForm adapter = new AdapterForm(this);
         viewPager2 = findViewById(R.id.viewpager_form);
@@ -38,9 +38,13 @@ public class FormActivity extends AppCompatActivity {
         }).attach();
     }
 
-    public void createAdminData(){
+    public void createData(){
+        createAdminDataIfNotExists();
+        createPitchCategoryDataIfNotExists();
+    }
+
+    public void createAdminDataIfNotExists(){
         if(MyDatabase.getInstance(this).managerCategoryDAO().getAll().size()==0){
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
             ManagerCategory category = new ManagerCategory();
             category.setName(MyApplication.ADMIN_CATEGORY);
             MyDatabase.getInstance(this).managerCategoryDAO().insert(category);
@@ -50,6 +54,17 @@ public class FormActivity extends AppCompatActivity {
             manager1.setPosition(MyDatabase.getInstance(this).managerCategoryDAO().getIdAdmin(MyApplication.ADMIN_CATEGORY).get(0).getId());
             manager1.setPassword("123456");
             MyDatabase.getInstance(this).managerDAO().insert(manager1);
+        }
+    }
+
+    public void createPitchCategoryDataIfNotExists(){
+        if(MyDatabase.getInstance(this).pitchCategoryDAO().getAll().size()==0){
+            PithCategory category = new PithCategory(MyApplication.ID_CATEGORY_PITCH_5,"Sân 5 người",80000);
+            MyDatabase.getInstance(this).pitchCategoryDAO().insert(category);
+            category = new PithCategory(MyApplication.ID_CATEGORY_PITCH_7,"Sân 7 người",100000);
+            MyDatabase.getInstance(this).pitchCategoryDAO().insert(category);
+            category = new PithCategory(MyApplication.ID_CATEGORY_PITCH_11,"Sân 11 người",140000);
+            MyDatabase.getInstance(this).pitchCategoryDAO().insert(category);
         }
     }
 }

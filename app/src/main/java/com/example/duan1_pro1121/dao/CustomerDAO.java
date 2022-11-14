@@ -27,4 +27,7 @@ public interface CustomerDAO {
 
     @Query("SELECT * FROM CUSTOMER WHERE PHONE = :phone AND ID != :id")
     List<Customer> getCustomerWithPhone(String phone,int id);
+
+    @Query("SELECT * FROM CUSTOMER WHERE name LIKE :name")
+    List<Customer> getCustomerWithName(String name);
 }

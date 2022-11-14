@@ -17,14 +17,14 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_searchNameCustomer_activity_customer"
+            android:id="@+id/edt_searchName_customerFragment"
             android:hint="Tên khách hàng"
             android:layout_width="300dp"
             android:layout_height="48dp"
             style="@style/edt_style"/>
 
         <ImageView
-            android:id="@+id/img_search_activity_customer"
+            android:id="@+id/img_search_customerFragment"
             android:layout_marginStart="20dp"
             android:background="@drawable/btn_background"
             android:layout_width="54dp"

@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.adapter.admin.ServiceAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -73,7 +74,6 @@ public class DichVuFrgment extends Fragment {
 
         EditText edtName = dialog.findViewById(R.id.edt_name_dialog_add_and_update_service);
         EditText edtMoney = dialog.findViewById(R.id.edt_money_dialog_add_and_update_service);
-        RadioButton rdoProduct = dialog.findViewById(R.id.rdo_type_product_dialog_add_and_update_service);
         RadioButton rdoHour = dialog.findViewById(R.id.rdo_type_hour_dialog_add_and_update_service);
 
         TextView tvCheckName = dialog.findViewById(R.id.tv_check_name_dialog_add_and_update_khachhang);
@@ -125,19 +125,24 @@ public class DichVuFrgment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView tvTitle = dialog.findViewById(R.id.tv_title_dialog_add_and_update);
-        tvTitle.setText("Update dịch vụ");
+        tvTitle.setText("Cập nhật dịch vụ");
 
         EditText edtName = dialog.findViewById(R.id.edt_name_dialog_add_and_update_service);
         edtName.setText(s.getName());
         EditText edtMoney = dialog.findViewById(R.id.edt_money_dialog_add_and_update_service);
         edtMoney.setText(s.getMoney()+"");
+
         RadioButton rdoHour = dialog.findViewById(R.id.rdo_type_hour_dialog_add_and_update_service);
+        RadioButton rdoProduct = dialog.findViewById(R.id.rdo_type_product_dialog_add_and_update_service);
+
+        if(s.isProduct())rdoProduct.setChecked(true);
+        else rdoHour.setChecked(true);
 
         TextView tvCheckName = dialog.findViewById(R.id.tv_check_name_dialog_add_and_update_khachhang);
         TextView tvCheckMoney = dialog.findViewById(R.id.tv_check_money_dialog_add_and_update_khachhang);
 
         Button btn = dialog.findViewById(R.id.btn_add_and_update_service);
-        btn.setText("Update");
+        btn.setText("Cập nhật");
         btn.setOnClickListener(v->{
             String name = edtName.getText().toString();
             String money = edtMoney.getText().toString();
@@ -162,7 +167,7 @@ public class DichVuFrgment extends Fragment {
                 serviceList = MyDatabase.getInstance(getContext()).serviceDAO().getAll();
                 adapter.setData(serviceList);
 
-                Toast.makeText(getContext(), "Update dịch vụ thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cập nhật dịch vụ thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

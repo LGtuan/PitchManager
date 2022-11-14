@@ -49,8 +49,8 @@ public class ListCustomerActivity extends AppCompatActivity {
 
     public void initView(){
         recyclerView = findViewById(R.id.recycler_customer);
-        img_search = findViewById(R.id.img_search_activity_customer);
-        edt_search = findViewById(R.id.edt_searchNameCustomer_activity_customer);
+        img_search = findViewById(R.id.img_search_customerFragment);
+        edt_search = findViewById(R.id.edt_searchName_customerFragment);
         btn_add = findViewById(R.id.btn_create_dialog_add_khachhang);
         btn_add.setVisibility(View.INVISIBLE);
     }

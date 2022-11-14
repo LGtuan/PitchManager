@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.duan1_pro1121.model.Manager;
+import com.example.duan1_pro1121.model.ManagerCategory;
 import com.example.duan1_pro1121.model.Order;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface OrderDAO {
     @Update
     void update(Order order);
 
+
+//    @Query("SELECT * FROM ORDERS WHERE ID = :id")
+//    List<Order> getOrderWithID(int id);
 }

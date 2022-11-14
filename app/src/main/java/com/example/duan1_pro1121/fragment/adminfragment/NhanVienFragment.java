@@ -186,4 +186,11 @@ public class NhanVienFragment extends Fragment {
             tv.setVisibility(View.INVISIBLE);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        managerList = MyDatabase.getInstance(getContext()).managerDAO().getAll();
+        adapter.setData(managerList);
+    }
 }

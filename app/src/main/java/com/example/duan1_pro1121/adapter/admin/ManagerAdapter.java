@@ -57,7 +57,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
         holder.tv2.setText(list.get(position).getPhone());
         holder.tv4.setText(list.get(position).getBankName());
         holder.tv5.setText(list.get(position).getBankNumber());
-        holder.tv6.setText(list.get(position).getSalary()+"");
+        holder.tv6.setText(MyApplication.convertMoneyToString(list.get(position).getSalary())+"VNĐ");
     }
 
     @Override

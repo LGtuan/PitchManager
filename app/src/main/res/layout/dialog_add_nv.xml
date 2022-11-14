@@ -97,6 +97,7 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:drawableStart="@drawable/ic_bank"
             android:layout_marginTop="15dp"
             android:id="@+id/edt_banknumber_dialog_add_nhanvien"
             android:layout_width="match_parent"
@@ -110,6 +111,7 @@
             style="@style/edt_style"/>
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:drawableStart="@drawable/ic_bank"
             android:layout_marginTop="15dp"
             android:id="@+id/edt_bankname_dialog_add_nhanvien"
             android:layout_width="match_parent"

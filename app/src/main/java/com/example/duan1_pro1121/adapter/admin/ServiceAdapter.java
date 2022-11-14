@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.model.ServiceBall;
 
@@ -34,7 +35,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ServiceAdapter.ViewHolder holder, int position) {
         holder.tv1.setText(list.get(position).getName());
-        holder.tv2.setText(list.get(position).getMoney()+"");
+        holder.tv2.setText(MyApplication.convertMoneyToString(list.get(position).getMoney()) +"VNĐ");
         if(list.get(position).isProduct()){
             holder.tv3.setText(" | 1Product");
         }else{

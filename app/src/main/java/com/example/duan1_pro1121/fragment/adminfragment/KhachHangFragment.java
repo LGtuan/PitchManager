@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class KhachHangFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton button;
     private CustomerAdapter adapter;
+    private ImageView imgFind;
+    EditText edtFind;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +59,18 @@ public class KhachHangFragment extends Fragment {
         button = view.findViewById(R.id.btn_create_dialog_add_khachhang);
         button.setOnClickListener(v->{
             createDialogAdd();
+        });
+
+        edtFind = view.findViewById(R.id.edt_searchName_customerFragment);
+        imgFind = view.findViewById(R.id.img_search_customerFragment);
+
+        imgFind.setOnClickListener(v->{
+            String name = edtFind.getText().toString();
+            if(name.equals("")){
+                adapter.setData(customerList);
+            }else{
+                adapter.setData(MyDatabase.getInstance(getContext()).customerDAO().getCustomerWithName("%"+name+"%"));
+            }
         });
 
         adapter = new CustomerAdapter(getContext(),customerList);

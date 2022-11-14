@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,6 +35,7 @@
 
             <TextView
                 android:id="@+id/tv1"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/dark_blue"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:text="0393692654"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/tv1"
@@ -57,8 +60,9 @@
                 android:id="@+id/tv_address_item_khachhang"
                 android:layout_width="180dp"
                 android:maxLines="1"
+                android:textSize="16sp"
                 android:layout_height="wrap_content"
-                android:text="Phúc Thọ - Hà Nội"
+                android:text="Phúc Thọ - Hà Nội "
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_phone_item_khachhang"
@@ -69,24 +73,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="001203034204"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
                 app:layout_constraintTop_toBottomOf="@id/tv_address_item_khachhang" />
 
             <TextView
-                android:id="@+id/tv_password_item_khachhang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tuandeptrai"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
-                app:layout_constraintTop_toBottomOf="@id/tv_cmnd_item_khachhang" />
-
-            <TextView
                 android:id="@+id/tv3"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/dark_blue"
                 app:layout_constraintTop_toBottomOf="@id/tv1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cmnd :"
+                android:textSize="16sp"
                 android:textColor="@color/dark_blue"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,38 +104,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password :"
+                android:text="Sô tiền :"
                 android:textColor="@color/dark_blue"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv4" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView2"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_dola"
-                app:layout_constraintEnd_toStartOf="@id/img_avatar_khachhang_fragment"
-                app:layout_constraintTop_toBottomOf="@id/img_avatar_khachhang_fragment" />
 
             <TextView
                 android:id="@+id/tv_coin_item_khachhang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3.000.000"
-                android:textColor="@color/dark_blue"
+                android:text="3.000.000 VNĐ"
+                android:textColor="#FF1100"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView2"
-                app:layout_constraintStart_toEndOf="@+id/appCompatImageView2"
-                app:layout_constraintTop_toBottomOf="@+id/img_avatar_khachhang_fragment" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_cmnd_item_khachhang"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cmnd_item_khachhang" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_avatar_khachhang_fragment"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginEnd="10dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
                 android:src="@drawable/user_img"
 
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

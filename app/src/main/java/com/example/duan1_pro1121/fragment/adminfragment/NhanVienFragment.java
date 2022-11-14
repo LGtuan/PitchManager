@@ -63,34 +63,32 @@ public class NhanVienFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         recyclerView = view.findViewById(R.id.recycler_staff);
         imgSearch = view.findViewById(R.id.img_search_staff_nhanvien_fragment);
         edtSearch = view.findViewById(R.id.edt_searchNameStaff_activity_staff);
         btnShowLoaiNhanVien = view.findViewById(R.id.btn_show_loaiNhanvien);
         btnAdd = view.findViewById(R.id.btn_create_dialog_add_staff);
-
-        btnShowLoaiNhanVien.setOnClickListener(v->{
+        btnShowLoaiNhanVien.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CategoryManagerActivity.class);
             getContext().startActivity(intent);
         });
-        btnAdd.setOnClickListener(v->{
+        btnAdd.setOnClickListener(v -> {
             createDialogAdd();
         });
-        imgSearch.setOnClickListener(v->{
-            if(edtSearch.getText().toString().equals("")){
+        imgSearch.setOnClickListener(v -> {
+            if (edtSearch.getText().toString().equals("")) {
                 adapter.setData(managerList);
-            }else{
-                adapter.setData(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithName("%"+edtSearch.getText().toString()+"%"));
+            } else {
+                adapter.setData(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithName("%" + edtSearch.getText().toString() + "%"));
             }
         });
 
-        adapter = new ManagerAdapter(managerList,getContext());
+        adapter = new ManagerAdapter(managerList, getContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     }
 
-    public void createDialogAdd(){
+    public void createDialogAdd() {
         Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_nv);
@@ -104,7 +102,7 @@ public class NhanVienFragment extends Fragment {
 
         Spinner spinner = dialog.findViewById(R.id.spinner_chucvu_dialog_add_nhanvien);
         List<ManagerCategory> listAllStaff = MyDatabase.getInstance(getContext()).managerCategoryDAO().getAllStaff();
-        SpinnerLoaiNVAdapter spAdapter = new SpinnerLoaiNVAdapter(getContext(),R.layout.line_spinner_loai_nv,listAllStaff);
+        SpinnerLoaiNVAdapter spAdapter = new SpinnerLoaiNVAdapter(getContext(), R.layout.line_spinner_loai_nv, listAllStaff);
         spinner.setAdapter(spAdapter);
 
         EditText edtSalary = dialog.findViewById(R.id.edt_salary_dialog_add_nhanvien);
@@ -116,7 +114,7 @@ public class NhanVienFragment extends Fragment {
         TextView tvCheckPhone = dialog.findViewById(R.id.tv_check_phone_dialog_add_nhanvien);
 
         Button btnThem = dialog.findViewById(R.id.btn_add_nhanvien);
-        btnThem.setOnClickListener(v->{
+        btnThem.setOnClickListener(v -> {
             String phone = edtPhone.getText().toString();
             String name = edtName.getText().toString();
             String pass = edtPass.getText().toString();
@@ -125,28 +123,28 @@ public class NhanVienFragment extends Fragment {
             String bankName = edtBankName.getText().toString();
             int salary;
 
-            if(!phone.matches(MyApplication.PHONE_REGEX)){
+            if (!phone.matches(MyApplication.PHONE_REGEX)) {
                 tvCheckPhone.setText("* Số điện thoại không hợp lệ");
-                invisible(tvCheckName,tvCheckPass1,tvCheckPhone,tvCheckPass2);
+                invisible(tvCheckName, tvCheckPass1, tvCheckPhone, tvCheckPass2);
                 tvCheckPhone.setVisibility(View.VISIBLE);
-            }else if(!name.matches(MyApplication.NAME_REGEX)){
-                invisible(tvCheckName,tvCheckPass1,tvCheckPhone,tvCheckPass2);
+            } else if (!name.matches(MyApplication.NAME_REGEX)) {
+                invisible(tvCheckName, tvCheckPass1, tvCheckPhone, tvCheckPass2);
                 tvCheckName.setVisibility(View.VISIBLE);
-            }else if(!pass.matches(MyApplication.PASS_REGEX)){
-                invisible(tvCheckName,tvCheckPass1,tvCheckPhone,tvCheckPass2);
+            } else if (!pass.matches(MyApplication.PASS_REGEX)) {
+                invisible(tvCheckName, tvCheckPass1, tvCheckPhone, tvCheckPass2);
                 tvCheckPass1.setVisibility(View.VISIBLE);
-            }else if(!pass.equals(pass2)){
-                invisible(tvCheckName,tvCheckPass1,tvCheckPhone,tvCheckPass2);
+            } else if (!pass.equals(pass2)) {
+                invisible(tvCheckName, tvCheckPass1, tvCheckPhone, tvCheckPass2);
                 tvCheckPass2.setVisibility(View.VISIBLE);
-            }else{
-                try{
+            } else {
+                try {
                     salary = Integer.parseInt(edtSalary.getText().toString());
-                }catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "Lương phải là số", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Manager manager = new Manager();
-                if(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(phone,-1).size()==0) {
+                if (MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(phone, -1).size() == 0) {
                     manager.setPhone(phone);
                     manager.setName(name);
                     manager.setPassword(pass);
@@ -161,9 +159,9 @@ public class NhanVienFragment extends Fragment {
                     adapter.setData(managerList);
 
                     dialog.dismiss();
-                }else{
+                } else {
                     tvCheckPhone.setText("* Số điện thoại đã tồn tại");
-                    invisible(tvCheckName,tvCheckPhone,tvCheckPass1,tvCheckPass2);
+                    invisible(tvCheckName, tvCheckPhone, tvCheckPass1, tvCheckPass2);
                     tvCheckPhone.setVisibility(View.VISIBLE);
                 }
 
@@ -173,11 +171,11 @@ public class NhanVienFragment extends Fragment {
         });
 
         dialog.show();
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
-    public void invisible(TextView...tvs){
-        for(TextView tv : tvs){
+    public void invisible(TextView... tvs) {
+        for (TextView tv : tvs) {
             tv.setVisibility(View.INVISIBLE);
         }
     }

@@ -46,7 +46,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     Button btnServiceDetails, btnDatSan;
     ImageView imgBack;
     List<ImageView> listSelect = new ArrayList<>();
-    int[] typeSelect = new int[]{0,0,0,0,0,0,0,0,0,0,0,0};
+    int[] typeSelect = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     ImageView imgSelect1, imgSelect2, imgSelect3, imgSelect4, imgSelect5, imgSelect6;
     ImageView imgSelect7, imgSelect8, imgSelect9, imgSelect10, imgSelect11, imgSelect12;
     List<MyTime> listTime = new ArrayList<>();
@@ -56,12 +56,12 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             this.startTime = startTime;
             this.endTime = endTime;
         }
+
         int startTime;
         int endTime;
     }
 
-    RadioButton rdoCoin, rdoTienMat;
-
+    Order order;
     Pitch pitch;
     PithCategory categoryPitch;
     Customer customer;
@@ -71,179 +71,202 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     int currentImgSelect = -1;
     int totalMoneyService;
     int totalMoneyPitch;
-    String date;
+    String datePlay;
+    String dateCreate;
+    boolean isUpdate = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.datsan_chitiet_layout);
 
-        pitch = (Pitch) getIntent().getSerializableExtra("PITCH");
-        categoryPitch = MyDatabase.getInstance(this).pitchCategoryDAO().getCategoryPitchWithId(pitch.getCategoryId()).get(0);
-
-        addData();
         initView();
+        setUpImageSelect();
+        setOnClickForView();
 
-        setUpService();
+        order = (Order) getIntent().getSerializableExtra("ORDER");
+        if (order != null) {
+            isUpdate = true;
+            pitch = MyDatabase.getInstance(this).pitchDao().getPitchId(order.getPitchId()).get(0);
+            categoryPitch = MyDatabase.getInstance(this).pitchCategoryDAO().getCategoryPitchWithId(pitch.getCategoryId()).get(0);
+            customer = MyDatabase.getInstance(this).customerDAO().getCustomerWithID(order.getCustomerId()).get(0);
+            customer.setCoin(customer.getCoin() + order.getTotal());
 
-        tv_tensan.setText(pitch.getName());
+            datePlay = order.getDatePlay();
+            dateCreate = order.getDate();
+            totalMoneyPitch = order.getTotalPitchMoney();
 
-        rdoCoin.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                if (customer == null) {
-                    Toast.makeText(this, "Chọn khách hàng để sử dụng tính năng", Toast.LENGTH_SHORT).show();
-                    rdoCoin.setChecked(false);
-                    new Handler().postDelayed(() -> rdoTienMat.setChecked(true), 500);
-                }
-            }
-        });
+            currentImgSelect = (int) order.getStartTime() / 2;
+            setUpTvStartAndEndTime(currentImgSelect);
 
-        tvCustomer.setOnClickListener(v -> {
-            Intent intent = new Intent(DatSanChiTietActivity.this, ListCustomerActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_CUSTOMER);
-        });
+            listService = (List<ServiceBall>) getIntent().getBundleExtra("bundle")
+                    .getSerializable("LIST_SERVICE");
+            numberOfService = (List<Integer>) getIntent().getBundleExtra("bundle")
+                    .getSerializable("LIST_NUMBER");
 
-        tvDate.setOnClickListener(v -> {
-            openDateDialog(tvDate);
-        });
+            showLichHoatDong();
+            setImageResourceCancel(currentImgSelect);
 
-        btnServiceDetails.setOnClickListener(v -> {
-            Intent intent = new Intent(DatSanChiTietActivity.this, ListServiceActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
-            bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
-            intent.putExtra("bundle", bundle);
-            startActivityForResult(intent, REQUEST_CODE_SERVICE);
-        });
+            btnDatSan.setText("Cập nhật");
+        } else {
+            pitch = (Pitch) getIntent().getSerializableExtra("PITCH");
+            categoryPitch = MyDatabase.getInstance(this).pitchCategoryDAO()
+                    .getCategoryPitchWithId(pitch.getCategoryId()).get(0);
 
-        btnDatSan.setOnClickListener(v -> {
-            if(currentImgSelect!=-1) {
-                datSan();
-            }else{
-                Toast.makeText(this, "Bạn chưa chọn thời gian thi đấu", Toast.LENGTH_SHORT).show();
-            }
-        });
+            totalMoneyPitch = categoryPitch.getMoney() * 2;
 
-        imgBack.setOnClickListener(v -> {
-            onBackPressed();
-        });
+            Calendar calendar = Calendar.getInstance();
+            datePlay = getStringDate(calendar.get(Calendar.DATE),
+                    calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+            setUpTvDate();
 
-        setUpService();
+            showLichHoatDong();
+        }
+
+        setUpTvDate();
+        setUpTvMoneyAndTvPitch();
+        setUpMoneyAndTvService();
+        setUpTotalMoney();
     }
 
     public void datSan() {
-        Order order = new Order();
-        order.setId(++MainActivity.ID_MAX_ORDER);
-        if (customer != null) {
-            order.setCustomerId(customer.getId());
-        }else{
-            Toast.makeText(this, "Vui lòng chọn khách hàng", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (rdoCoin.isChecked()) {
-            int total = totalMoneyPitch + totalMoneyService;
-            if (customer.getCoin() < total) {
-                Toast.makeText(this, "Tiền tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
-                return;
+        if (!isUpdate) {
+            if (currentImgSelect <= -1) {
+                Toast.makeText(this, "Vui lòng chọn khung thời gian", Toast.LENGTH_SHORT).show();
             } else {
-                customer.setCoin(customer.getCoin() - total);
-                MyDatabase.getInstance(this).customerDAO().update(customer);
-                order.setStatus(0);
+                if (customer == null) {
+                    Toast.makeText(this, "Vui lòng chọn khách hàng", Toast.LENGTH_SHORT).show();
+                } else {
+                    int total = totalMoneyPitch + totalMoneyService;
+                    if(customer.getCoin() < total){
+                        Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
+                    }else{
+                        customer.setCoin(customer.getCoin()-total);
+                        MyDatabase.getInstance(this).customerDAO().update(customer);
+
+                        order = new Order();
+                        order.setId(++MainActivity.ID_MAX_ORDER);
+                        Calendar calendar = Calendar.getInstance();
+                        dateCreate = getStringDate(calendar.get(Calendar.DATE),
+                                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+                        order.setDate(dateCreate);
+                        order.setPitchId(pitch.getId());
+                        order.setCustomerId(customer.getId());
+                        order.setTotalPitchMoney(totalMoneyPitch);
+                        order.setDatePlay(datePlay);
+                        order.setEndTime(listTime.get(currentImgSelect).endTime);
+                        order.setStartTime(listTime.get(currentImgSelect).startTime);
+                        order.setTotal(totalMoneyPitch + totalMoneyService);
+                        order.setStatus(MyApplication.CHUA_STATUS);
+
+                        MyDatabase.getInstance(this).orderDAO().insert(order);
+
+                        for (int i = 0; i < listService.size(); i++) {
+                            OrderDetails orderDetails = new OrderDetails();
+                            orderDetails.setServiceId(listService.get(i).getId());
+                            orderDetails.setOrderId(order.getId());
+                            orderDetails.setSoLuong(numberOfService.get(i));
+                            orderDetails.setTongTien(listService.get(i).getMoney() * numberOfService.get(i));
+
+                            MyDatabase.getInstance(this).orderDetailsDAO().insert(orderDetails);
+                        }
+                        Toast.makeText(this, "Đặt sân thành công", Toast.LENGTH_SHORT).show();
+
+                        resetData();
+                        showLichHoatDong();
+                    }
+                }
             }
-        } else if (rdoTienMat.isChecked()) {
-            order.setStatus(1);
+        } else {
+            if (currentImgSelect <= -1) {
+                Toast.makeText(this, "Vui lòng chọn khung thời gian", Toast.LENGTH_SHORT).show();
+            } else {
+                int total = totalMoneyPitch + totalMoneyService;
+                if(customer.getCoin() < total){
+                    Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
+                }else{
+                    customer.setCoin(customer.getCoin()-total);
+                    MyDatabase.getInstance(this).customerDAO().update(customer);
+
+                    order.setDatePlay(datePlay);
+                    order.setEndTime(listTime.get(currentImgSelect).endTime);
+                    order.setStartTime(listTime.get(currentImgSelect).startTime);
+                    order.setTotal(totalMoneyPitch + totalMoneyService);
+
+                    MyDatabase.getInstance(this).orderDAO().update(order);
+
+                    MyDatabase.getInstance(this).orderDetailsDAO().deleteWithOrderId(order.getId());
+                    for (int i = 0; i < listService.size(); i++) {
+                        OrderDetails orderDetails = new OrderDetails();
+                        orderDetails.setServiceId(listService.get(i).getId());
+                        orderDetails.setOrderId(order.getId());
+                        orderDetails.setSoLuong(numberOfService.get(i));
+                        orderDetails.setTongTien(listService.get(i).getMoney() * numberOfService.get(i));
+
+                        MyDatabase.getInstance(this).orderDetailsDAO().insert(orderDetails);
+                    }
+                    Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
         }
-        order.setDate(date);
-        order.setPitchId(pitch.getId());
-        order.setManagerId(MyDatabase.getInstance(this).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT, -1).get(0).getId());
-        order.setEndTime(listTime.get(currentImgSelect).endTime);
-        order.setStartTime(listTime.get(currentImgSelect).startTime);
-        order.setTotal(totalMoneyPitch + totalMoneyService);
-        order.setTotalPitchMoney(totalMoneyPitch);
-
-        MyDatabase.getInstance(this).orderDAO().insert(order);
-
-        for(int i = 0;i<listService.size();i++){
-            OrderDetails orderDetails = new OrderDetails();
-            orderDetails.setServiceId(listService.get(i).getId());
-            Log.e("123","ID_Service" + listService.get(i).getId());
-            orderDetails.setOrderId(order.getId());
-            orderDetails.setSoLuong(numberOfService.get(i));
-            Log.e("123","Id_order" + order.getId());
-            orderDetails.setTongTien(listService.get(i).getMoney() * numberOfService.get(i));
-
-            MyDatabase.getInstance(this).orderDetailsDAO().insert(orderDetails);
-        }
-
-        Toast.makeText(this, "Đặt sân thành công", Toast.LENGTH_SHORT).show();
-        resetData();
-        showLichHoatDong();
     }
 
-    public void resetData(){
+    public void resetData() {
         currentImgSelect = -1;
         tv_startTime.setText("0h");
         tv_endTime.setText("0h");
         listService = new ArrayList<>();
         numberOfService = new ArrayList<>();
-        setUpService();
-        tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin())+" VNĐ");
-        rdoTienMat.setChecked(true);
+        tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin()) + " VNĐ");
+        setUpMoneyAndTvService();
+        setUpTotalMoney();
     }
 
     public void showLichHoatDong() {
         resetTypeSelect();
-        List<Order> orders = MyDatabase.getInstance(this).orderDAO().getOrderWithPitchAndDate(pitch.getId(), date);
-        for (int i = 0; i < orders.size(); i++) {
-            float orderStart = orders.get(i).getStartTime();
-            int pos = (int) (orderStart/2);
-            typeSelect[pos] = 1;
-        }
 
         Calendar calendar = Calendar.getInstance();
-        String s = getStringDate(calendar.get(Calendar.DATE),calendar.get(Calendar.MONTH)+1,calendar.get(Calendar.YEAR));
-        if(s.equals(date)) {
+        String s = getStringDate(calendar.get(Calendar.DATE),
+                calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+
+        if (s.equals(datePlay)) {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             for (int i = 0; i < 12; i++) {
-                if (hour > i * 2) {
+                if (hour >= i * 2) {
                     typeSelect[i] = 2;
                 }
             }
         }
-        setUpImageSelect();
+
+        List<Order> orders;
+        if (isUpdate) {
+            orders = MyDatabase.getInstance(this).orderDAO().getOrderWithPitchAndDate(pitch.getId(), datePlay, (int) order.getStartTime());
+        } else {
+            orders = MyDatabase.getInstance(this).orderDAO().getOrderWithPitchAndDate(pitch.getId(), datePlay);
+        }
+        for (int i = 0; i < orders.size(); i++) {
+            float orderStart = orders.get(i).getStartTime();
+            int pos = (int) (orderStart / 2);
+            typeSelect[pos] = 1;
+        }
+
+        setResourceForImageSelect();
     }
 
-    public void resetTypeSelect(){
+    public void resetTypeSelect() {
         Arrays.fill(typeSelect, 0);
     }
 
-    public void setUpImageSelect(){
-        for(int i = 0;i<listSelect.size();i++){
-            if(typeSelect[i] == 0){
+    public void setResourceForImageSelect() {
+        for (int i = 0; i < listSelect.size(); i++) {
+            if (typeSelect[i] == 0) {
                 listSelect.get(i).setImageResource(R.drawable.ic_add);
-            }else if(typeSelect[i] == 2){
-                listSelect.get(i).setImageResource(R.drawable.ic_add_gray);
-            }else{
+            } else if (typeSelect[i] == 1) {
                 listSelect.get(i).setImageResource(R.drawable.soldout_png);
+            } else if (typeSelect[i] == 2) {
+                listSelect.get(i).setImageResource(R.drawable.ic_add_gray);
             }
-        }
-    }
-
-    public void setUpTvDate() {
-        Calendar calendar = Calendar.getInstance();
-        tvDate.setText(getThu(calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR)));
-    }
-
-    public String getStringDate(int d, int m, int y) {
-        return d + "-" + m + "-" + y;
-    }
-
-    public void changeColorTVMoneyCustomer() {
-        if (customer != null) {
-            layoutMoneyCustomer.setVisibility(View.VISIBLE);
-            if (customer.getCoin() >= (totalMoneyService + totalMoneyPitch))
-                tvMoneyCustomer.setTextColor(Color.parseColor("#23C82A"));
-            else tvMoneyCustomer.setTextColor(Color.parseColor("#FF1100"));
         }
     }
 
@@ -253,70 +276,58 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         if (REQUEST_CODE_CUSTOMER == requestCode && resultCode == RESULT_OK) {
             if (data != null) {
                 customer = (Customer) data.getSerializableExtra("CUSTOMER");
-                tvCustomer.setText(customer.getName());
-                changeColorTVMoneyCustomer();
-                tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin()) + " VNĐ");
+                setUpTvMoneyAndTvCustomer();
             }
         } else if (REQUEST_CODE_SERVICE == requestCode && resultCode == RESULT_OK) {
             if (data != null) {
                 listService = (List<ServiceBall>) data.getBundleExtra("bundle").getSerializable("LIST_SERVICE");
                 numberOfService = (List<Integer>) data.getBundleExtra("bundle").getSerializable("LIST_NUMBER");
-                setUpService();
+                setUpMoneyAndTvService();
             }
         }
     }
 
-    public String getThu(int d, int m, int y) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(y, m - 1, d);
+    public String getStringDate(int d, int m, int y) {
+        return d + "-" + m + "-" + y;
+    }
 
-        String s = "";
-        date = getStringDate(d, m, y);
+    public int[] getArrayDate() {
+        String[] str = datePlay.split("-");
+        int arr[] = new int[str.length];
+        try {
+            for (int i = 0; i < str.length; i++) {
+                arr[i] = Integer.parseInt(str[i]);
+            }
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return arr;
+    }
+
+    public String getThu() {
+        int[] arr = getArrayDate();
+        Calendar calendar = Calendar.getInstance();
+        if (arr != null) calendar.set(arr[2], arr[1] - 1, arr[0]);
 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-        showLichHoatDong();
-
         switch (dayOfWeek) {
             case 1:
-                s = "Sun " + date;
-                break;
+                return "Sun " + datePlay;
             case 2:
-                s = "Mon " + date;
-                break;
+                return "Mon " + datePlay;
             case 3:
-                s = "Tue " + date;
-                break;
+                return "Tue " + datePlay;
             case 4:
-                s = "Wed " + date;
-                break;
+                return "Wed " + datePlay;
             case 5:
-                s = "Thur " + date;
-                break;
+                return "Thur " + datePlay;
             case 6:
-                s = "Fri " + date;
-                break;
+                return "Fri " + datePlay;
             case 7:
-                s = "Sat " + date;
+                return "Sat " + datePlay;
+            default:
+                return "";
         }
-        return s;
-    }
-
-    public void setUpService() {
-        tvService.setText(listService.size() + " trong tổng số " + MyDatabase.getInstance(this).serviceDAO().getAll().size());
-
-        totalMoneyService = 0;
-        for (int i = 0; i < listService.size(); i++) {
-            totalMoneyService += listService.get(i).getMoney() * numberOfService.get(i);
-        }
-
-        tvServiceMoney.setText(MyApplication.convertMoneyToString(totalMoneyService) + " VNĐ");
-        setUpTotalMoney();
-    }
-
-    public void setUpTotalMoney() {
-        tvAllMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch + totalMoneyService) + " VNĐ");
-        changeColorTVMoneyCustomer();
     }
 
     public void initView() {
@@ -324,31 +335,20 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         tv_startTime = findViewById(R.id.tv_starttime_datsanchitiet);
         tv_endTime = findViewById(R.id.tv_endtime_datsanchitiet);
         tvCustomer = findViewById(R.id.tv_customer_datsanchitiet);
-
         tvDate = findViewById(R.id.tv_date_datsanchitiet);
-        setUpTvDate();
-
         tvService = findViewById(R.id.tv_service_datsanchitiet);
         tvServiceMoney = findViewById(R.id.tv_money_service_datsanchitiet);
         tvSanBongMoney = findViewById(R.id.tv_money_san_datsanchitiet);
         tvAllMoney = findViewById(R.id.tv_tongtien_datsanchitiet);
-        totalMoneyPitch = categoryPitch.getMoney()*2;
-        setUpTotalMoney();
-        tvSanBongMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch)+" VNĐ");
-
         btnDatSan = findViewById(R.id.btn_datsan_datsanchitiet);
         btnServiceDetails = findViewById(R.id.btn_chitiet_datsanchitiet);
         imgBack = findViewById(R.id.btn_back_datsanchitiet);
-
-        rdoCoin = findViewById(R.id.rdo_tt0_datsanchitiet);
-        rdoTienMat = findViewById(R.id.rdo_tt1_datsanchitiet);
-
         layoutMoneyCustomer = findViewById(R.id.layoutMoneyCustomer);
         tvMoneyCustomer = findViewById(R.id.tv_money_customer_datsanchitiet);
 
     }
 
-    public void addData(){
+    public void addImageView() {
         imgSelect1 = findViewById(R.id.img_select_san1);
         listSelect.add(imgSelect1);
         imgSelect2 = findViewById(R.id.img_select_san2);
@@ -373,19 +373,22 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         listSelect.add(imgSelect11);
         imgSelect12 = findViewById(R.id.img_select_san12);
         listSelect.add(imgSelect12);
+    }
 
+    public void addTime() {
         for (int i = 0; i < 12; i++) {
             listTime.add(new MyTime(i * 2, (i + 1) * 2));
         }
+    }
 
+    public void setOnClickForImageView() {
         for (int i = 0; i < listSelect.size(); i++) {
             int finalI = i;
             listSelect.get(i).setOnClickListener(v -> {
-                if(typeSelect[finalI] == 0) {
+                if (typeSelect[finalI] == 0) {
                     if (currentImgSelect != finalI) {
-                        if (currentImgSelect != -1) notifyImgSelectAtPos(currentImgSelect);
-                        tv_startTime.setText(listTime.get(finalI).startTime + "h");
-                        tv_endTime.setText(listTime.get(finalI).endTime + "h");
+                        if (currentImgSelect != -1) setImageResourceAdd(currentImgSelect);
+                        setUpTvStartAndEndTime(finalI);
                         listSelect.get(finalI).setImageResource(R.drawable.ic_cancel);
                         currentImgSelect = finalI;
                     } else {
@@ -394,76 +397,61 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                         tv_startTime.setText("0h");
                         tv_endTime.setText("0h");
                     }
-                }else if (typeSelect[finalI] == 1){
+                } else if (typeSelect[finalI] == 1) {
                     Toast.makeText(this, "Lịch đã được khách hàng khác đặt", Toast.LENGTH_SHORT).show();
-                }else if(typeSelect[finalI] == 2){
+                } else if (typeSelect[finalI] == 2) {
                     Toast.makeText(this, "Đã quá thời gian", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    public void notifyImgSelectAtPos(int pos) {
+    public void setUpImageSelect() {
+        addImageView();
+        addTime();
+        setOnClickForImageView();
+    }
+
+    public void setImageResourceAdd(int pos) {
         listSelect.get(pos).setImageResource(R.drawable.ic_add);
     }
 
-//    public void openTimeDialog(TextView tv, int code) {
-//        Calendar calendar = Calendar.getInstance();
-//        int mHour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int mMinute = calendar.get(Calendar.MINUTE);
-//        TimePickerDialog pickerDialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog, new TimePickerDialog.OnTimeSetListener() {
-//            @Override
-//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                if (minute <= 15) {
-//                    tv.setText(hourOfDay + "h");
-//                    if (code == FROM_CODE) {
-//                        fromHour = hourOfDay;
-//                    } else if (code == TO_CODE) {
-//                        toHour = hourOfDay;
-//                    }
-//                } else {
-//                    tv.setText(hourOfDay + "h" + 30);
-//                    if (code == FROM_CODE) {
-//                        fromHour = (float) (hourOfDay + 0.5);
-//                    } else if (code == TO_CODE) {
-//                        toHour = (float) (hourOfDay + 0.5);
-//                    }
-//                }
-//                setUpMoneyPitch();
-//            }
-//        }, mHour, mMinute, true);
-//
-//        pickerDialog.setTitle("Select time");
-//        pickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        pickerDialog.setCancelable(false);
-//        pickerDialog.show();
-//    }
+    public void setImageResourceCancel(int pos) {
+        listSelect.get(pos).setImageResource(R.drawable.ic_cancel);
+    }
 
-    public void openDateDialog(TextView tv) {
+    public void openDateDialogTvDate() {
         Calendar calendar = Calendar.getInstance();
         int mYear = calendar.get(Calendar.YEAR);
         int mMonth = calendar.get(Calendar.MONTH);
         int mDate = calendar.get(Calendar.DATE);
-        DatePickerDialog pickerDialog = new DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                if (year < mYear) {
-                    Toast.makeText(DatSanChiTietActivity.this, "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
-                } else if (year == mYear) {
-                    if (month < mMonth) {
-                        Toast.makeText(DatSanChiTietActivity.this, "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
-                    } else if (month == mMonth) {
-                        if (dayOfMonth < mDate) {
-                            Toast.makeText(DatSanChiTietActivity.this, "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
-                        } else {
-                            tv.setText(getThu(dayOfMonth, month + 1, year));
-                        }
+        DatePickerDialog pickerDialog = new DatePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog, (view, year, month, dayOfMonth) -> {
+            if (year < mYear) {
+                Toast.makeText(DatSanChiTietActivity.this,
+                        "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
+            } else if (year == mYear) {
+                if (month < mMonth) {
+                    Toast.makeText(DatSanChiTietActivity.this,
+                            "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
+                } else if (month == mMonth) {
+                    if (dayOfMonth < mDate) {
+                        Toast.makeText(DatSanChiTietActivity.this,
+                                "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
                     } else {
-                        tv.setText(getThu(dayOfMonth, month + 1, year));
+                        datePlay = getStringDate(dayOfMonth, month + 1, year);
+                        setUpTvDate();
+                        showLichHoatDong();
                     }
                 } else {
-                    tv.setText(getThu(dayOfMonth, month + 1, year));
+                    datePlay = getStringDate(dayOfMonth, month + 1, year);
+                    setUpTvDate();
+                    showLichHoatDong();
                 }
+            } else {
+                datePlay = getStringDate(dayOfMonth, month + 1, year);
+                setUpTvDate();
+                showLichHoatDong();
             }
         }, mYear, mMonth, mDate);
 
@@ -471,5 +459,85 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         pickerDialog.setTitle("Chose date");
         pickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pickerDialog.show();
+    }
+
+    public void setOnClickForView() {
+        tvCustomer.setOnClickListener(v -> {
+            if(!isUpdate) {
+                Intent intent = new Intent(DatSanChiTietActivity.this, ListCustomerActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_CUSTOMER);
+            }else{
+                Toast.makeText(this, "Bạn không thể chọn khách hàng khi cập nhật phiếu thông tin", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tvDate.setOnClickListener(v -> {
+            openDateDialogTvDate();
+        });
+
+        btnServiceDetails.setOnClickListener(v -> {
+            Intent intent = new Intent(DatSanChiTietActivity.this, ListServiceActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
+            bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
+            intent.putExtra("bundle", bundle);
+            startActivityForResult(intent, REQUEST_CODE_SERVICE);
+        });
+
+        btnDatSan.setOnClickListener(v -> {
+            if (currentImgSelect != -1) {
+                datSan();
+            } else {
+                Toast.makeText(this, "Bạn chưa chọn thời gian thi đấu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        imgBack.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+    }
+
+    // set up text view
+    public void setUpTvDate() {
+        tvDate.setText(getThu());
+    }
+
+    public void setUpTvStartAndEndTime(int i) {
+        tv_startTime.setText(listTime.get(i).startTime + "h");
+        tv_endTime.setText(listTime.get(i).endTime + "h");
+    }
+
+    public void setUpMoneyAndTvService() {
+        tvService.setText(listService.size() + " trong tổng số " + MyDatabase.getInstance(this).serviceDAO().getAll().size());
+
+        totalMoneyService = 0;
+        for (int i = 0; i < listService.size(); i++) {
+            totalMoneyService += listService.get(i).getMoney() * numberOfService.get(i);
+        }
+
+        tvServiceMoney.setText(MyApplication.convertMoneyToString(totalMoneyService) + " VNĐ");
+        setUpTotalMoney();
+    }
+
+    public void setUpTotalMoney() {
+        tvAllMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch + totalMoneyService) + " VNĐ");
+        setUpTvMoneyAndTvCustomer();
+    }
+
+    public void setUpTvMoneyAndTvCustomer() {
+        if (customer != null) {
+            layoutMoneyCustomer.setVisibility(View.VISIBLE);
+            tvCustomer.setText(customer.getName());
+            tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin()) + " VNĐ");
+            if (customer.getCoin() >= (totalMoneyService + totalMoneyPitch))
+                tvMoneyCustomer.setTextColor(Color.parseColor("#23C82A"));
+            else tvMoneyCustomer.setTextColor(Color.parseColor("#FF1100"));
+        }
+    }
+
+    public void setUpTvMoneyAndTvPitch() {
+        tv_tensan.setText(pitch.getName());
+        tvSanBongMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch) + " VNĐ");
     }
 }

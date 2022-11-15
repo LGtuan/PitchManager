@@ -10,7 +10,7 @@
     tools:context=".activity.admin.ListCustomerActivity">
 
     <LinearLayout
-        android:padding="8dp"
+        android:padding="3dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_searchName_customerFragment"
             android:hint="Tên khách hàng"
-            android:layout_width="300dp"
+            android:layout_width="320dp"
             android:layout_height="48dp"
             style="@style/edt_style"/>
 
@@ -27,7 +27,7 @@
             android:id="@+id/img_search_customerFragment"
             android:layout_marginStart="20dp"
             android:background="@drawable/btn_background"
-            android:layout_width="54dp"
+            android:layout_width="60dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_person_search"
             android:layout_height="45dp"/>

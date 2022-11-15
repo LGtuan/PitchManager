@@ -52,13 +52,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.admin.LichHoatDongActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".activity.admin.SplashActivity"
             android:exported="false" />
         <activity

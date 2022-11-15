@@ -6,18 +6,19 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "ORDERS",foreignKeys = {@ForeignKey(entity = Manager.class, parentColumns = "id", childColumns = "managerId", onDelete = CASCADE),
-        @ForeignKey(entity = Customer.class,parentColumns = "id",childColumns = "customerId",onDelete = CASCADE),
+import java.io.Serializable;
+
+@Entity(tableName = "ORDERS",foreignKeys = {@ForeignKey(entity = Customer.class,parentColumns = "id",childColumns = "customerId",onDelete = CASCADE),
         @ForeignKey(entity = Pitch.class,parentColumns = "id",childColumns = "pitchId",onDelete = CASCADE)})
-public class Order {
+public class Order implements Serializable {
     @PrimaryKey
     private int id;
-    private int managerId;
     private int customerId;
     private int pitchId;
     private float startTime;
     private float endTime;
     private String date;
+    private String datePlay;
     private int totalPitchMoney;
     private int total;
     private int status;
@@ -25,9 +26,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int managerId, int customerId, int pitchId, int startTime, int endTime, String date,int totalPitchMoney, int total, int status) {
+    public Order(int id, int customerId, int pitchId, int startTime, int endTime, String date,int totalPitchMoney, int total, int status) {
         this.id = id;
-        this.managerId = managerId;
         this.customerId = customerId;
         this.pitchId = pitchId;
         this.startTime = startTime;
@@ -44,14 +44,6 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
     }
 
     public int getCustomerId() {
@@ -117,4 +109,13 @@ public class Order {
     public void setTotalPitchMoney(int totalPitchMoney) {
         this.totalPitchMoney = totalPitchMoney;
     }
+
+    public String getDatePlay() {
+        return datePlay;
+    }
+
+    public void setDatePlay(String datePlay) {
+        this.datePlay = datePlay;
+    }
+
 }

@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.duan1_pro1121.model.Manager;
+import com.example.duan1_pro1121.model.ManagerCategory;
 import com.example.duan1_pro1121.model.Order;
 import com.example.duan1_pro1121.model.Pitch;
 
@@ -32,4 +33,8 @@ public interface OrderDAO {
 
     @Query("SELECT MAX(id) FROM ORDERS")
     int getIdMax();
+    
+    @Query("SELECT * FROM ORDERS WHERE ID = :id")
+    List<Order> getOrderWithID(int id);
+
 }

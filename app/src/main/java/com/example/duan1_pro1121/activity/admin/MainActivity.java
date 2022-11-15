@@ -10,12 +10,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.fragment.adminfragment.DatSanFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.DichVuFrgment;
 import com.example.duan1_pro1121.fragment.adminfragment.KhachHangFragment;
@@ -27,7 +29,9 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String account = "";
+    public static String ACCOUNT = "";
+    public static int ID_MAX_ORDER = 0;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     public static int CURRENT_FRAGMENT = 0;
@@ -37,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        account = getIntent().getStringExtra("account");
+        ID_MAX_ORDER = MyDatabase.getInstance(this).orderDAO().getIdMax();
+        Log.e("123","max" + ID_MAX_ORDER);
+
+        ACCOUNT = getIntent().getStringExtra("account");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new DichVuFrgment());
                     getSupportActionBar().setTitle("Dịch Vụ");
                 }else if(item.getItemId() == R.id.item_nhanvien && CURRENT_FRAGMENT!=5){
-                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);
                         CURRENT_FRAGMENT = 5;
                         replaceFragment(new NhanVienFragment());
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=6){
-                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);
                         CURRENT_FRAGMENT = 6;
                         replaceFragment(new ThongKeFrgment());

@@ -10,21 +10,22 @@ import androidx.room.PrimaryKey;
         @ForeignKey(entity = Customer.class,parentColumns = "id",childColumns = "customerId",onDelete = CASCADE),
         @ForeignKey(entity = Pitch.class,parentColumns = "id",childColumns = "pitchId",onDelete = CASCADE)})
 public class Order {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
     private int managerId;
     private int customerId;
     private int pitchId;
-    private String startTime;
-    private String endTime;
+    private float startTime;
+    private float endTime;
     private String date;
+    private int totalPitchMoney;
     private int total;
     private int status;
 
     public Order() {
     }
 
-    public Order(int id, int managerId, int customerId, int pitchId, String startTime, String endTime, String date, int total, int status) {
+    public Order(int id, int managerId, int customerId, int pitchId, int startTime, int endTime, String date,int totalPitchMoney, int total, int status) {
         this.id = id;
         this.managerId = managerId;
         this.customerId = customerId;
@@ -34,6 +35,7 @@ public class Order {
         this.date = date;
         this.total = total;
         this.status = status;
+        this.totalPitchMoney = totalPitchMoney;
     }
 
     public int getId() {
@@ -68,19 +70,19 @@ public class Order {
         this.pitchId = pitchId;
     }
 
-    public String getStartTime() {
+    public float getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(float startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public float getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(float endTime) {
         this.endTime = endTime;
     }
 
@@ -106,5 +108,13 @@ public class Order {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getTotalPitchMoney() {
+        return totalPitchMoney;
+    }
+
+    public void setTotalPitchMoney(int totalPitchMoney) {
+        this.totalPitchMoney = totalPitchMoney;
     }
 }

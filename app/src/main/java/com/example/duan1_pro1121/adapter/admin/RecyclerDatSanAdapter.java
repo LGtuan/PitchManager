@@ -6,13 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.DatSanChiTietActivity;
+import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Pitch;
+import com.example.duan1_pro1121.model.PithCategory;
 
 import java.util.List;
 
@@ -35,9 +39,21 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
     @Override
     public void onBindViewHolder(@NonNull RecyclerDatSanAdapter.ViewHolder holder, int position) {
         holder.tv1.setText(list.get(position).getName());
-        holder.tv2.setText(list.get(position).getStatus()+"");
-        holder.tv3.setText(list.get(position).getId()+"");
-        holder.tv4.setText(list.get(position).getCategoryId()+"");
+        if(list.get(position).getStatus() == MyApplication.BAOTRI_STATUS){
+            holder.tv2.setText("Bảo trì");
+            holder.tv2.setTextColor(context.getResources().getColor(R.color.dark_gray));
+            holder.tv1.setBackgroundColor(context.getResources().getColor(R.color.gray));
+        }else{
+            holder.tv2.setText("Hoạt động");
+            holder.tv2.setTextColor(context.getResources().getColor(R.color.green));
+            holder.tv1.setBackgroundColor(context.getResources().getColor(R.color.dark_blue));
+        }
+        PithCategory category = MyDatabase.getInstance(context).
+                pitchCategoryDAO().getCategoryPitchWithId(list.get(position).getCategoryId()).get(0);
+        if(category!=null) {
+            holder.tv3.setText(MyApplication.convertMoneyToString(category.getMoney()) + "VNĐ");
+            holder.tv4.setText(category.getName());
+        }
     }
 
     @Override
@@ -54,7 +70,12 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
             tv3 = itemView.findViewById(R.id.tv_money_item_datsan);
             tv4 = itemView.findViewById(R.id.tv_type_item_datsan);
             itemView.setOnClickListener(v->{
-                onClickDatSan.myOnClick(list.get(getAdapterPosition()));
+                Pitch pitch = list.get(getAdapterPosition());
+                if(pitch.getStatus() == MyApplication.BAOTRI_STATUS) {
+                    Toast.makeText(context, pitch.getName()+" hiện đang bảo trì vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                }else{
+                    onClickDatSan.myOnClick(list.get(getAdapterPosition()));
+                }
             });
         }
     }

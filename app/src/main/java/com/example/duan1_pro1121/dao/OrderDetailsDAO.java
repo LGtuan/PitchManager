@@ -26,4 +26,9 @@ public interface OrderDetailsDAO {
     @Update
     void update(OrderDetails details);
 
+    @Query("DELETE FROM ORDER_DETAILS WHERE orderId = :orderId")
+    void deleteWithOrderId(int orderId);
+
+    @Query("SELECT * FROM ORDER_DETAILS WHERE orderId = :orderId")
+    List<OrderDetails> getOrderDetailsByOrderId(int orderId);
 }

@@ -31,6 +31,6 @@ public interface PitchDAO {
 
     @Query("SELECT * FROM PITCH WHERE categoryId = :categoryId")
     List<Pitch> getPitchWithCategoryId(int categoryId);
-    @Query("SELECT * FROM PITCH WHERE categoryId = :id")
+    @Query("SELECT * FROM PITCH WHERE id = :id")
     List<Pitch> getPitchId(int id);
 }

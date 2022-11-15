@@ -17,8 +17,9 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_searchNameStaff_activity_staff"
-            android:hint="Tìm mã phiếu "
+            android:inputType="number"
+            android:id="@+id/edt_searchPhieuThongTin"
+            android:hint="Nhập mã phiếu "
             android:layout_width="340dp"
             android:layout_height="48dp"
             style="@style/edt_style"/>
@@ -31,8 +32,6 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_person_search"
             android:layout_height="45dp"/>
-
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

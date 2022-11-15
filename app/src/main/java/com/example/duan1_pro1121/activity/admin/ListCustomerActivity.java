@@ -16,15 +16,14 @@ import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListCustomerActivity extends AppCompatActivity {
 
     public List<Customer> list;
     RecyclerView recyclerView;
-    ImageView img_search;
-    EditText edt_search;
+    EditText edtFind;
+    ImageView imgFind;
     FloatingActionButton btn_add;
 
     @Override
@@ -44,14 +43,23 @@ public class ListCustomerActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
+        imgFind.setOnClickListener(v->{
+            String name = edtFind.getText().toString();
+            if(name.equals("")){
+                adapter.setData(list);
+            }else{
+                adapter.setData(MyDatabase.getInstance(this).customerDAO().getCustomerWithName("%"+name+"%"));
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
     }
 
     public void initView(){
         recyclerView = findViewById(R.id.recycler_customer);
-        img_search = findViewById(R.id.img_search_customerFragment);
-        edt_search = findViewById(R.id.edt_searchName_customerFragment);
         btn_add = findViewById(R.id.btn_create_dialog_add_khachhang);
+        edtFind = findViewById(R.id.edt_searchName_customerFragment);
+        imgFind = findViewById(R.id.img_search_customerFragment);
         btn_add.setVisibility(View.INVISIBLE);
     }
 }

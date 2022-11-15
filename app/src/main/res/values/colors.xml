@@ -13,4 +13,6 @@
     <color name="my_blue">#2196F3</color>
     <color name="dark_blue">#065798</color>
     <color name="dark_gray">#575757</color>
+    <color name="yellow">#FFE500</color>
+    <color name="tim">#9C27B0</color>
 </resources>

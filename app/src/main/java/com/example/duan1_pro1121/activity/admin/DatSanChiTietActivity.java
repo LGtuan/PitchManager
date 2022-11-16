@@ -439,24 +439,33 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                         Toast.makeText(DatSanChiTietActivity.this,
                                 "Không thể chọn ngày của quá khứ", Toast.LENGTH_SHORT).show();
                     } else {
-                        datePlay = getStringDate(dayOfMonth, month + 1, year);
-                        setUpTvDate();
-                        showLichHoatDong();
+                        String dateChose = getStringDate(dayOfMonth, month + 1, year);
+                        if(!dateChose.equals(datePlay)) {
+                            setUpTvDate();
+                            showLichHoatDong();
+                            currentImgSelect = -1;
+                        }
                     }
                 } else {
-                    datePlay = getStringDate(dayOfMonth, month + 1, year);
-                    setUpTvDate();
-                    showLichHoatDong();
+                    String dateChose = getStringDate(dayOfMonth, month + 1, year);
+                    if(!dateChose.equals(datePlay)) {
+                        setUpTvDate();
+                        showLichHoatDong();
+                        currentImgSelect = -1;
+                    }
                 }
             } else {
-                datePlay = getStringDate(dayOfMonth, month + 1, year);
-                setUpTvDate();
-                showLichHoatDong();
+                String dateChose = getStringDate(dayOfMonth, month + 1, year);
+                if(!dateChose.equals(datePlay)) {
+                    setUpTvDate();
+                    showLichHoatDong();
+                    currentImgSelect = -1;
+                }
             }
         }, mYear, mMonth, mDate);
 
         pickerDialog.setCancelable(false);
-        pickerDialog.setTitle("Chose date");
+        pickerDialog.setTitle("Chọn ngày : ");
         pickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pickerDialog.show();
     }

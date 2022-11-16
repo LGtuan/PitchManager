@@ -8,10 +8,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.admin.MainActivity;
 import com.example.duan1_pro1121.fragment.adminfragment.DatSanFragment;
 import com.example.duan1_pro1121.fragment.userfragment.ProfileFragment;
 import com.example.duan1_pro1121.fragment.userfragment.ThongBaoFragment;
@@ -23,12 +27,19 @@ public class UserMainActivity extends AppCompatActivity {
 
     private static int CURRENT_FRAGMENT = -1;
     private BottomNavigationView navigationView;
+    private String STRING_ACCOUNT = "";
+    private ImageView btnNap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_main);
 
+        btnNap = findViewById(R.id.btn_nap_acount_activity);
+        btnNap.setOnClickListener(v->{
+            Intent intent = new Intent(UserMainActivity.this,NapTienActivity.class);
+            startActivity(intent);
+        });
         navigationView = findViewById(R.id.bottom_navi);
         navigationView.setOnItemSelectedListener(item -> {
             if(item.getItemId() == R.id.item_datsan_user){

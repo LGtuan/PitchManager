@@ -448,6 +448,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     } else {
                         String dateChose = getStringDate(dayOfMonth, month + 1, year);
                         if(!dateChose.equals(datePlay)) {
+                            datePlay = dateChose;
                             setUpTvDate();
                             showLichHoatDong();
                             currentImgSelect = -1;
@@ -456,6 +457,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 } else {
                     String dateChose = getStringDate(dayOfMonth, month + 1, year);
                     if(!dateChose.equals(datePlay)) {
+                        datePlay = dateChose;
                         setUpTvDate();
                         showLichHoatDong();
                         currentImgSelect = -1;
@@ -464,6 +466,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             } else {
                 String dateChose = getStringDate(dayOfMonth, month + 1, year);
                 if(!dateChose.equals(datePlay)) {
+                    datePlay = dateChose;
                     setUpTvDate();
                     showLichHoatDong();
                     currentImgSelect = -1;

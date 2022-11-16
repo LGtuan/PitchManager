@@ -1,12 +1,16 @@
 package com.example.duan1_pro1121.fragment.adminfragment;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.user.NapTienActivity;
 import com.example.duan1_pro1121.adapter.admin.CustomerAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
@@ -32,6 +37,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class KhachHangFragment extends Fragment {
+
+    public static final int NAPTIEN_CODE = 1;
 
     private List<Customer> customerList;
     private RecyclerView recyclerView;
@@ -76,6 +83,11 @@ public class KhachHangFragment extends Fragment {
         adapter = new CustomerAdapter(getContext(),customerList);
         recyclerView.setAdapter(adapter);
         adapter.setOnClick(this::createDialogUpdate);
+        adapter.setNapTienOnClick(id->{
+            Intent intent = new Intent(getContext(), NapTienActivity.class);
+            intent.putExtra("CUSTOMER_ID",id);
+            startActivityForResult(intent,NAPTIEN_CODE);
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
     }
@@ -151,6 +163,18 @@ public class KhachHangFragment extends Fragment {
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NAPTIEN_CODE && resultCode == AppCompatActivity.RESULT_OK){
+            if(!edtFind.getText().toString().equals("")) {
+                adapter.setData(MyDatabase.getInstance(getContext()).customerDAO().getCustomerWithName("%"+edtFind.getText().toString()+"%"));
+            }else{
+                adapter.setData(MyDatabase.getInstance(getContext()).customerDAO().getAll());
+            }
+        }
+    }
+
     public void invisible(TextView...tvs){
         for(TextView tv : tvs){
             tv.setVisibility(View.INVISIBLE);
@@ -171,31 +195,27 @@ public class KhachHangFragment extends Fragment {
         edtName.setText(c.getName());
         EditText edtAddress = dialog.findViewById(R.id.edt_address_dialog_update_khachhang);
         edtAddress.setText(c.getAddress());
-        EditText edtMoney = dialog.findViewById(R.id.edt_money_dialog_update_khachhang);
-        edtMoney.setText(c.getCoin()+"");
         Button btn = dialog.findViewById(R.id.btn_update_khachhang);
 
         TextView tvCheckPhone = dialog.findViewById(R.id.tv_check_phone_dialog_update_khachhang);
         TextView tvCheckName = dialog.findViewById(R.id.tv_check_name_dialog_update_khachhang);
         TextView tvCheckAddress = dialog.findViewById(R.id.tv_check_address_dialog_update_khachhang);
-        TextView tvCheckMoney = dialog.findViewById(R.id.tv_check_money_dialog_update_khachhang);
 
         btn.setOnClickListener(v->{
             String phone = edtPhone.getText().toString();
             String name = edtName.getText().toString();
             String cmnd = edtCmnd.getText().toString();
             String address = edtAddress.getText().toString();
-            String money = edtMoney.getText().toString();
 
             if(!phone.matches(MyApplication.PHONE_REGEX)){
                 tvCheckPhone.setText("* Số điện thoại không hợp lệ");
-                invisible(tvCheckAddress,tvCheckName,tvCheckPhone,tvCheckMoney);
+                invisible(tvCheckAddress,tvCheckName,tvCheckPhone);
                 tvCheckPhone.setVisibility(View.VISIBLE);
             }else if(!name.matches(MyApplication.NAME_REGEX)){
-                invisible(tvCheckAddress,tvCheckName,tvCheckPhone,tvCheckMoney);
+                invisible(tvCheckAddress,tvCheckName,tvCheckPhone);
                 tvCheckName.setVisibility(View.VISIBLE);
             }else if(!address.matches(MyApplication.ADDRESS_REGEX)){
-                invisible(tvCheckAddress,tvCheckName,tvCheckMoney,tvCheckPhone);
+                invisible(tvCheckAddress,tvCheckName,tvCheckPhone);
                 tvCheckAddress.setVisibility(View.VISIBLE);
             } else{
                 Customer customer = new Customer();
@@ -207,13 +227,6 @@ public class KhachHangFragment extends Fragment {
                     customer.setName(name);
                     customer.setCmnd(cmnd);
                     customer.setAddress(address);
-                    try {
-                        customer.setCoin(Integer.parseInt(money));
-                    }catch (NumberFormatException e){
-                        invisible(tvCheckAddress,tvCheckName,tvCheckMoney,tvCheckPhone);
-                        tvCheckMoney.setVisibility(View.VISIBLE);
-                        return;
-                    }
 
                     MyDatabase.getInstance(getContext()).customerDAO().update(customer);
                     Toast.makeText(getContext(), "Update khách hàng thành công", Toast.LENGTH_SHORT).show();
@@ -223,7 +236,7 @@ public class KhachHangFragment extends Fragment {
                     dialog.dismiss();
                 }else{
                     tvCheckPhone.setText("* Số điện thoại đã tồn tại");
-                    invisible(tvCheckAddress,tvCheckName,tvCheckPhone,tvCheckMoney);
+                    invisible(tvCheckAddress,tvCheckName,tvCheckPhone);
                     tvCheckPhone.setVisibility(View.VISIBLE);
                 }
             }

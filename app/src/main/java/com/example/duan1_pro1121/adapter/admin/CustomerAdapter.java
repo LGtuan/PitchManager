@@ -1,11 +1,13 @@
 package com.example.duan1_pro1121.adapter.admin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.user.NapTienActivity;
 import com.example.duan1_pro1121.model.Customer;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     private List<Customer> list;
     private Context context;
     private MyCustomerOnClick onClick;
+    private MyNapTienOnClick napTienOnClick;
 
     public CustomerAdapter(Context context,List<Customer> list) {
         this.list = list;
@@ -63,6 +67,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv1,tv2,tv3,tv4,tv5;
         private ImageView img;
+        private Button btn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_phone_item_khachhang);
@@ -71,6 +76,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             tv4 = itemView.findViewById(R.id.tv_cmnd_item_khachhang);
             tv5 = itemView.findViewById(R.id.tv_coin_item_khachhang);
             img = itemView.findViewById(R.id.img_avatar_khachhang_fragment);
+            btn = itemView.findViewById(R.id.btn_naptien_item_khachhang);
+
+            btn.setOnClickListener(v->{
+                napTienOnClick.myNapTienOnClick(list.get(getAdapterPosition()).getId());
+            });
+
             itemView.setOnClickListener(v->{
                 onClick.myCustomerOnClick(list.get(getAdapterPosition()));
             });
@@ -81,8 +92,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         this.onClick = onClick;
     }
 
+    public void setNapTienOnClick(MyNapTienOnClick napTienOnClick) {
+        this.napTienOnClick = napTienOnClick;
+    }
+
     public interface MyCustomerOnClick{
         void myCustomerOnClick(Customer customer);
     }
 
+    public interface MyNapTienOnClick{
+        void myNapTienOnClick(int id);
+    }
 }

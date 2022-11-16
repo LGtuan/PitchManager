@@ -20,9 +20,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.model.Customer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,11 +41,14 @@ public class NapTienActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NapTienAdapter adapter;
     int naptienStatus = -1;
+    int customer_id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nap_tien);
+
+        customer_id = getIntent().getIntExtra("CUSTOMER_ID",-1);
 
         btnNapTien = findViewById(R.id.btn_nap_tien);
         tvCheck = findViewById(R.id.tvCheckNapTien);
@@ -57,20 +63,26 @@ public class NapTienActivity extends AppCompatActivity {
             if(adapter.getCurrentSelect()==-1){
                 tvCheck.setVisibility(View.VISIBLE);
             }else{
-                ProgressDialog progressDialog = new ProgressDialog(this);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.dialog_loading);
-                progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                naptienStatus = 0;
+                if(customer_id!=-1) {
+                    ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.show();
+                    progressDialog.setContentView(R.layout.dialog_loading);
+                    progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    naptienStatus = 0;
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                    Customer customer = MyDatabase.getInstance(this).customerDAO().getCustomerWithID(customer_id).get(0);
+                    customer.setCoin(customer.getCoin() + list.get(adapter.getCurrentSelect()));
+                    MyDatabase.getInstance(this).customerDAO().update(customer);
+
+                    new Handler().postDelayed(() -> {
                         progressDialog.dismiss();
                         adapter.setCurrentSelect(-1);
                         naptienStatus = -1;
-                    }
-                },1000);
+                        Toast.makeText(NapTienActivity.this, "Nạp tiền thành công", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK);
+                        finish();
+                    }, 1000);
+                }
             }
         });
 

@@ -82,9 +82,17 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
         initView();
         setUpImageSelect();
-        setOnClickForView();
 
         order = (Order) getIntent().getSerializableExtra("ORDER");
+        if(order==null){
+            setOnClickForView();
+            setOnClickForImageView();
+        }else{
+            if(order.getStatus() == MyApplication.CHUA_STATUS){
+                setOnClickForView();
+                setOnClickForImageView();
+            }
+        }
         if (order != null) {
             isUpdate = true;
             pitch = MyDatabase.getInstance(this).pitchDao().getPitchId(order.getPitchId()).get(0);
@@ -409,7 +417,6 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     public void setUpImageSelect() {
         addImageView();
         addTime();
-        setOnClickForImageView();
     }
 
     public void setImageResourceAdd(int pos) {

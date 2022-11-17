@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="4dp"
-    android:background="@color/transparent"
-    app:cardCornerRadius="6dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.ChangeProfileActivity">
 
     <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
         android:background="#4FFFFFFF"
         android:paddingBottom="5dp"
         android:orientation="vertical"
@@ -21,24 +20,58 @@
             android:background="@color/dark_blue"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="Cập nhật khách hàng"
+            android:text="Thông tin cá nhân"
             android:gravity="center"
             android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="45dp"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_dialog_update_khachhang"
-                android:layout_marginTop="10dp"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_gravity="center"
+                android:id="@+id/img_avatar_change_profile_activity"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/user_img"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_avatar"
+                app:shapeAppearance="@style/circle_img"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_avatar_change_profile_activity"
+                app:layout_constraintEnd_toEndOf="@id/img_avatar_change_profile_activity"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar_change_profile_activity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/btn_edit_img_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_edit"
+                        android:tint="@color/my_blue"
+                        app:shapeAppearance="@style/corner_img_20" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_check_phone_dialog_update_khachhang"
+            android:id="@+id/tv_check_phone_change_profile_activity"
             android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -50,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_phone_dialog_update_khachhang"
+            android:id="@+id/edt_phone_change_profile_activity"
             android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -65,7 +98,7 @@
 
         <TextView
             android:visibility="invisible"
-            android:id="@+id/tv_check_name_dialog_update_khachhang"
+            android:id="@+id/tv_check_name_change_profile_activity"
             android:layout_marginTop="5dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -76,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_name_dialog_update_khachhang"
+            android:id="@+id/edt_name_change_profile_activity"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="25dp"
@@ -90,7 +123,7 @@
 
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_cmnd_dialog_update_khachhang"
+            android:id="@+id/edt_cmnd_change_profile_activity"
             style="@style/edt_style"
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -105,7 +138,7 @@
 
         <TextView
             android:visibility="invisible"
-            android:id="@+id/tv_check_address_dialog_update_khachhang"
+            android:id="@+id/tv_check_address_change_profile_activity"
             android:layout_marginTop="5dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
@@ -116,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_address_dialog_update_khachhang"
+            android:id="@+id/edt_address_change_profile_activity"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginStart="25dp"
@@ -129,17 +162,19 @@
             style="@style/edt_style"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_update_khachhang"
-            android:layout_marginTop="10dp"
+            android:id="@+id/btn_update_change_profile"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_background"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="17sp"
             android:text="Cập nhật"
             android:textColor="@color/white"
             android:textAllCaps="false"
-            android:layout_height="35dp"
+            android:layout_height="38dp"
             android:layout_gravity="center"/>
 
     </LinearLayout>
 
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

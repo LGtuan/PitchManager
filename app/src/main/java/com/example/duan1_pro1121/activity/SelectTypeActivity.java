@@ -121,6 +121,7 @@ public class SelectTypeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, FormActivity.class);
             startActivity(intent);
             Animatoo.INSTANCE.animateShrink(this);
+            finish();
         });
     }
 

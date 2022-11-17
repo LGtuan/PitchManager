@@ -8,40 +8,27 @@
     tools:context=".activity.admin.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="240dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="240dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/mobie_app"
+        android:id="@+id/lottie_splsah"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="10dp"
-        app:lottie_rawRes="@raw/loading"
-        app:lottie_loop="true"
+        app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:lottie_loop="true"/>
 
     <TextView
-        android:paddingStart="6dp"
-        android:paddingEnd="2dp"
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
-        android:text="Loading..."
-        android:textColor="@color/my_blue"
-        android:textSize="20sp"
+        android:id="@+id/tv_splash"
+        android:gravity="center_horizontal"
+        android:textColor="@color/dark_blue"
+        android:textSize="14sp"
         android:textStyle="bold"
+        android:text="Tip : Bạn có thể quản lý sân bóng dễ dàng hơn nhờ Soccer Management"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

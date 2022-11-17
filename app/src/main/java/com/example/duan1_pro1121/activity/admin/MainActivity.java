@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new DichVuFrgment());
                     getSupportActionBar().setTitle("Dịch Vụ");
                 }else if(item.getItemId() == R.id.item_nhanvien && CURRENT_FRAGMENT!=5) {
-                    if (account.equals(MyApplication.ADMIN_CATEGORY)) {
+                    if (ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);
                         CURRENT_FRAGMENT = 5;
                         replaceFragment(new NhanVienFragment());
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 }else if(item.getItemId() == R.id.item_man_hinh_ca_nhan && CURRENT_FRAGMENT!=6)  {
-                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);
                         CURRENT_FRAGMENT = 6;
                         replaceFragment(new ManHinhCaNhanFragment());
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=7){
-                    if(account.equals(MyApplication.ADMIN_CATEGORY)) {
+                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);
                         CURRENT_FRAGMENT = 7;
                         replaceFragment(new ThongKeFrgment());

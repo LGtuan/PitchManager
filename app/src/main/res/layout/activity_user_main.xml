@@ -22,6 +22,7 @@
         android:layout_height="38dp">
 
         <TextView
+            android:id="@+id/tv_name_user_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_money_user_activity"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +68,7 @@
                 android:src="@drawable/ic_dola"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_nap_acount_activity"
+                android:id="@+id/img_nap_acount_user_activity"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/plus"
@@ -79,6 +81,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_avatar_user_activity"
+        android:scaleType="fitXY"
         android:layout_marginTop="2dp"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toStartOf="parent"

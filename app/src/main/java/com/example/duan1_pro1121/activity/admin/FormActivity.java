@@ -9,6 +9,7 @@ import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.adapter.admin.AdapterForm;
 import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.fragment.adminfragment.LoginFragment;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
 import com.example.duan1_pro1121.model.PithCategory;
@@ -19,6 +20,7 @@ public class FormActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
+    public LoginFragment loginFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form);
 
         createData();
+
+        loginFragment = new LoginFragment();
 
         AdapterForm adapter = new AdapterForm(this);
         viewPager2 = findViewById(R.id.viewpager_form);
@@ -72,6 +76,12 @@ public class FormActivity extends AppCompatActivity {
             category = new PithCategory(MyApplication.ID_CATEGORY_PITCH_11,"Sân 11 người",140000);
             MyDatabase.getInstance(this).pitchCategoryDAO().insert(category);
         }
+    }
+
+    public void registerSuccess(String s1, String s2) {
+        viewPager2.setCurrentItem(0);
+        loginFragment.edtStk.setText(s1);
+        loginFragment.edtPassword.setText(s2);
     }
 
     @Override

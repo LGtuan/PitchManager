@@ -1,6 +1,8 @@
 package com.example.duan1_pro1121;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class MyApplication extends Application {
 
@@ -38,6 +40,10 @@ public class MyApplication extends Application {
             }
         }
         return s;
+    }
+
+    public static Bitmap getBitMapFromByte(byte[] bytes){
+        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
     }
 
 }

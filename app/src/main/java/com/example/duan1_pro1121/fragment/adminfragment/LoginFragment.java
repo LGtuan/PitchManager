@@ -27,8 +27,8 @@ import java.util.List;
 
 public class LoginFragment extends Fragment {
 
-    private EditText edtStk;
-    private EditText edtPassword;
+    public EditText edtStk;
+    public EditText edtPassword;
     private TextView tvCheckAccount;
 
     @Override

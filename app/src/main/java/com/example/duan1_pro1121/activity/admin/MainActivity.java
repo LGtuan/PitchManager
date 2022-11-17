@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new ManHinhCaNhanFragment());
                         getSupportActionBar().setTitle("Màn hình cá nhân");
                     }else{
-
+                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=7){
                     if(account.equals(MyApplication.ADMIN_CATEGORY)) {

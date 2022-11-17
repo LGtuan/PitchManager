@@ -32,10 +32,16 @@ public class FormActivity extends AppCompatActivity {
         viewPager2.setAdapter(adapter);
         tabLayout = findViewById(R.id.tablayout_form);
 
-        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            if(position == 0) tab.setText("Log In");
-            else if(position == 1) tab.setText("Sign Up");
-        }).attach();
+        if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER) {
+            new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                if (position == 0) tab.setText("Log In");
+                else if (position == 1) tab.setText("Sign Up");
+            }).attach();
+        }else{
+            new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                if (position == 0) tab.setText("Log In");
+            }).attach();
+        }
     }
 
     public void createData(){
@@ -66,5 +72,11 @@ public class FormActivity extends AppCompatActivity {
             category = new PithCategory(MyApplication.ID_CATEGORY_PITCH_11,"Sân 11 người",140000);
             MyDatabase.getInstance(this).pitchCategoryDAO().insert(category);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        System.exit(0);
     }
 }

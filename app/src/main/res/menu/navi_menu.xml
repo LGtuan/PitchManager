@@ -20,6 +20,9 @@
         <item android:title="Nhân viên"
             android:icon="@drawable/employes"
             android:id="@+id/item_nhanvien"/>
+        <item android:title="Màn hình cá nhân"
+            android:id="@+id/item_man_hinh_ca_nhan"
+           android:icon="@drawable/ic_screen"/>
         <item android:id="@+id/item_thongke"
             android:icon="@drawable/statistical"
             android:title="Thống kê"/>

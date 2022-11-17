@@ -1,6 +1,8 @@
 package com.example.duan1_pro1121;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class MyApplication extends Application {
 
@@ -9,6 +11,10 @@ public class MyApplication extends Application {
     public static final int ID_CATEGORY_PITCH_5 = 1;
     public static final int ID_CATEGORY_PITCH_7 = 2;
     public static final int ID_CATEGORY_PITCH_11 =3;
+
+    public static final int DANG_STATUS = 1;
+    public static final int DA_STATUS = 2;
+    public static final int CHUA_STATUS = 0;
 
     public static final int HOATDONG_STATUS = 0;
     public static final int BAOTRI_STATUS = 1;
@@ -34,6 +40,10 @@ public class MyApplication extends Application {
             }
         }
         return s;
+    }
+
+    public static Bitmap getBitMapFromByte(byte[] bytes){
+        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
     }
 
 }

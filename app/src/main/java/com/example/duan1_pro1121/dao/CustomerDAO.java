@@ -30,4 +30,7 @@ public interface CustomerDAO {
 
     @Query("SELECT * FROM CUSTOMER WHERE name LIKE :name")
     List<Customer> getCustomerWithName(String name);
+
+    @Query("SELECT * FROM CUSTOMER WHERE id LIKE :id")
+    List<Customer> getCustomerWithID(int id);
 }

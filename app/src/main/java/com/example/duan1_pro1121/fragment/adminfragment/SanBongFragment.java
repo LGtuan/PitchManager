@@ -52,7 +52,6 @@ public class SanBongFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //pitchsList = MyDatabase.getInstance(getContext()).pitchDao().getAll();
     }
 
     @Override
@@ -74,6 +73,7 @@ public class SanBongFragment extends Fragment {
         rdoCategory7 = view.findViewById(R.id.rd_7_sanbong_fragment);
         rdoCategory11 = view.findViewById(R.id.rd_11_sanbong_fragment);
         rdoCategoryAll = view.findViewById(R.id.rd_all_sanbong_fragment);
+        rdoCategoryAll.setChecked(true);
         tv_show_loaisan = view.findViewById(R.id.tv_show_loaisan);
         tv_show_loaisan.setOnClickListener(v->{
             Intent intent = new Intent(getContext(), CategoryPitchActivity.class);
@@ -167,6 +167,7 @@ public class SanBongFragment extends Fragment {
                     pitchsList = MyDatabase.getInstance(getContext()).pitchDao().getAll();
                     adapter.setData(pitchsList);
 
+                    rdoCategoryAll.setChecked(true);
                     dialog.dismiss();
                 }
             }
@@ -199,17 +200,17 @@ public class SanBongFragment extends Fragment {
         rdo5.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked)
                 tvMoney.setText(MyApplication.convertMoneyToString(MyDatabase.getInstance(getContext())
-                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_5).get(0).getMoney()));
+                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_5).get(0).getMoney())+" VNĐ");
         });
         rdo7.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked)
                 tvMoney.setText(MyApplication.convertMoneyToString(MyDatabase.getInstance(getContext())
-                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_7).get(0).getMoney()));
+                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_7).get(0).getMoney())+" VNĐ");
         });
         rdo11.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked)
                 tvMoney.setText(MyApplication.convertMoneyToString(MyDatabase.getInstance(getContext())
-                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_11).get(0).getMoney()));
+                        .pitchCategoryDAO().getCategoryPitchWithId(MyApplication.ID_CATEGORY_PITCH_11).get(0).getMoney())+" VNĐ");
         });
 
         if (p.getCategoryId() == MyApplication.ID_CATEGORY_PITCH_5) {
@@ -253,6 +254,7 @@ public class SanBongFragment extends Fragment {
                 pitchsList = MyDatabase.getInstance(getContext()).pitchDao().getAll();
                 adapter.setData(pitchsList);
 
+                rdoCategoryAll.setChecked(true);
                 dialog.dismiss();
             }
         });
@@ -265,6 +267,12 @@ public class SanBongFragment extends Fragment {
     public void onResume() {
         super.onResume();
         pitchsList = MyDatabase.getInstance(getContext()).pitchDao().getAll();
-        adapter.setData(pitchsList);
+        if(rdoCategoryAll.isChecked()) adapter.setData(pitchsList);
+        else if(rdoCategory5.isChecked())adapter.setData(MyDatabase.getInstance(getContext()).pitchDao()
+                .getPitchWithCategoryId(MyApplication.ID_CATEGORY_PITCH_5));
+        else if(rdoCategory7.isChecked())adapter.setData(MyDatabase.getInstance(getContext()).pitchDao()
+                .getPitchWithCategoryId(MyApplication.ID_CATEGORY_PITCH_7));
+        else if(rdoCategory11.isChecked())adapter.setData(MyDatabase.getInstance(getContext()).pitchDao()
+                .getPitchWithCategoryId(MyApplication.ID_CATEGORY_PITCH_11));
     }
 }

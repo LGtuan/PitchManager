@@ -17,16 +17,17 @@ import com.example.duan1_pro1121.dao.ServiceDAO;
 import com.example.duan1_pro1121.model.Customer;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
+import com.example.duan1_pro1121.model.MyNotification;
 import com.example.duan1_pro1121.model.Order;
 import com.example.duan1_pro1121.model.OrderDetails;
 import com.example.duan1_pro1121.model.Pitch;
 import com.example.duan1_pro1121.model.PithCategory;
 import com.example.duan1_pro1121.model.ServiceBall;
 
-@Database(entities = {Customer.class,Manager.class, Order.class, OrderDetails.class, Pitch.class, PithCategory.class, ServiceBall.class, ManagerCategory.class}, version = 2)
+@Database(entities = {Customer.class,Manager.class, Order.class, OrderDetails.class, Pitch.class, PithCategory.class, ServiceBall.class, ManagerCategory.class, MyNotification.class}, version = 2)
 public abstract class MyDatabase extends RoomDatabase {
 
-    private static String DB_NAME = "PITCH_MANAGER6";
+    private static String DB_NAME = "PITCH_MANAGER14";
     private static MyDatabase instance;
 
     public static synchronized MyDatabase getInstance(Context context){

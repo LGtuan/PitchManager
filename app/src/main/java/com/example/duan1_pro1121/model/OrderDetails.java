@@ -8,20 +8,16 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ORDER_DETAILS",
         foreignKeys = {@ForeignKey(entity = Order.class,parentColumns = "id",childColumns = "orderId",onDelete = CASCADE),
-                        @ForeignKey(entity = ServiceBall.class,parentColumns = "id",childColumns = "orderId",onDelete = CASCADE)})
+                        @ForeignKey(entity = ServiceBall.class,parentColumns = "id",childColumns = "serviceId",onDelete = CASCADE)})
 public class OrderDetails {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int orderId;
     private int serviceId;
+    private int soLuong;
+    private int tongTien;
 
     public OrderDetails() {
-    }
-
-    public OrderDetails(int id, int orderId, int serviceId) {
-        this.id = id;
-        this.orderId = orderId;
-        this.serviceId = serviceId;
     }
 
     public int getId() {
@@ -46,5 +42,21 @@ public class OrderDetails {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public int getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(int tongTien) {
+        this.tongTien = tongTien;
     }
 }

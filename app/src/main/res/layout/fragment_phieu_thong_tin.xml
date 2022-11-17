@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
-    tools:context=".fragment.adminfragment.PhieuThongTinFragment">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#F3F3F3">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:inputType="number"
+            android:id="@+id/edt_searchPhieuThongTin"
+            android:hint="Nhập mã phiếu "
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            style="@style/edt_style"/>
+
+        <ImageView
+            android:id="@+id/img_search_phieu_thong_tin_fragment"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="54dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_person_search"
+            android:layout_height="45dp"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

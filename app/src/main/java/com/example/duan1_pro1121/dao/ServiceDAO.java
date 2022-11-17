@@ -25,4 +25,7 @@ public interface ServiceDAO {
     @Update
     void update(ServiceBall serviceBall);
 
+    @Query("SELECT * FROM SERVICE WHERE id = :id")
+    List<ServiceBall> getServiceWithId(int id);
+
 }

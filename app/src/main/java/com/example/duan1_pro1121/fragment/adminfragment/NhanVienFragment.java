@@ -178,8 +178,6 @@ public class NhanVienFragment extends Fragment {
                 }
 
             }
-
-
         });
 
         dialog.show();

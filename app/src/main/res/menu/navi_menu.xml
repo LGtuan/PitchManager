@@ -8,6 +8,9 @@
         <item android:id="@+id/item_sanbong"
             android:icon="@drawable/stadium"
             android:title="Sân bóng"/>
+        <item android:id="@+id/item_giothidau"
+            android:icon="@drawable/ic_time"
+            android:title="Giờ thi đấu"/>
         <item android:id="@+id/item_khachhang"
             android:title="Khách hàng"
             android:icon="@drawable/custommer"/>
@@ -17,12 +20,12 @@
         <item android:id="@+id/item_dichvu"
             android:title="Dịch vụ"
             android:icon="@drawable/service"/>
+        <item android:title="Cá nhân"
+            android:id="@+id/item_man_hinh_ca_nhan"
+            android:icon="@drawable/ic_screen"/>
         <item android:title="Nhân viên"
             android:icon="@drawable/employes"
             android:id="@+id/item_nhanvien"/>
-        <item android:title="Màn hình cá nhân"
-            android:id="@+id/item_man_hinh_ca_nhan"
-           android:icon="@drawable/ic_screen"/>
         <item android:id="@+id/item_thongke"
             android:icon="@drawable/statistical"
             android:title="Thống kê"/>

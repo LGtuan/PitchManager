@@ -96,11 +96,11 @@ public class CategoryManagerActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView tv_title = dialog.findViewById(R.id.tv_title_dialog_add_loainv);
-        tv_title.setText("Sửa loại nhân viên");
+        tv_title.setText("Cập nhật loại nhân viên");
         EditText edt = dialog.findViewById(R.id.edt_name_dialog_add_loainv);
         edt.setText(category.getName());
         Button btn = dialog.findViewById(R.id.btn_add_loainv);
-        btn.setText("Sửa");
+        btn.setText("Cập nhật");
         TextView tv = dialog.findViewById(R.id.tv_check_name_dialog_add_loainv);
 
         btn.setOnClickListener(v->{
@@ -112,7 +112,7 @@ public class CategoryManagerActivity extends AppCompatActivity {
                 MyDatabase.getInstance(this).managerCategoryDAO().update(category);
                 list = MyDatabase.getInstance(this).managerCategoryDAO().getAll();
                 adapter.setData(list);
-                Toast.makeText(this, "Sửa loại nhân viên thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Cập nhật loại nhân viên thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

@@ -40,7 +40,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     public static int REQUEST_CODE_SERVICE = 2;
 
     TextView tv_tensan, tvCustomer, tvMocTg,
-            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvMoneyCustomer;
+            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvMoneyCustomer, tvShowCaThiDau;
     LinearLayout layoutMoneyCustomer;
     Button btnServiceDetails, btnDatSan;
     ImageView imgBack;
@@ -390,6 +390,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         layoutMoneyCustomer = findViewById(R.id.layoutMoneyCustomer);
         tvMoneyCustomer = findViewById(R.id.tv_money_customer_datsanchitiet);
         tvMocTg = findViewById(R.id.tv_moctg_datsanchitiet);
+        tvShowCaThiDau = findViewById(R.id.tv_caTime_datsanchitiet);
     }
 
     public void addImageView() {
@@ -568,6 +569,10 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Bạn không thể chọn khách hàng khi cập nhật phiếu thông tin", Toast.LENGTH_SHORT).show();
             }
+        });
+        tvShowCaThiDau.setOnClickListener(v->{
+            Intent intent = new Intent(this,ShowCaThiDauActivity.class);
+            startActivity(intent);
         });
     }
 

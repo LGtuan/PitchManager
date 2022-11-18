@@ -21,6 +21,7 @@ public class Manager {
     private int salary;
     private String bankNumber;
     private String bankName;
+    private int status;
 
     public Manager() {
     }
@@ -103,5 +104,13 @@ public class Manager {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

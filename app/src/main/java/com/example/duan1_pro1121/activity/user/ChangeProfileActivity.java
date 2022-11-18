@@ -51,6 +51,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
         edtAddress.setText(customer.getAddress());
         edtCmnd.setText(customer.getCmnd());
         edtName.setText(customer.getName());
+        if(customer.getImg()!=null){
+            img.setImageBitmap(MyApplication.getBitMapFromByte(customer.getImg()));
+        }
     }
 
     public void setOnClick() {

@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,15 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
         holder.tv4.setText(list.get(position).getBankName());
         holder.tv5.setText(list.get(position).getBankNumber());
         holder.tv6.setText(MyApplication.convertMoneyToString(list.get(position).getSalary())+"VNĐ");
+        if(list.get(position).getStatus() == MyApplication.DANG_LAM){
+            holder.tv1.setBackgroundColor(context.getResources().getColor(R.color.dark_blue));
+            holder.tv7.setText("Đang làm việc");
+            holder.tv7.setTextColor(context.getResources().getColor(R.color.green));
+        }else{
+            holder.tv1.setBackgroundColor(context.getResources().getColor(R.color.gray));
+            holder.tv7.setText("Đã nghỉ việc");
+            holder.tv7.setTextColor(context.getResources().getColor(R.color.dark_gray));
+        }
     }
 
     @Override
@@ -66,7 +76,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv1,tv2,tv3,tv4,tv5,tv6;
+        private TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_name_item_manager);
@@ -75,6 +85,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             tv4 = itemView.findViewById(R.id.tv_bankname_item_manager);
             tv5 = itemView.findViewById(R.id.tv_banknumber_item_manager);
             tv6 = itemView.findViewById(R.id.tv_salary_item_manager);
+            tv7 = itemView.findViewById(R.id.tv_status_item_manager);
 
             itemView.setOnClickListener(v->{
                 int idCategory = list.get(getAdapterPosition()).getCategory_id();
@@ -111,6 +122,11 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
         edtPass.setText(manager.getPassword());
         EditText edtPass2 = dialog.findViewById(R.id.edt_pass2_dialog_add_nhanvien);
         edtPass2.setText(manager.getPassword());
+
+        RadioButton rdLamViec = dialog.findViewById(R.id.rdo_lamviec_add_nv);
+        RadioButton rdNghiViec = dialog.findViewById(R.id.rdo_nghi_add_nv);
+        if(manager.getStatus() == MyApplication.DANG_LAM)rdLamViec.setChecked(true);
+        else rdNghiViec.setChecked(true);
 
         Spinner spinner = dialog.findViewById(R.id.spinner_chucvu_dialog_add_nhanvien);
         List<ManagerCategory> listAllStaff = MyDatabase.getInstance(context).managerCategoryDAO().getAllStaff();
@@ -160,6 +176,8 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
                     return;
                 }
                 if(MyDatabase.getInstance(context).managerDAO().getManagerWithPhone(phone,manager.getId()).size()==0) {
+                    if(rdLamViec.isChecked()) manager.setStatus(MyApplication.DANG_LAM);
+                    else manager.setStatus(MyApplication.NGHI_VIEC);
                     manager.setPhone(phone);
                     manager.setName(name);
                     manager.setPassword(pass);

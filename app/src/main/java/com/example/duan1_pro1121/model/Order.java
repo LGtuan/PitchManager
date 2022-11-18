@@ -15,27 +15,14 @@ public class Order implements Serializable {
     private int id;
     private int customerId;
     private int pitchId;
-    private float startTime;
-    private float endTime;
-    private String date;
+    private String dateCreate;
     private String datePlay;
     private int totalPitchMoney;
     private int total;
     private int status;
+    private int soCa;
 
     public Order() {
-    }
-
-    public Order(int id, int customerId, int pitchId, int startTime, int endTime, String date,int totalPitchMoney, int total, int status) {
-        this.id = id;
-        this.customerId = customerId;
-        this.pitchId = pitchId;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
-        this.total = total;
-        this.status = status;
-        this.totalPitchMoney = totalPitchMoney;
     }
 
     public int getId() {
@@ -62,28 +49,12 @@ public class Order implements Serializable {
         this.pitchId = pitchId;
     }
 
-    public float getStartTime() {
-        return startTime;
+    public String getDateCreate() {
+        return dateCreate;
     }
 
-    public void setStartTime(float startTime) {
-        this.startTime = startTime;
-    }
-
-    public float getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(float endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateCreate(String dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
     public int getTotal() {
@@ -118,4 +89,11 @@ public class Order implements Serializable {
         this.datePlay = datePlay;
     }
 
+    public int getSoCa() {
+        return soCa;
+    }
+
+    public void setSoCa(int soCa) {
+        this.soCa = soCa;
+    }
 }

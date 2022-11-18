@@ -101,7 +101,7 @@ public class ListServiceActivity extends AppCompatActivity {
             holder.tv4.setText(MyApplication.convertMoneyToString(numbers.get(position) * data.get(position).getMoney()) + " VNĐ");
             if(data.get(position).isProduct()){
                 holder.tv5.setText("| 1Product");
-            }else holder.tv5.setText("| 1Hour");
+            }else holder.tv5.setText("| 2Hour");
         }
 
         @Override

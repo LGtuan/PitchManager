@@ -12,6 +12,7 @@ import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.fragment.adminfragment.LoginFragment;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
+import com.example.duan1_pro1121.model.MyTime;
 import com.example.duan1_pro1121.model.PithCategory;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -27,6 +28,7 @@ public class FormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
 
+        //MyDatabase.getInstance(this).orderDAO().deleteAll();
         createData();
 
         loginFragment = new LoginFragment();
@@ -51,6 +53,7 @@ public class FormActivity extends AppCompatActivity {
     public void createData(){
         createAdminDataIfNotExists();
         createPitchCategoryDataIfNotExists();
+        addTimeDataIfNotExit();
     }
 
     public void createAdminDataIfNotExists(){
@@ -82,6 +85,19 @@ public class FormActivity extends AppCompatActivity {
         viewPager2.setCurrentItem(0);
         loginFragment.edtStk.setText(s1);
         loginFragment.edtPassword.setText(s2);
+    }
+
+    public void addTimeDataIfNotExit(){
+        if(MyDatabase.getInstance(this).timeDAO().getAll().size() == 0){
+            for (int i = 1;i<=12;i++){
+                MyTime myTime = new MyTime();
+                myTime.setName("Ca "+i);
+                myTime.setId(i);
+                myTime.setStartTime((i-1)*2);
+                myTime.setEndTime(i*2);
+                MyDatabase.getInstance(this).timeDAO().insert(myTime);
+            }
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         if(list.get(position).isProduct()){
             holder.tv3.setText(" | 1Product");
         }else{
-            holder.tv3.setText(" | 1hour");
+            holder.tv3.setText(" | 1Ca");
         }
     }
 

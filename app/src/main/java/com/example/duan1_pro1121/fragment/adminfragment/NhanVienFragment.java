@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,6 +116,8 @@ public class NhanVienFragment extends Fragment {
         TextView tvCheckPass2 = dialog.findViewById(R.id.tv_check_pass2_dialog_add_nhanvien);
         TextView tvCheckPhone = dialog.findViewById(R.id.tv_check_phone_dialog_add_nhanvien);
 
+        RadioButton rdoLamViec = dialog.findViewById(R.id.rdo_lamviec_add_nv);
+
         Button btnThem = dialog.findViewById(R.id.btn_add_nhanvien);
         btnThem.setOnClickListener(v->{
             String phone = edtPhone.getText().toString();
@@ -147,6 +150,8 @@ public class NhanVienFragment extends Fragment {
                 }
                 Manager manager = new Manager();
                 if(MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(phone,-1).size()==0) {
+                    if(rdoLamViec.isChecked()) manager.setStatus(MyApplication.DANG_LAM);
+                    else manager.setStatus(MyApplication.NGHI_VIEC);
                     manager.setPhone(phone);
                     manager.setName(name);
                     manager.setPassword(pass);

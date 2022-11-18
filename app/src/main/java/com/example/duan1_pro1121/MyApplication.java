@@ -12,6 +12,9 @@ public class MyApplication extends Application {
 
     public static final String ADMIN_CATEGORY = "Admin";
 
+    public static final int DANG_LAM = 0;
+    public static final int NGHI_VIEC = 1;
+
     public static final int ID_CATEGORY_PITCH_5 = 1;
     public static final int ID_CATEGORY_PITCH_7 = 2;
     public static final int ID_CATEGORY_PITCH_11 =3;

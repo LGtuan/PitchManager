@@ -21,6 +21,7 @@ public class Order implements Serializable {
     private int total;
     private int status;
     private int soCa;
+    private int soLanCapNhat = 1;
 
     public Order() {
     }
@@ -95,5 +96,13 @@ public class Order implements Serializable {
 
     public void setSoCa(int soCa) {
         this.soCa = soCa;
+    }
+
+    public int getSoLanCapNhat() {
+        return soLanCapNhat;
+    }
+
+    public void setSoLanCapNhat(int soLanCapNhat) {
+        this.soLanCapNhat = soLanCapNhat;
     }
 }

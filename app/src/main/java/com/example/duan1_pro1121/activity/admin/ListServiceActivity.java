@@ -180,7 +180,7 @@ public class ListServiceActivity extends AppCompatActivity {
 
             if(data.get(position).isProduct()){
                 holder.tv5.setText("| 1Product");
-            }else holder.tv5.setText("| 1Hour");
+            }else holder.tv5.setText("| 2Hour");
         }
 
         @Override

@@ -98,15 +98,10 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
                 }else if(item.getItemId() == R.id.item_man_hinh_ca_nhan && CURRENT_FRAGMENT!=6)  {
-                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
-                        menu.findItem(item.getItemId()).setChecked(true);
-                        CURRENT_FRAGMENT = 6;
-                        replaceFragment(new ManHinhCaNhanFragment());
-                        getSupportActionBar().setTitle("Màn hình cá nhân");
-                    }else{
-                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
+                    menu.findItem(item.getItemId()).setChecked(true);
+                    CURRENT_FRAGMENT = 6;
+                    replaceFragment(new ManHinhCaNhanFragment());
+                    getSupportActionBar().setTitle("Màn hình cá nhân");
                 }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=7){
                     if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                         menu.findItem(item.getItemId()).setChecked(true);

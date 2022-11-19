@@ -19,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,7 +83,6 @@ public class KhachHangFragment extends Fragment {
         });
 
         adapter = new CustomerAdapter(getContext(),customerList);
-        recyclerView.setAdapter(adapter);
         adapter.setOnClick(this::createDialogUpdate);
         adapter.setNapTienOnClick(id->{
             Intent intent = new Intent(getContext(), NapTienActivity.class);
@@ -89,6 +90,7 @@ public class KhachHangFragment extends Fragment {
             startActivityForResult(intent,NAPTIEN_CODE);
         });
 
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
     }
 

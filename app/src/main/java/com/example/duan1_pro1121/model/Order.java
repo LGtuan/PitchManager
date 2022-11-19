@@ -18,6 +18,8 @@ public class Order implements Serializable {
     private String dateCreate;
     private String datePlay;
     private int totalPitchMoney;
+    private int totalServiceMoney;
+    private int chiPhiKhac;
     private int total;
     private int status;
     private int soCa;
@@ -96,6 +98,22 @@ public class Order implements Serializable {
 
     public void setSoCa(int soCa) {
         this.soCa = soCa;
+    }
+
+    public int getTotalServiceMoney() {
+        return totalServiceMoney;
+    }
+
+    public void setTotalServiceMoney(int totalServiceMoney) {
+        this.totalServiceMoney = totalServiceMoney;
+    }
+
+    public int getChiPhiKhac() {
+        return chiPhiKhac;
+    }
+
+    public void setChiPhiKhac(int chiPhiKhac) {
+        this.chiPhiKhac = chiPhiKhac;
     }
 
     public int getSoLanCapNhat() {

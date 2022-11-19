@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.CategoryManagerActivity;
@@ -74,6 +77,7 @@ public class NhanVienFragment extends Fragment {
         btnShowLoaiNhanVien.setOnClickListener(v->{
             Intent intent = new Intent(getContext(), CategoryManagerActivity.class);
             getContext().startActivity(intent);
+            Animatoo.INSTANCE.animateSlideLeft(getContext());
         });
         btnAdd.setOnClickListener(v->{
             createDialogAdd();

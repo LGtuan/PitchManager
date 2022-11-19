@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -40,7 +41,9 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     public static int REQUEST_CODE_SERVICE = 2;
 
     TextView tv_tensan, tvCustomer, tvMocTg,
-            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvMoneyCustomer, tvShowCaThiDau;
+            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney
+            , tvMoneyCustomer, tvShowCaThiDau, tvChiPhi;
+
     LinearLayout layoutMoneyCustomer;
     Button btnServiceDetails, btnDatSan;
     ImageView imgBack;
@@ -61,6 +64,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
     int totalMoneyService;
     int totalMoneyPitch;
+    int chiPhiKhac;
     String datePlay;
     String dateCreate;
     boolean isUpdate = false;
@@ -72,6 +76,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     int type_cancel_gray = 4;
 
     int count = 0;
+    int maxCount = 5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +118,8 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             datePlay = order.getDatePlay();
             dateCreate = order.getDateCreate();
             totalMoneyPitch = order.getTotalPitchMoney();
+            chiPhiKhac = order.getChiPhiKhac();
+            changeChiPhiKhac();
 
             listService = (List<ServiceBall>) getIntent().getBundleExtra("bundle")
                     .getSerializable("LIST_SERVICE");
@@ -140,6 +147,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         setUpTvDate();
         setUpTvMoneyAndTvPitch();
         setUpMoneyAndTvService();
+        changeChiPhiKhac();
     }
 
     public void datSan() {
@@ -167,7 +175,9 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                         order.setCustomerId(customer.getId());
                         order.setTotalPitchMoney(totalMoneyPitch);
                         order.setDatePlay(datePlay);
-                        order.setTotal(totalMoneyPitch + totalMoneyService);
+                        order.setChiPhiKhac(chiPhiKhac);
+                        order.setTotalServiceMoney(totalMoneyService);
+                        order.setTotal(totalMoneyPitch + totalMoneyService+chiPhiKhac);
                         order.setStatus(MyApplication.CHUA_STATUS);
                         order.setSoCa(count);
 
@@ -198,7 +208,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                int total = totalMoneyPitch + totalMoneyService;
+                int total = totalMoneyPitch + totalMoneyService + chiPhiKhac;
                 if (customer.getCoin() < total) {
                     Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
                 } else {
@@ -207,6 +217,8 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
                     order.setDatePlay(datePlay);
                     order.setTotalPitchMoney(totalMoneyPitch);
+                    order.setChiPhiKhac(chiPhiKhac);
+                    order.setTotalServiceMoney(totalMoneyService);
                     order.setTotal(total);
                     order.setSoCa(count);
 
@@ -391,6 +403,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         tvMoneyCustomer = findViewById(R.id.tv_money_customer_datsanchitiet);
         tvMocTg = findViewById(R.id.tv_moctg_datsanchitiet);
         tvShowCaThiDau = findViewById(R.id.tv_caTime_datsanchitiet);
+        tvChiPhi = findViewById(R.id.tv_chiphi_datsanchitiet);
     }
 
     public void addImageView() {
@@ -424,14 +437,16 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         for (int i = 0; i < listSelect.size(); i++) {
             int finalI = i;
             listSelect.get(i).setOnClickListener(v -> {
-                if(typeSelect[finalI] == type_add){
+                if(typeSelect[finalI] == type_add && count < maxCount){
                     count+=1;
                     typeSelect[finalI] = type_cancel;
                     setImageResourceAtPos(finalI);
                     setUpTvMocTg("Ca"+(finalI+1),type_add);
 
                     MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI+1).get(0);
-                    changeTotalMoneyPitch(categoryPitch.getMoney()*2 + time.getMoney());
+                    chiPhiKhac += time.getMoney();
+                    changeChiPhiKhac();
+                    changeTotalMoneyPitch(categoryPitch.getMoney()*2);
                 }else if(typeSelect[finalI] == type_cancel){
                     count-=1;
                     typeSelect[finalI] = type_add;
@@ -439,7 +454,9 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     setUpTvMocTg("",type_cancel);
 
                     MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI+1).get(0);
-                    changeTotalMoneyPitch(-(categoryPitch.getMoney()*2 + time.getMoney()));
+                    chiPhiKhac -= time.getMoney();
+                    changeChiPhiKhac();
+                    changeTotalMoneyPitch(-categoryPitch.getMoney()*2);
                 }else if(typeSelect[finalI] == type_cancel_gray){
                     Toast.makeText(this, "Bạn không thể hủy mốc thời gian đã đá", Toast.LENGTH_SHORT).show();
                 }else if(typeSelect[finalI] == type_addGray){
@@ -449,6 +466,11 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void changeChiPhiKhac(){
+        tvChiPhi.setText(MyApplication.convertMoneyToString(chiPhiKhac)+" VNĐ");
+        setUpTotalMoney();
     }
 
     public void changeTotalMoneyPitch(int money){
@@ -555,6 +577,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
             intent.putExtra("bundle", bundle);
             startActivityForResult(intent, REQUEST_CODE_SERVICE);
+            Animatoo.INSTANCE.animateShrink(this);
         });
         imgBack.setOnClickListener(v -> {
             onBackPressed();
@@ -566,6 +589,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             if (!isUpdate) {
                 Intent intent = new Intent(DatSanChiTietActivity.this, ListCustomerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_CUSTOMER);
+                Animatoo.INSTANCE.animateSlideLeft(this);
             } else {
                 Toast.makeText(this, "Bạn không thể chọn khách hàng khi cập nhật phiếu thông tin", Toast.LENGTH_SHORT).show();
             }
@@ -573,6 +597,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         tvShowCaThiDau.setOnClickListener(v->{
             Intent intent = new Intent(this,ShowCaThiDauActivity.class);
             startActivity(intent);
+            Animatoo.INSTANCE.animateSlideLeft(this);
         });
     }
 
@@ -594,7 +619,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     }
 
     public void setUpTotalMoney() {
-        tvAllMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch + totalMoneyService) + " VNĐ");
+        tvAllMoney.setText(MyApplication.convertMoneyToString(totalMoneyPitch + totalMoneyService + chiPhiKhac) + " VNĐ");
         setUpTvMoneyAndTvCustomer();
     }
 
@@ -620,5 +645,11 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         super.onResume();
 //        customer = MyDatabase.getInstance(this)
 //                .customerDAO().getCustomerWithID(customer.getId()).get(0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.INSTANCE.animateSlideRight(this);
     }
 }

@@ -7,11 +7,13 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
@@ -57,6 +59,8 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
                     0, list.get(position).getImg().length);
             holder.img.setImageBitmap(bitmap);
         }else holder.img.setImageResource(R.drawable.user_img);
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     @Override
@@ -65,6 +69,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private CardView cardView;
         private TextView tv1,tv2,tv3,tv4,tv5;
         private ImageView img;
         private Button btn;
@@ -77,6 +82,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             tv5 = itemView.findViewById(R.id.tv_coin_item_khachhang);
             img = itemView.findViewById(R.id.img_avatar_khachhang_fragment);
             btn = itemView.findViewById(R.id.btn_naptien_item_khachhang);
+            cardView = itemView.findViewById(R.id.cardView_customer);
 
             btn.setOnClickListener(v->{
                 napTienOnClick.myNapTienOnClick(list.get(getAdapterPosition()).getId());

@@ -1,19 +1,19 @@
 package com.example.duan1_pro1121.adapter.admin;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.activity.admin.DatSanChiTietActivity;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Pitch;
 import com.example.duan1_pro1121.model.PithCategory;
@@ -54,6 +54,8 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
             holder.tv3.setText(MyApplication.convertMoneyToString(category.getMoney()) + "VNĐ");
             holder.tv4.setText(category.getName());
         }
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     @Override
@@ -63,12 +65,14 @@ public class RecyclerDatSanAdapter extends RecyclerView.Adapter<RecyclerDatSanAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv1,tv2,tv3,tv4;
+        CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_name_item_datsan);
             tv2 = itemView.findViewById(R.id.tv_status_item_datsan);
             tv3 = itemView.findViewById(R.id.tv_money_item_datsan);
             tv4 = itemView.findViewById(R.id.tv_type_item_datsan);
+            cardView = itemView.findViewById(R.id.cardViewDatSan);
             itemView.setOnClickListener(v->{
                 Pitch pitch = list.get(getAdapterPosition());
                 if(pitch.getStatus() == MyApplication.BAOTRI_STATUS) {

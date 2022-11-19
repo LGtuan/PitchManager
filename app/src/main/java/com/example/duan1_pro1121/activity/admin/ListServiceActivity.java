@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -69,6 +70,7 @@ public class ListServiceActivity extends AppCompatActivity {
             intent.putExtra("bundle", bundle);
             setResult(RESULT_OK, intent);
             finish();
+            Animatoo.INSTANCE.animateZoom(this);
         });
         recy1 = findViewById(R.id.recycler_list_service1);
         recy2 = findViewById(R.id.recycler_list_service2);
@@ -214,6 +216,11 @@ public class ListServiceActivity extends AppCompatActivity {
                 });
             }
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.INSTANCE.animateZoom(this);
     }
 }

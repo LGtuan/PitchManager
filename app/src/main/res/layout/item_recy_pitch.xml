@@ -8,7 +8,8 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:cardUseCompatPadding="true"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:id="@+id/cardview_pitch">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name_item_datsan"
+            android:id="@+id/tv_name_item_pitch"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/dark_blue"
@@ -43,7 +44,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_status_item_datsan"
+                android:id="@+id/tv_status_item_pitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="hoạt động"
@@ -68,7 +69,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_money_item_datsan"
+                android:id="@+id/tv_money_item_pitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="80.000VNĐ"
@@ -94,7 +95,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_type_item_datsan"
+                android:id="@+id/tv_type_item_pitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5 người"

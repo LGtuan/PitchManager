@@ -36,7 +36,7 @@ import com.example.duan1_pro1121.model.TimeOrderDetails;
         , MyTime.class, TimeOrderDetails.class, HistoryBuy.class}, version = 1)
 public abstract class MyDatabase extends RoomDatabase {
 
-    private static String DB_NAME = "PITCH_MANAGER18";
+    private static String DB_NAME = "PITCH_MANAGER19";
     private static MyDatabase instance;
 
     public static synchronized MyDatabase getInstance(Context context){

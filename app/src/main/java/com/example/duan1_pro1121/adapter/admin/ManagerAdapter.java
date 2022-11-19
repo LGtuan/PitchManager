@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
@@ -68,6 +70,8 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             holder.tv7.setText("Đã nghỉ việc");
             holder.tv7.setTextColor(context.getResources().getColor(R.color.dark_gray));
         }
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     @Override
@@ -77,6 +81,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv1,tv2,tv3,tv4,tv5,tv6,tv7;
+        private CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = itemView.findViewById(R.id.tv_name_item_manager);
@@ -86,6 +91,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             tv5 = itemView.findViewById(R.id.tv_banknumber_item_manager);
             tv6 = itemView.findViewById(R.id.tv_salary_item_manager);
             tv7 = itemView.findViewById(R.id.tv_status_item_manager);
+            cardView = itemView.findViewById(R.id.cardView_manager);
 
             itemView.setOnClickListener(v->{
                 int idCategory = list.get(getAdapterPosition()).getCategory_id();

@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else if(item.getItemId() == R.id.item_dangxuat){
                     finishAffinity();
+                    MyApplication.CURRENT_TYPE = -1;
                     Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);
                     startActivity(intent);
                 }

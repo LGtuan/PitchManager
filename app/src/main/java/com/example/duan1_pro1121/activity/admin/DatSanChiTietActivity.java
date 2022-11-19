@@ -54,7 +54,6 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     ImageView imgSelect1, imgSelect2, imgSelect3, imgSelect4, imgSelect5, imgSelect6;
     ImageView imgSelect7, imgSelect8, imgSelect9, imgSelect10, imgSelect11, imgSelect12;
 
-
     Order order;
     Pitch pitch;
     PithCategory categoryPitch;

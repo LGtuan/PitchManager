@@ -70,7 +70,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             int[] arr = getArrayDate(list.get(position).getDatePlay());
             calendarStart.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getStartTime(),0);
             calendarEnd.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getEndTime(),0);
-            Log.e("123","time "+myTimeList.get(i).getStartTime());
 
             if(i == 0 && calendarStart.after(calendarNow)){
                 list.get(position).setStatus(MyApplication.CHUA_STATUS);
@@ -103,8 +102,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         }else{
             holder.btnHuy.setBackgroundColor(context.getResources().getColor(R.color.dark_gray));
         }
-
-        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     public int[] getArrayDate(String date){

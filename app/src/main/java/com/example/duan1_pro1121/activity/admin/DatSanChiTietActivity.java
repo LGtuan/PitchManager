@@ -158,7 +158,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 if (customer == null) {
                     Toast.makeText(this, "Vui lòng chọn khách hàng", Toast.LENGTH_SHORT).show();
                 } else {
-                    int total = totalMoneyPitch + totalMoneyService;
+                    int total = totalMoneyPitch + totalMoneyService + chiPhiKhac;
                     if (customer.getCoin() < total) {
                         Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
                     } else {
@@ -177,7 +177,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                         order.setDatePlay(datePlay);
                         order.setChiPhiKhac(chiPhiKhac);
                         order.setTotalServiceMoney(totalMoneyService);
-                        order.setTotal(totalMoneyPitch + totalMoneyService+chiPhiKhac);
+                        order.setTotal(total);
                         order.setStatus(MyApplication.CHUA_STATUS);
                         order.setSoCa(count);
 
@@ -259,6 +259,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         }
     }
 
+
     public void resetData() {
         count = 0;
         totalMoneyPitch = 0;
@@ -277,7 +278,6 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         String s = getStringDate(calendar.get(Calendar.DATE),
                 calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
 
-
         // kiểm tra thời gian quá khứ
         if (s.equals(datePlay)) {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -290,12 +290,21 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         // Kiểm tra thời gian bị full
         List<TimeOrderDetails> timeOrderDetails =
                 MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay,pitch.getId());
+        Log.e("123",datePlay);
+        String a = "";
+        for(TimeOrderDetails timeOrderDetails1 : timeOrderDetails){
+            a+=timeOrderDetails1.getTimeId()+"-";
+        }
+        Log.e("1234",a);
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();
             if(order!=null) {
                 if(order.getId() == timeOrderDetails.get(i).getOrderId()) {
-                    if (typeSelect[idTime-1] == type_addGray) typeSelect[idTime - 1] = type_cancel_gray;
-                    else typeSelect[idTime-1] = type_cancel;
+                    if (typeSelect[idTime-1] == type_addGray){
+                        typeSelect[idTime - 1] = type_cancel_gray;
+                    } else{
+                        typeSelect[idTime-1] = type_cancel;
+                    }
                 }else{
                     typeSelect[idTime - 1] = type_full;
                 }

@@ -285,6 +285,10 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     typeSelect[i] = type_addGray;
                 }
             }
+        }else if(checkDate(s)){
+            for(int i = 0;i<12;i++){
+                typeSelect[i] = type_addGray;
+            }
         }
         // Kiểm tra thời gian bị full
         List<TimeOrderDetails> timeOrderDetails =
@@ -313,6 +317,18 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         }
 
         setResourceForImageSelect();
+    }
+
+    public boolean checkDate(String s){
+
+        int[] arr1 = getArrayDate(s);
+        int[] arr2 = getArrayDate(datePlay);
+
+        if(arr2[2] < arr1[2]){
+            return true;
+        }else if(arr2[1] < arr1[1]){
+            return true;
+        }else return arr2[0] < arr1[0];
     }
 
     public void resetTypeSelect() {
@@ -357,8 +373,8 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         return d + "-" + m + "-" + y;
     }
 
-    public int[] getArrayDate() {
-        String[] str = datePlay.split("-");
+    public int[] getArrayDate(String s) {
+        String[] str = s.split("-");
         int arr[] = new int[str.length];
         try {
             for (int i = 0; i < str.length; i++) {
@@ -371,7 +387,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     }
 
     public String getThu() {
-        int[] arr = getArrayDate();
+        int[] arr = getArrayDate(datePlay);
         Calendar calendar = Calendar.getInstance();
         if (arr != null) calendar.set(arr[2], arr[1] - 1, arr[0]);
 

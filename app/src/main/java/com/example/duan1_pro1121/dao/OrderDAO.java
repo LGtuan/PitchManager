@@ -42,4 +42,7 @@ public interface OrderDAO {
 
     @Query("DELETE FROM ORDERS")
     void deleteAll();
+
+    @Query("SELECT SUM(total) FROM ORDERS WHERE dateCreate LIKE :date")
+    int getDoanhThuWithDate(String date);
 }

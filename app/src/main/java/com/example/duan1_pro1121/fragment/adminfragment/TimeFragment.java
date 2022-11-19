@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.adapter.admin.CaThiDauAdapter;
@@ -42,8 +44,8 @@ public class TimeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recy_time_fragment);
         adapter = new CaThiDauAdapter(getContext(),list);
-        recyclerView.setAdapter(adapter);
 
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
     }
 }

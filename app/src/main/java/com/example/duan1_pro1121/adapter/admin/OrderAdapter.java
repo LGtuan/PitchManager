@@ -5,12 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
@@ -49,12 +51,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         holder.tvTenKhachHang.setText(customer.getName());
         holder.tvTenSanBong.setText(pitch.getName());
         holder.tvTienSan.setText(MyApplication.convertMoneyToString(list.get(position).getTotalPitchMoney())+" VNĐ");
-        holder.tvTienDichVu.setText(MyApplication.convertMoneyToString(list.get(position).getTotal()-list.get(position).getTotalPitchMoney())+" VNĐ");
+        holder.tvTienDichVu.setText(MyApplication.convertMoneyToString(list.get(position).getTotalServiceMoney())+" VNĐ");
         holder.tvMaPhieuThongTin.setText("Phiếu "+ list.get(position).getId());
         holder.tvDate.setText(list.get(position).getDateCreate());
         holder.tvTotal.setText(MyApplication.convertMoneyToString(list.get(position).getTotal()) +"VNĐ");
         holder.tvDatePlay.setText("Ngày "+list.get(position).getDatePlay());
         holder.tvSoCa.setText(list.get(position).getSoCa()+"");
+        holder.tvChiPhi.setText(MyApplication.convertMoneyToString(list.get(position).getChiPhiKhac()) + " VNĐ");
 
         Calendar calendarStart = Calendar.getInstance();
         Calendar calendarEnd = Calendar.getInstance();
@@ -100,6 +103,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         }else{
             holder.btnHuy.setBackgroundColor(context.getResources().getColor(R.color.dark_gray));
         }
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     public int[] getArrayDate(String date){
@@ -125,9 +130,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         private TextView tvTenSanBong;
         private TextView tvDate;
         private TextView tvSoCa;
-        private TextView tvTotal,tvTienSan,tvTienDichVu,tvStatus;
+        private TextView tvTotal,tvTienSan,tvTienDichVu,tvStatus,tvChiPhi;
         private Button btnHuy;
         private TextView tvDatePlay;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -142,6 +148,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             tvStatus = itemView.findViewById(R.id.tv_status_item_order);
             tvDatePlay = itemView.findViewById(R.id.tv_date_play_itemorder);
             tvSoCa = itemView.findViewById(R.id.tv_soca_itemorder);
+            tvChiPhi = itemView.findViewById(R.id.tv_chiphi_khac_item_order);
+            cardView = itemView.findViewById(R.id.cardView_phieuThongTin);
 
             btnHuy.setOnClickListener(v->{
                 Order order = list.get(getAdapterPosition());

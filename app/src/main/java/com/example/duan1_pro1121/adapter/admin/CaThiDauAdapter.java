@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
@@ -46,6 +48,8 @@ public class CaThiDauAdapter extends RecyclerView.Adapter<CaThiDauAdapter.ViewHo
         holder.tvName.setText(times.get(position).getName());
         holder.tvTime.setText(times.get(position).getStartTime() + "h - " + times.get(position).getEndTime()+"h");
         holder.tvMoney.setText(MyApplication.convertMoneyToString(times.get(position).getMoney())+"VNĐ");
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     @Override
@@ -95,12 +99,14 @@ public class CaThiDauAdapter extends RecyclerView.Adapter<CaThiDauAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName,tvTime,tvMoney;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_ca_item_cathidau);
             tvTime = itemView.findViewById(R.id.tv_time_item_cathidau);
             tvMoney = itemView.findViewById(R.id.tv_money_item_cathidau);
+            cardView = itemView.findViewById(R.id.cardView_cathidau);
 
             itemView.setOnClickListener(v->{
                 if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_ADMIN) {

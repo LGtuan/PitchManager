@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.adapter.admin.CaThiDauAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -34,4 +35,9 @@ public class ShowCaThiDauActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.INSTANCE.animateSlideRight(this);
+    }
 }

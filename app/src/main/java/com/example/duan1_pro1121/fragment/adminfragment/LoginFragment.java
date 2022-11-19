@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.SplashActivity;
@@ -64,6 +65,7 @@ public class LoginFragment extends Fragment {
                             tvCheckAccount.setVisibility(View.INVISIBLE);
                             intent.putExtra("account",stk);
                             getContext().startActivity(intent);
+                            Animatoo.INSTANCE.animateZoom(getContext());
                         }else{
                             tvCheckAccount.setVisibility(View.VISIBLE);
                         }
@@ -78,6 +80,7 @@ public class LoginFragment extends Fragment {
                             tvCheckAccount.setVisibility(View.INVISIBLE);
                             intent.putExtra("account",stk);
                             getContext().startActivity(intent);
+                            Animatoo.INSTANCE.animateZoom(getContext());
                         }else{
                             tvCheckAccount.setVisibility(View.VISIBLE);
                         }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.SelectTypeActivity;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.fragment.adminfragment.DatSanFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.DichVuFrgment;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else if(item.getItemId() == R.id.item_dangxuat){
                     finishAffinity();
-                    Intent intent = new Intent(MainActivity.this,FormActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);
                     startActivity(intent);
                 }
 

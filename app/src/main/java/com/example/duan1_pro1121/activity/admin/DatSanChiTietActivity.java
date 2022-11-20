@@ -652,7 +652,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             layoutMoneyCustomer.setVisibility(View.VISIBLE);
             tvCustomer.setText(customer.getName());
             tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin()) + " VNĐ");
-            if (customer.getCoin() >= (totalMoneyService + totalMoneyPitch))
+            if (customer.getCoin() >= (chiPhiKhac + totalMoneyService + totalMoneyPitch))
                 tvMoneyCustomer.setTextColor(Color.parseColor("#23C82A"));
             else tvMoneyCustomer.setTextColor(Color.parseColor("#FF1100"));
         }

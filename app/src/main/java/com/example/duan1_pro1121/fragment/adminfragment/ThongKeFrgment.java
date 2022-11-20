@@ -6,14 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.duan1_pro1121.R;
-import com.example.duan1_pro1121.custom_barchart.DayAxisValueFormatter;
-import com.example.duan1_pro1121.custom_barchart.MyAxisValueFormatter;
+import com.example.duan1_pro1121.custom_barchart.custom_barchart.DayAxisValueFormatter;
+import com.example.duan1_pro1121.custom_barchart.custom_barchart.MyAxisValueFormatter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,11 +26,15 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ThongKeFrgment extends Fragment{
 
     private BarChart chart;
-    private ArrayList<BarEntry> data = new ArrayList<>();
+    private TextView tvYear;
+    private Button btnPre,btnNext;
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    private TextView tvLuongNv,tvDichVu,tvChiPhi,tvTotal,tvSanBong;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +48,17 @@ public class ThongKeFrgment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         chart = view.findViewById(R.id.barchar_thongke_fragment);
+        tvYear = view.findViewById(R.id.tv_year_fragment_thongke);
+        btnNext = view.findViewById(R.id.btn_next_thongke);
+        btnNext.setOnClickListener(v->{
+            currentYear++;
+            setUp();
+        });
+        btnPre = view.findViewById(R.id.btn_pre_thongke);
+        btnPre.setOnClickListener(v->{
+            currentYear--;
+            setUp();
+        });
 
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
@@ -80,15 +96,19 @@ public class ThongKeFrgment extends Fragment{
 
         chart.getAxisRight().setEnabled(false);
 
+        setUp();
+    }
+
+    public void setUp(){
+        btnNext.setEnabled(currentYear < Calendar.getInstance().get(Calendar.YEAR));
+        tvYear.setText(currentYear+"");
         setData();
-        chart.animateY(1500);
     }
 
     private void setData() {
-
         ArrayList<BarEntry> values = new ArrayList<>();
         for(int i = 1;i<=12;i++) {
-            int total = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuWithDate("%-" + i + "-2022");
+            int total = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuWithDate("%-" + i + "-"+currentYear);
             float f = (float) total / 1000000;
             if (f % 1 == 0) {
                 int value = (int) f;
@@ -122,5 +142,6 @@ public class ThongKeFrgment extends Fragment{
 
             chart.setData(data);
         }
+        chart.animateY(1500);
     }
 }

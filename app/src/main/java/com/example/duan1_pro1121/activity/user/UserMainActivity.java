@@ -2,11 +2,13 @@ package com.example.duan1_pro1121.activity.user;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +26,11 @@ public class UserMainActivity extends AppCompatActivity {
 
     public static Customer customer;
 
+
     private int CURRENT_FRAGMENT = 0;
     private ImageView imgAvatar;
     private TextView tvMoney,tvName;
+    private ConstraintLayout constraintLayout;
 
     int id_pitch = 1;
     int id_notification = 2;
@@ -42,6 +46,7 @@ public class UserMainActivity extends AppCompatActivity {
 
         ImageView btnNap = findViewById(R.id.img_nap_acount_user_activity);
         imgAvatar = findViewById(R.id.img_avatar_user_activity);
+        constraintLayout = findViewById(R.id.layout_top_info);
         imgAvatar.setOnClickListener(v->{
             Intent intent = new Intent(UserMainActivity.this,ProfileActivity.class);
             startActivity(intent);
@@ -81,12 +86,18 @@ public class UserMainActivity extends AppCompatActivity {
 
     public void handle(int position){
         if(position == 1 && CURRENT_FRAGMENT!=1){
+            constraintLayout.setVisibility(View.VISIBLE);
+            imgAvatar.setVisibility(View.VISIBLE);
             replaceFragment(new DatSanFragment());
             CURRENT_FRAGMENT = 1;
         }else if(position == 2 && CURRENT_FRAGMENT!=2){
+            constraintLayout.setVisibility(View.GONE);
+            imgAvatar.setVisibility(View.GONE);
             replaceFragment(new ThongBaoFragment());
             CURRENT_FRAGMENT = 2;
         }else if(position == 3 && CURRENT_FRAGMENT!=3){
+            constraintLayout.setVisibility(View.GONE);
+            imgAvatar.setVisibility(View.GONE);
             replaceFragment(new HistoryFragment());
             CURRENT_FRAGMENT = 3;
         }

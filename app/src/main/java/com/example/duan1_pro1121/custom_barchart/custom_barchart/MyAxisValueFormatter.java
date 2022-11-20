@@ -1,4 +1,4 @@
-package com.example.duan1_pro1121.custom_barchart;
+package com.example.duan1_pro1121.custom_barchart.custom_barchart;
 
 import android.util.Log;
 import android.widget.Toast;

@@ -14,19 +14,17 @@ import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.custom_barchart.custom_barchart.customPieChart.MyPercentFormatter;
 import com.example.duan1_pro1121.database.MyDatabase;
-import com.example.duan1_pro1121.model.OrderDetails;
 import com.example.duan1_pro1121.model.ServiceBall;
-import com.example.duan1_pro1121.model.statistical.ServicePopular;
+import com.example.duan1_pro1121.model.statistical.DoanhThu;
+import com.example.duan1_pro1121.model.statistical.Popular;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,24 +87,28 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         if (isYear) {
             setUpServiceDoanhThu();
             setUpServicePopular();
+            setUpPitchPopular();
+            setUpDoanhThuPitch();
         } else {
 
         }
     }
 
     public void setUpServiceDoanhThu(){
-        List<OrderDetails> listOrderDetails = MyDatabase.getInstance(this).orderDetailsDAO().getOrderDetailsWithTime("%-"+yearPos);
-        for (OrderDetails orderDetails : listOrderDetails){
-            totalDoanhThuService += orderDetails.getTongTien();
+        Cursor cursor = MyDatabase.getInstance(this).orderDetailsDAO().getInfoDoanhThuService("%-"+yearPos);
+        List<DoanhThu> list = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            DoanhThu doanhThu = new DoanhThu(cursor.getString(0),cursor.getInt(1));
+            totalDoanhThuService += doanhThu.getMoney();
+            list.add(doanhThu);
         }
         tvTongDoanhThuService.setText("+"+MyApplication.convertMoneyToString(totalDoanhThuService)+" VNĐ");
-        List<PieEntry> list = new ArrayList<>();
-        for(int i = 0;i<listOrderDetails.size();i++){
-            int serviceId = listOrderDetails.get(i).getServiceId();
-            ServiceBall serviceBall = MyDatabase.getInstance(this).serviceDAO().getServiceWithId(serviceId).get(0);
-            list.add(new PieEntry((float)listOrderDetails.get(i).getTongTien()/totalDoanhThuService,serviceBall.getName()));
+        List<PieEntry> list1 = new ArrayList<>();
+        for(int i = 0;i<list.size();i++){
+            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuService,list.get(i).getName()));
         }
-        PieDataSet pieDataSet = new PieDataSet(list,"");
+        PieDataSet pieDataSet = new PieDataSet(list1,"");
         Collections.shuffle(myListColor);
         pieDataSet.setColors(myListColor);
 
@@ -119,21 +121,19 @@ public class ShowDetailsStatistical extends AppCompatActivity {
     }
 
     public void setUpServicePopular(){
-        List<ServicePopular> list = new ArrayList<>();
+        List<Popular> list = new ArrayList<>();
 
-        Cursor cursor = MyDatabase.getInstance(this).orderDetailsDAO().getInfoServiceWithDate("%-"+yearPos);
+        Cursor cursor = MyDatabase.getInstance(this).orderDetailsDAO().getInfoPopularService("%-"+yearPos);
         while (cursor.moveToNext()){
-            ServicePopular servicePopular = new ServicePopular(cursor.getInt(0),cursor.getInt(1));
-            totalPopularService += servicePopular.getCount();
-            list.add(servicePopular);
+            Popular popular = new Popular(cursor.getString(0),cursor.getInt(1));
+            totalPopularService += popular.getCount();
+            list.add(popular);
         }
         tvTongPopularService.setText(totalPopularService+" lượt sử dụng");
 
         List<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            int serviceId = list.get(i).getServiceId();
-            ServiceBall serviceBall = MyDatabase.getInstance(this).serviceDAO().getServiceWithId(serviceId).get(0);
-            list1.add(new PieEntry((float)list.get(i).getCount()/totalPopularService,serviceBall.getName()));
+            list1.add(new PieEntry((float)list.get(i).getCount()/totalPopularService,list.get(i).getName()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(list1,"");
@@ -146,6 +146,66 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         data.setValueTextColor(Color.WHITE);
 
         servicePopularChart.setData(data);
+    }
+
+    public void setUpPitchPopular(){
+        List<Popular> list = new ArrayList<>();
+        Cursor cursor = MyDatabase.getInstance(this).orderDAO().getPopularPitch("%-"+yearPos);
+        while(cursor.moveToNext()){
+            Popular popular = new Popular(cursor.getString(0),cursor.getInt(1));
+            totalPopularPitch += popular.getCount();
+            list.add(popular);
+        }
+        tvTongPopularPitch.setText(totalPopularPitch+" lượt sử dụng");
+        ArrayList<PieEntry> list1 = new ArrayList<>();
+        for(int i = 0;i<list.size();i++){
+            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularPitch,list.get(i).getName()));
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(list1,"");
+        Collections.shuffle(myListColor);
+        pieDataSet.setColors(myListColor);
+
+        PieData data = new PieData(pieDataSet);
+        data.setValueFormatter(new MyPercentFormatter());
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.WHITE);
+
+        pitchPopularChart.setData(data);
+    }
+
+    public void setUpDoanhThuPitch(){
+        Cursor cursor = MyDatabase.getInstance(this).orderDAO().getDoanhThuPitch("%-" + yearPos);
+        List<DoanhThu> list = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            DoanhThu doanhThu = new DoanhThu(cursor.getString(0),cursor.getInt(1));
+            totalDoanhThuPitch += doanhThu.getMoney();
+            list.add(doanhThu);
+        }
+        tvTongDoanhThuPitch.setText("+"+MyApplication.convertMoneyToString(totalDoanhThuPitch)+" VNĐ");
+        List<PieEntry> list1 = new ArrayList<>();
+        for(int i = 0;i<list.size();i++){
+            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuPitch,list.get(i).getName()));
+        }
+        PieDataSet pieDataSet = new PieDataSet(list1,"");
+        Collections.shuffle(myListColor);
+        pieDataSet.setColors(myListColor);
+
+        PieData data = new PieData(pieDataSet);
+        data.setValueFormatter(new MyPercentFormatter());
+        data.setValueTextSize(13f);
+        data.setValueTextColor(Color.WHITE);
+
+        pitchDoanhThuChart.setData(data);
+    }
+
+    public void setUpKhungThoiGianPopular(){
+
+    }
+
+    public void setUpCategoryPitchPopular(){
+
     }
 
     public void initView() {
@@ -213,6 +273,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         l3.setTextSize(14);
         l3.setTextColor(getResources().getColor(R.color.dark_blue));
 
+
         pitchDoanhThuChart = findViewById(R.id.piechar_doanhthu_pitch);
         Legend l4 = pitchDoanhThuChart.getLegend();
         l4.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
@@ -222,6 +283,25 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         l4.setFormSize(20);
         l4.setTextSize(14);
         l4.setTextColor(getResources().getColor(R.color.dark_blue));
+        pitchDoanhThuChart.getDescription().setEnabled(false);
+        pitchDoanhThuChart.setDrawEntryLabels(false);
+        pitchDoanhThuChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                layoutPitchDoanhThu.setVisibility(View.VISIBLE);
+                tvNameDoanhThuPitchSingle.setText(((PieEntry) e).getLabel());
+                double singleTotal = totalDoanhThuPitch*((PieEntry) e).getValue();
+                if(singleTotal%1000!=0){
+                    double f = singleTotal/1000;
+                    f = Math.round(f);
+                    singleTotal = (double) (f*1000);
+                }
+                tvSingleDoanhThuPitch.setText("+"+MyApplication.convertMoneyToString((int)singleTotal)+" VNĐ");
+            }
+            @Override
+            public void onNothingSelected() {
+            }
+        });
 
         pitchPopularChart = findViewById(R.id.piechar_pitch_popular);
         Legend l5 = pitchPopularChart.getLegend();
@@ -232,6 +312,21 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         l5.setFormSize(20);
         l5.setTextSize(14);
         l5.setTextColor(getResources().getColor(R.color.dark_blue));
+        pitchPopularChart.setDrawEntryLabels(false);
+        pitchPopularChart.getDescription().setEnabled(false);
+        pitchPopularChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                layoutPitchPopular.setVisibility(View.VISIBLE);
+                tvNamePitchPopularSingle.setText(((PieEntry)e).getLabel());
+                tvSinglePopularPitch.setText(Math.round(((PieEntry) e).getValue() * totalPopularPitch)+" lượt sử dụng");
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
         timePopularChart = findViewById(R.id.piechar_time_popular);
         Legend l6 = timePopularChart.getLegend();

@@ -328,6 +328,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="invisible"
                     android:id="@+id/layout_popular_pitch"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

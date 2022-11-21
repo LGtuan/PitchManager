@@ -1,5 +1,7 @@
 package com.example.duan1_pro1121.dao;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -35,4 +37,10 @@ public interface TimeOrderDetailsDAO {
 
     @Query("DELETE FROM TIMEORDERDETAILS WHERE orderId = :orderId AND timeId = :timeId")
     void deleteWithOrderIdAndTimeId(int orderId,int timeId);
+
+    @Query("SELECT MYTIME.name,COUNT(MYTIME.ID) FROM MYTIME " +
+            "INNER JOIN TIMEORDERDETAILS ON MYTIME.id = TIMEORDERDETAILS.timeId " +
+            "INNER JOIN ORDERS ON TIMEORDERDETAILS.orderId = ORDERS.id " +
+            "WHERE ORDERS.dateCreate LIKE :date GROUP BY MYTIME.ID")
+    Cursor getInfoTime(String date);
 }

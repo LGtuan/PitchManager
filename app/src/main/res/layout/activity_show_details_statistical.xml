@@ -7,7 +7,7 @@
     tools:context=".activity.admin.ShowDetailsStatistical">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvTitleShowDetails"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/my_blue"
@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBack_titleShowDetails"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/back_ic2"
@@ -31,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleShowDetails">
 
         <LinearLayout
             android:orientation="vertical"
@@ -486,7 +487,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:id="@+id/layout_category_popular"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"

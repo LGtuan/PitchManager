@@ -7,7 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardElevation="5dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    android:id="@+id/cardView_customer">
 
     <LinearLayout
         android:orientation="vertical"
@@ -35,7 +36,7 @@
 
             <TextView
                 android:id="@+id/tv1"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:textColor="@color/dark_blue"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:text="0393692654"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/tv1"
@@ -60,7 +61,7 @@
                 android:id="@+id/tv_address_item_khachhang"
                 android:layout_width="180dp"
                 android:maxLines="1"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:layout_height="wrap_content"
                 android:text="Phúc Thọ - Hà Nội "
                 android:textColor="@color/black"
@@ -73,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="001203034204"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/tv_address_item_khachhang"
@@ -82,7 +83,7 @@
             <TextView
                 android:id="@+id/tv3"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="@color/dark_blue"
                 app:layout_constraintTop_toBottomOf="@id/tv1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cmnd :"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textColor="@color/dark_blue"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="Sô tiền :"
                 android:textColor="@color/dark_blue"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv4" />
@@ -118,20 +119,36 @@
                 android:text="3.000.000 VNĐ"
                 android:textColor="#FF1100"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_cmnd_item_khachhang"
                 app:layout_constraintTop_toBottomOf="@+id/tv_cmnd_item_khachhang" />
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:scaleType="fitXY"
                 android:id="@+id/img_avatar_khachhang_fragment"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/user_img"
-
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:shapeAppearanceOverlay="@style/circle_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_naptien_item_khachhang"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/btn_background"
+                android:text="Nạp tiền"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/img_avatar_khachhang_fragment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/img_avatar_khachhang_fragment"
+                app:layout_constraintStart_toStartOf="@id/img_avatar_khachhang_fragment"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    android:id="@+id/cardView_Service">
 
     <LinearLayout
         android:gravity="center_vertical"

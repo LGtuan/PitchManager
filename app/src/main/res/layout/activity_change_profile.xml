@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.ChangeProfileActivity">
+
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#4FFFFFFF"
+        android:paddingBottom="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:background="@color/dark_blue"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="Thông tin cá nhân"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_avatar_change_profile_activity"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_avatar"
+                app:shapeAppearance="@style/circle_img"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_avatar_change_profile_activity"
+                app:layout_constraintEnd_toEndOf="@id/img_avatar_change_profile_activity"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar_change_profile_activity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/btn_edit_img_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_edit"
+                        android:tint="@color/my_blue"
+                        app:shapeAppearance="@style/corner_img_20" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_check_phone_change_profile_activity"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Số điện thoại không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_phone_change_profile_activity"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Phone"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_name_change_profile_activity"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Tên không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_name_change_profile_activity"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Name"
+            android:drawableStart="@drawable/ic_user_circle"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_cmnd_change_profile_activity"
+            style="@style/edt_style"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:drawableStart="@drawable/ic_user_circle"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:hint="Cmnd"
+            android:textColor="@color/my_blue" />
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_check_address_change_profile_activity"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="* Địa chỉ không hợp lệ"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_address_change_profile_activity"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Address"
+            android:drawableStart="@drawable/ic_address"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/edt_color"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_update_change_profile"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="17sp"
+            android:text="Cập nhật"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_height="38dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,28 +68,15 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_user_login"
+            android:id="@+id/btn_login"
             android:background="@drawable/btn_background"
             android:layout_width="110dp"
-            android:layout_marginEnd="25dp"
-            android:drawableStart="@drawable/ic_user_circle"
-            android:text="User"
+            android:text="Login"
             style="@style/btn_style"
             android:paddingStart="14dp"
             android:paddingEnd="20dp"
             android:layout_height="40dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_admin_login"
-            android:background="@drawable/btn_background"
-            android:layout_width="110dp"
-            android:text="Admin"
-            android:drawableStart="@drawable/ic_admin"
-            android:paddingStart="14dp"
-            android:paddingEnd="20dp"
-            style="@style/btn_style"
-            android:layout_marginStart="25dp"
-            android:layout_height="40dp"/>
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

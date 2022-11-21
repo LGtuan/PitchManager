@@ -98,7 +98,7 @@
                 android:id="@+id/rdo_type_hour_dialog_add_and_update_service"
                 android:textStyle="bold"
                 android:textColor="@color/dark_blue"
-                android:text="Tính tiền theo thời gian (1hour)"
+                android:text="Tính tiền theo thời gian (2hour)"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"/>
 

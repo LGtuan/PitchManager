@@ -5,25 +5,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.content.res.ResourcesCompat;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
-import com.example.duan1_pro1121.model.Manager;
+import com.example.duan1_pro1121.model.MyTime;
 import com.example.duan1_pro1121.model.Order;
 import com.example.duan1_pro1121.model.Pitch;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
@@ -51,34 +51,50 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         holder.tvTenKhachHang.setText(customer.getName());
         holder.tvTenSanBong.setText(pitch.getName());
         holder.tvTienSan.setText(MyApplication.convertMoneyToString(list.get(position).getTotalPitchMoney())+" VNĐ");
-        holder.tvTienDichVu.setText(MyApplication.convertMoneyToString(list.get(position).getTotal()-list.get(position).getTotalPitchMoney())+" VNĐ");
+        holder.tvTienDichVu.setText(MyApplication.convertMoneyToString(list.get(position).getTotalServiceMoney())+" VNĐ");
         holder.tvMaPhieuThongTin.setText("Phiếu "+ list.get(position).getId());
-        holder.tvTime.setText(((int)list.get(position).getStartTime())+"h đến "+((int)list.get(position).getEndTime())+"h");
-        holder.tvDate.setText(list.get(position).getDate());
+        holder.tvDate.setText(list.get(position).getDateCreate());
         holder.tvTotal.setText(MyApplication.convertMoneyToString(list.get(position).getTotal()) +"VNĐ");
-        holder.tvDatePlay.setText("- Ngày "+list.get(position).getDatePlay());
+        holder.tvDatePlay.setText("Ngày "+list.get(position).getDatePlay());
+        holder.tvSoCa.setText(list.get(position).getSoCa()+"");
+        holder.tvChiPhi.setText(MyApplication.convertMoneyToString(list.get(position).getChiPhiKhac()) + " VNĐ");
 
         Calendar calendarStart = Calendar.getInstance();
         Calendar calendarEnd = Calendar.getInstance();
         Calendar calendarNow = Calendar.getInstance();
 
-        int[] arr = getArrayDate(list.get(position).getDatePlay());
-        calendarStart.set(arr[2],arr[1]-1,arr[0], (int) list.get(position).getStartTime(),0);
-        calendarEnd.set(arr[2],arr[1]-1,arr[0], (int) list.get(position).getEndTime(),0);
+        List<MyTime> myTimeList = MyDatabase.getInstance(context)
+                .timeDAO().getTimeWithOrderId(list.get(position).getId());
 
+        for(int i = 0;i<myTimeList.size();i++){
+            int[] arr = getArrayDate(list.get(position).getDatePlay());
+            calendarStart.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getStartTime(),0);
+            calendarEnd.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getEndTime(),0);
 
-        if(calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)){
-            list.get(position).setStatus(MyApplication.DANG_STATUS);
-            holder.tvStatus.setText("Đang đá");
-            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.tim));
-        }else if(calendarStart.after(calendarNow)){
-            list.get(position).setStatus(MyApplication.CHUA_STATUS);
+            if(i == 0 && calendarStart.after(calendarNow)){
+                list.get(position).setStatus(MyApplication.CHUA_STATUS);
+                break;
+            }else if(i == myTimeList.size()-1 && calendarEnd.before(calendarNow)){
+                list.get(position).setStatus(MyApplication.DA_STATUS);
+                break;
+            }else{
+                if(calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)){
+                    list.get(position).setStatus(MyApplication.DANG_STATUS);
+                    break;
+                }else{
+                    list.get(position).setStatus(MyApplication.NGHI_STATUS);
+                }
+            }
+        }
+
+        if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
             holder.tvStatus.setText("Chưa đá");
-            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.green));
-        }else if(calendarEnd.before(calendarNow)){
-            list.get(position).setStatus(MyApplication.DA_STATUS);
-            holder.tvStatus.setTextColor(context.getResources().getColor(R.color.dark_gray));
-            holder.tvStatus.setText("Đã đá xong");
+        }else if(list.get(position).getStatus() == MyApplication.DANG_STATUS){
+            holder.tvStatus.setText("Đang đá");
+        }else if(list.get(position).getStatus() == MyApplication.DA_STATUS){
+            holder.tvStatus.setText("Đã đá");
+        }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
+            holder.tvStatus.setText("Đang nghỉ");
         }
 
         if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
@@ -109,25 +125,28 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         private TextView tvMaPhieuThongTin;
         private TextView tvTenKhachHang;
         private TextView tvTenSanBong;
-        private TextView tvTime;
         private TextView tvDate;
-        private TextView tvTotal,tvTienSan,tvTienDichVu,tvStatus;
+        private TextView tvSoCa;
+        private TextView tvTotal,tvTienSan,tvTienDichVu,tvStatus,tvChiPhi;
         private Button btnHuy;
         private TextView tvDatePlay;
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvMaPhieuThongTin = (TextView) itemView.findViewById(R.id.tv_id_item_order);
-            tvTenKhachHang = (TextView) itemView.findViewById(R.id.tv_ten_khach_hang_item_order);
-            tvTenSanBong = (TextView) itemView.findViewById(R.id.tv_ten_san_bong_item_order);
-            tvTime = (TextView) itemView.findViewById(R.id.tv_time_item_order);
-            tvDate = (TextView) itemView.findViewById(R.id.tv_date_item_order);
-            tvTotal = (TextView) itemView.findViewById(R.id.tv_total_item_order);
+            tvMaPhieuThongTin =itemView.findViewById(R.id.tv_id_item_order);
+            tvTenKhachHang =  itemView.findViewById(R.id.tv_ten_khach_hang_item_order);
+            tvTenSanBong = itemView.findViewById(R.id.tv_ten_san_bong_item_order);
+            tvDate = itemView.findViewById(R.id.tv_date_item_order);
+            tvTotal = itemView.findViewById(R.id.tv_total_item_order);
             tvTienSan = itemView.findViewById(R.id.tv_tiensan_item_order);
             tvTienDichVu = itemView.findViewById(R.id.tv_tiendichvu_item_order);
             btnHuy = itemView.findViewById(R.id.btnhuy_item_order);
             tvStatus = itemView.findViewById(R.id.tv_status_item_order);
             tvDatePlay = itemView.findViewById(R.id.tv_date_play_itemorder);
+            tvSoCa = itemView.findViewById(R.id.tv_soca_itemorder);
+            tvChiPhi = itemView.findViewById(R.id.tv_chiphi_khac_item_order);
+            cardView = itemView.findViewById(R.id.cardView_phieuThongTin);
 
             btnHuy.setOnClickListener(v->{
                 Order order = list.get(getAdapterPosition());

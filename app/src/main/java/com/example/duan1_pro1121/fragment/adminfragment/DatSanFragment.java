@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.RadioButton;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.DatSanChiTietActivity;
@@ -56,12 +59,16 @@ public class DatSanFragment extends Fragment {
                 Intent intent = new Intent(getContext(), DatSanChiTietActivity.class);
                 intent.putExtra("PITCH",pitch);
                 startActivity(intent);
+                Animatoo.INSTANCE.animateZoom(getContext());
             }else if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER){
                 Intent intent = new Intent(getContext(), UserDatSanChiTietActivity.class);
                 intent.putExtra("PITCH",pitch);
                 startActivity(intent);
+                Animatoo.INSTANCE.animateZoom(getContext());
             }
         });
+
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false));
 

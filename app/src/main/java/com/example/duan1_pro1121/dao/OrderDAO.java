@@ -1,5 +1,7 @@
 package com.example.duan1_pro1121.dao;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -45,4 +47,14 @@ public interface OrderDAO {
 
     @Query("SELECT SUM(total) FROM ORDERS WHERE dateCreate LIKE :date")
     int getDoanhThuWithDate(String date);
+
+    @Query("SELECT PITCH.name,SUM(ORDERS.totalPitchMoney) FROM PITCH " +
+            "INNER JOIN ORDERS ON PITCH.id = ORDERS.pitchId " +
+            "WHERE ORDERS.dateCreate LIKE :date GROUP BY ORDERS.pitchId")
+    Cursor getDoanhThuPitch(String date);
+
+    @Query("SELECT PITCH.name,COUNT(ORDERS.pitchId) FROM PITCH " +
+            "INNER JOIN ORDERS ON PITCH.id = ORDERS.pitchId " +
+            "WHERE ORDERS.dateCreate LIKE :date GROUP BY ORDERS.pitchId")
+    Cursor getPopularPitch(String date);
 }

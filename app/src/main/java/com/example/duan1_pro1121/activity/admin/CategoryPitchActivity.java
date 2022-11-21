@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -44,7 +45,7 @@ public class CategoryPitchActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_danhsach_loaisan);
         img_back = findViewById(R.id.btn_back_danhsach_loaisan);
         img_back.setOnClickListener(v->{
-            finish();
+            onBackPressed();
         });
 
         adapter = new CategoryPitchAdapter(categories,this);
@@ -136,5 +137,11 @@ public class CategoryPitchActivity extends AppCompatActivity {
             this.list = list;
             notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.INSTANCE.animateSlideRight(this);
     }
 }

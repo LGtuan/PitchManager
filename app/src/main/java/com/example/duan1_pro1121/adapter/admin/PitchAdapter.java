@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan1_pro1121.MyApplication;
@@ -52,6 +54,8 @@ public class PitchAdapter extends RecyclerView.Adapter<PitchAdapter.ViewHolder> 
             holder.tv3.setText(MyApplication.convertMoneyToString(category.getMoney()) + "VNĐ");
             holder.tv4.setText(category.getName());
         }
+
+        holder.cardView.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_down_to_up));
     }
 
     @Override
@@ -61,15 +65,17 @@ public class PitchAdapter extends RecyclerView.Adapter<PitchAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv1,tv2,tv3,tv4;
+        private CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv1 = itemView.findViewById(R.id.tv_name_item_datsan);
-            tv2 = itemView.findViewById(R.id.tv_status_item_datsan);
-            tv3 = itemView.findViewById(R.id.tv_money_item_datsan);
-            tv4 = itemView.findViewById(R.id.tv_type_item_datsan);
+            tv1 = itemView.findViewById(R.id.tv_name_item_pitch);
+            tv2 = itemView.findViewById(R.id.tv_status_item_pitch);
+            tv3 = itemView.findViewById(R.id.tv_money_item_pitch);
+            tv4 = itemView.findViewById(R.id.tv_type_item_pitch);
             itemView.setOnClickListener(v->{
                 onClick.myOnClick(list.get(getAdapterPosition()));
             });
+            cardView = itemView.findViewById(R.id.cardview_pitch);
         }
     }
 

@@ -31,8 +31,8 @@ public interface OrderDAO {
     @Query("SELECT * FROM ORDERS WHERE pitchId = :pitchId AND datePlay = :date")
     List<Order> getOrderWithPitchAndDate(int pitchId,String date);
 
-    @Query("SELECT * FROM ORDERS WHERE pitchId = :pitchId AND datePlay = :date AND startTime != :startTime")
-    List<Order> getOrderWithPitchAndDate(int pitchId,String date,int startTime);
+//    @Query("SELECT * FROM ORDERS WHERE pitchId = :pitchId AND datePlay = :date AND startTime != :startTime")
+//    List<Order> getOrderWithPitchAndDate(int pitchId,String date,int startTime);
 
     @Query("SELECT MAX(id) FROM ORDERS")
     int getIdMax();
@@ -40,4 +40,9 @@ public interface OrderDAO {
     @Query("SELECT * FROM ORDERS WHERE ID = :id")
     List<Order> getOrderWithID(int id);
 
+    @Query("DELETE FROM ORDERS")
+    void deleteAll();
+
+    @Query("SELECT SUM(total) FROM ORDERS WHERE dateCreate LIKE :date")
+    int getDoanhThuWithDate(String date);
 }

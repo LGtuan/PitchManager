@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.admin.ShowDetailsStatistical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/my_blue"
+        android:gravity="center"
+        android:text="Thống kê doanh thu tháng 12"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/back_ic2"
+        android:tint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Doanh thu dịch vụ"
+                android:backgroundTint="#FF9800"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_doanhthu_service"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng doanh thu"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_tongdoanhthu_service"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_doanhthu_service"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_service_doanhthu"
+                        android:text="Doanh thu y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_doanhthu_service"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Dịch vụ phổ biến"
+                android:backgroundTint="#9C27B0"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_service_popular"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_tong_service_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_popular_service"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_popular_service"
+                        android:text="Y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_service_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Doanh thu sân bóng"
+                android:backgroundTint="#FF9800"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_doanhthu_pitch"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng doanh thu"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_tongdoanhthu_pitch"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_doanhthu_pitch"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_picth_doanhthu"
+                        android:text="Doanh thu y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_doanhthu_pitch"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Sân bóng phổ biến"
+                android:backgroundTint="#9C27B0"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_pitch_popular"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_tong_sanbong_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_popular_pitch"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_pitch_popular"
+                        android:text="Doanh thu y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_pitch_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Khung giờ phổ biến"
+                android:backgroundTint="#9C27B0"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_time_popular"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_khunggio_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_khunggio_pupular"
+                    android:visibility="gone"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_khungio_popular"
+                        android:text="Doanh thu y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_khunggio_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:text="Loại sân phổ biến"
+                android:backgroundTint="#9C27B0"
+                android:textColor="@color/white"
+                android:background="@drawable/background_tv1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/piechar_category_pitch_popular"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Tổng"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_loaisan_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_category_popular"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_name_category_popular"
+                        android:text="Doanh thu y tế"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_single_loaisan_popular"
+                        android:text="+80000000 VNĐ"
+                        android:layout_marginStart="20dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/green"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

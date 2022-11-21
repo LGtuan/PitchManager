@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.CategoryPitchActivity;
@@ -78,6 +81,7 @@ public class SanBongFragment extends Fragment {
         tv_show_loaisan.setOnClickListener(v->{
             Intent intent = new Intent(getContext(), CategoryPitchActivity.class);
             startActivity(intent);
+            Animatoo.INSTANCE.animateSlideLeft(getContext());
         });
 
         rdoCategory5.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -166,6 +170,7 @@ public class SanBongFragment extends Fragment {
                     Toast.makeText(getContext(), "Thêm sân bóng thành công", Toast.LENGTH_SHORT).show();
                     pitchsList = MyDatabase.getInstance(getContext()).pitchDao().getAll();
                     adapter.setData(pitchsList);
+
 
                     rdoCategoryAll.setChecked(true);
                     dialog.dismiss();

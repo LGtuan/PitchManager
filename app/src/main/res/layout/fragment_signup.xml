@@ -8,25 +8,47 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
+    <TextView
+        android:id="@+id/tv_check_phone_signup"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="* Số điện thoại không hợp lệ"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_phone_signUp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginTop="10dp"
-        android:hint="Account"
-        android:drawableStart="@drawable/ic_user_circle"
+        android:hint="Phone"
+        android:drawableStart="@drawable/ic_phone"
         android:drawablePadding="10dp"
         android:drawableTint="@color/edt_color"
         android:textColor="@color/my_blue"
         style="@style/edt_style"/>
 
+    <TextView
+        android:id="@+id/tv_check_name_signup"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="* Tên không hợp lệ"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtNameSignUp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginTop="8dp"
         android:hint="Name"
         android:drawableStart="@drawable/ic_user_circle"
         android:drawablePadding="10dp"
@@ -34,24 +56,45 @@
         android:textColor="@color/my_blue"
         style="@style/edt_style"/>
 
+    <TextView
+        android:id="@+id/tv_check_address_signup"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="* Địa chỉ không hợp lệ"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtAddressSignUp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginTop="8dp"
-        android:hint="Phone Number"
-        android:drawableStart="@drawable/ic_phone"
+        android:hint="Address"
+        android:drawableStart="@drawable/ic_address"
         android:drawablePadding="10dp"
         android:drawableTint="@color/edt_color"
         android:textColor="@color/my_blue"
         style="@style/edt_style"/>
 
+    <TextView
+        android:id="@+id/tv_check_pass1_signup"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="* Mật khẩu từ 6 đến 10 kí tự"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="25dp"
         app:boxStrokeWidth="0dp"
         app:passwordToggleTint="@color/edt_color"
@@ -59,6 +102,7 @@
         app:hintEnabled="false"
         app:boxStrokeWidthFocused="0dp">
         <android.widget.EditText
+            android:id="@+id/edt_pass_fragment_signup"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:hint="Password 1"
@@ -72,11 +116,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tv_check_pass2_signup"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:text="* 2 mật khẩu không trùng nhau"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         app:boxStrokeWidth="0dp"
         app:passwordToggleTint="@color/edt_color"
@@ -84,6 +138,7 @@
         app:hintEnabled="false"
         app:boxStrokeWidthFocused="0dp">
         <android.widget.EditText
+            android:id="@+id/edt_pass2_fragment_signup"
             android:drawableStart="@drawable/ic_password"
             android:drawablePadding="10dp"
             android:drawableTint="@color/edt_color"
@@ -98,6 +153,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_signUp"
         android:background="@drawable/btn_background"
         android:layout_width="110dp"
         android:text="Sign Up"

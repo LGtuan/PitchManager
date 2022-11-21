@@ -1,10 +1,19 @@
 package com.example.duan1_pro1121;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class MyApplication extends Application {
 
     public static final String ADMIN_CATEGORY = "Admin";
+
+    public static final int DANG_LAM = 0;
+    public static final int NGHI_VIEC = 1;
 
     public static final int ID_CATEGORY_PITCH_5 = 1;
     public static final int ID_CATEGORY_PITCH_7 = 2;
@@ -13,6 +22,7 @@ public class MyApplication extends Application {
     public static final int DANG_STATUS = 1;
     public static final int DA_STATUS = 2;
     public static final int CHUA_STATUS = 0;
+    public static final int NGHI_STATUS = 3;
 
     public static final int HOATDONG_STATUS = 0;
     public static final int BAOTRI_STATUS = 1;
@@ -27,17 +37,15 @@ public class MyApplication extends Application {
     public static int CURRENT_TYPE = -1;
 
     public static String convertMoneyToString(int money){
-        String s = "";
-        while (true) {
-            if (money / 100 >= 10) {
-                s += ".000";
-                money /= 1000;
-            } else {
-                s = money + s;
-                break;
-            }
-        }
-        return s;
+        long vnd = money;
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String s = currencyVN.format(vnd);
+        return s.substring(0,s.length()-1);
+    }
+
+    public static Bitmap getBitMapFromByte(byte[] bytes){
+        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
     }
 
 }

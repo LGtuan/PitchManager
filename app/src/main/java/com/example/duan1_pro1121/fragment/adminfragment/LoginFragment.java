@@ -15,10 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.SplashActivity;
 import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.model.Customer;
 import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.ManagerCategory;
 
@@ -26,8 +28,8 @@ import java.util.List;
 
 public class LoginFragment extends Fragment {
 
-    private EditText edtStk;
-    private EditText edtPassword;
+    public EditText edtStk;
+    public EditText edtPassword;
     private TextView tvCheckAccount;
 
     @Override
@@ -45,40 +47,48 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button btn_user = view.findViewById(R.id.btn_user_login);
-        Button btn_admin = view.findViewById(R.id.btn_admin_login);
+        Button btn_login = view.findViewById(R.id.btn_login);
         edtPassword = view.findViewById(R.id.edt_password_fragment_login);
         edtStk = view.findViewById(R.id.edt_account_fragment_login);
         tvCheckAccount = view.findViewById(R.id.tv_check_account);
 
-        btn_user.setOnClickListener(v -> {
+        btn_login.setOnClickListener(v -> {
             if (getContext() != null) {
                 Intent intent = new Intent(getContext(), SplashActivity.class);
-                MyApplication.CURRENT_TYPE = MyApplication.TYPE_USER;
-                getContext().startActivity(intent);
-
-            }
-        });
-
-        btn_admin.setOnClickListener(v -> {
-            if (getContext() != null) {
                 String stk = edtStk.getText().toString();
-                List<Manager> list = MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(stk, -1);
-                if (list.size() > 0) {
-                    Manager manager = list.get(0);
-                    String password = edtPassword.getText().toString();
-                    if(password.equals(manager.getPassword())){
-                        tvCheckAccount.setVisibility(View.INVISIBLE);
-                        Intent intent = new Intent(getContext(), SplashActivity.class);
-                        intent.putExtra("account",stk);
-                        MyApplication.CURRENT_TYPE = MyApplication.TYPE_ADMIN;
-                        getContext().startActivity(intent);
-                    }else{
+                String password = edtPassword.getText().toString();
+                if(MyApplication.CURRENT_TYPE == MyApplication.TYPE_USER){
+                    List<Customer> customers = MyDatabase.getInstance(getContext()).customerDAO().getCustomerWithPhone(stk, -1);
+                    if(customers.size() > 0){
+                        Customer customer = customers.get(0);
+                        if(password.equals(customer.getPassword())){
+                            tvCheckAccount.setVisibility(View.INVISIBLE);
+                            intent.putExtra("account",stk);
+                            getContext().startActivity(intent);
+                            Animatoo.INSTANCE.animateZoom(getContext());
+                        }else{
+                            tvCheckAccount.setVisibility(View.VISIBLE);
+                        }
+                    }else {
                         tvCheckAccount.setVisibility(View.VISIBLE);
                     }
-                } else {
-                    tvCheckAccount.setVisibility(View.VISIBLE);
+                }else{
+                    List<Manager> list = MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(stk, -1);
+                    if (list.size() > 0) {
+                        Manager manager = list.get(0);
+                        if(password.equals(manager.getPassword())){
+                            tvCheckAccount.setVisibility(View.INVISIBLE);
+                            intent.putExtra("account",stk);
+                            getContext().startActivity(intent);
+                            Animatoo.INSTANCE.animateZoom(getContext());
+                        }else{
+                            tvCheckAccount.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        tvCheckAccount.setVisibility(View.VISIBLE);
+                    }
                 }
+
             }
         });
     }

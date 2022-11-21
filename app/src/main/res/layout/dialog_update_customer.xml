@@ -21,7 +21,7 @@
             android:background="@color/dark_blue"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:text="Cập nhật số dư khách hàng"
+            android:text="Cập nhật khách hàng"
             android:gravity="center"
             android:textStyle="bold"
             android:layout_width="match_parent"
@@ -31,8 +31,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_dialog_update_khachhang"
                 android:layout_marginTop="10dp"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
                 android:src="@drawable/user_img"/>
@@ -128,48 +128,12 @@
             android:textColor="@color/my_blue"
             style="@style/edt_style"/>
 
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="Số dư : "
-            android:textColor="@color/dark_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_money_dialog_update_khachhang"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="3dp"
-            android:hint="Nhập số dư"
-            android:drawableStart="@drawable/ic_dola"
-            android:drawablePadding="10dp"
-            android:textColor="@color/my_blue"
-            style="@style/edt_style"/>
-
-        <TextView
-            android:visibility="invisible"
-            android:id="@+id/tv_check_money_dialog_update_khachhang"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:text="* Số dư không hợp lệ"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:textColor="#FF0000"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_update_khachhang"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_background"
             android:layout_width="wrap_content"
-            android:text="Update"
+            android:text="Cập nhật"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_height="35dp"

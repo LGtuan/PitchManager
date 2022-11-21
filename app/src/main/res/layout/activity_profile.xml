@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:background="#9FEBECED">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_back_profile_activity"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back_ic2"
+            android:tint="@color/my_blue"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_avatar_change_profile_activity"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_avatar"
+            app:shapeAppearance="@style/circle_img"/>
+
+        <TextView
+            android:id="@+id/tv_name_profile_activity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_avatar_change_profile_activity"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
+            android:textColorHint="@color/my_blue"
+            android:text="Lê Gia Tuấn"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_dola"/>
+
+            <TextView
+                android:id="@+id/tv_money_profile_activity"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="1dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
+                android:text="300.000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_naptien_profile_activity"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="Nạp tiền"
+                android:layout_marginTop="1dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:layout_marginStart="50dp"
+                android:background="@drawable/btn_background"
+                android:layout_width="80dp"
+                android:layout_height="26dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp">
+
+                <TextView
+                    android:id="@+id/tv_show_info_profile_activity"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:background="#1B2199F6"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"
+                    android:text="Xem thông tin cá nhân"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_show_info" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp">
+
+                <TextView
+                    android:id="@+id/tv_change_pass_profile_activity"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:background="#1B2199F6"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"
+                    android:text="Thay đổi mật khẩu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_show_info" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp">
+
+                <TextView
+                    android:id="@+id/tv_history_naptien_profile_activity"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:background="#1B2199F6"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"
+                    android:text="Lịch sử nạp tiền"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_show_info" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardUseCompatPadding="true"
+                app:cardElevation="3dp"
+                app:cardCornerRadius="6dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp">
+
+                <TextView
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
+                    android:background="#1B2199F6"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="17sp"
+                    android:gravity="center_vertical"
+                    android:text="Báo lỗi ứng dụng"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_show_info" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_logout"
+                android:text="Log out"
+                android:textSize="17sp"
+                style="@style/btn_style"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_background"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

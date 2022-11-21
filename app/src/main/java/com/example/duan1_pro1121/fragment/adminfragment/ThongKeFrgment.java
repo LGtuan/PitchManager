@@ -1,5 +1,6 @@
 package com.example.duan1_pro1121.fragment.adminfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.admin.ShowDetailsStatistical;
 import com.example.duan1_pro1121.custom_barchart.custom_barchart.DayAxisValueFormatter;
 import com.example.duan1_pro1121.custom_barchart.custom_barchart.MyAxisValueFormatter;
 import com.example.duan1_pro1121.database.MyDatabase;
@@ -22,8 +25,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +38,7 @@ public class ThongKeFrgment extends Fragment{
 
     private BarChart chart;
     private TextView tvYear;
-    private Button btnPre,btnNext;
+    private Button btnPre,btnNext,btnChiTiet;
     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
     private TextView tvLuongNv,tvDichVu,tvChiPhi,tvTotal,tvSanBong;
 
@@ -50,6 +56,13 @@ public class ThongKeFrgment extends Fragment{
         chart = view.findViewById(R.id.barchar_thongke_fragment);
         tvYear = view.findViewById(R.id.tv_year_fragment_thongke);
         btnNext = view.findViewById(R.id.btn_next_thongke);
+        btnChiTiet = view.findViewById(R.id.btn_details_thongke);
+        btnChiTiet.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(),ShowDetailsStatistical.class);
+            intent.putExtra("IS_YEAR",true);
+            intent.putExtra("YEAR",currentYear);
+            startActivity(intent);
+        });
         btnNext.setOnClickListener(v->{
             currentYear++;
             setUp();
@@ -97,6 +110,20 @@ public class ThongKeFrgment extends Fragment{
         chart.getAxisRight().setEnabled(false);
 
         setUp();
+
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Intent intent = new Intent(getContext(), ShowDetailsStatistical.class);
+                intent.putExtra("YEAR",currentYear);
+                intent.putExtra("MONTH",(int)e.getX());
+                startActivity(intent);
+            }
+            @Override
+            public void onNothingSelected() {
+                Toast.makeText(getContext(), "1234", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void setUp(){
@@ -123,6 +150,7 @@ public class ThongKeFrgment extends Fragment{
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+
             set1.setValues(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
@@ -142,6 +170,6 @@ public class ThongKeFrgment extends Fragment{
 
             chart.setData(data);
         }
-        chart.animateY(1500);
+        chart.animateY(1200);
     }
 }

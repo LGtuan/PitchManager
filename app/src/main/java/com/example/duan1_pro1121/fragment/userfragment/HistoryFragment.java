@@ -1,5 +1,6 @@
 package com.example.duan1_pro1121.fragment.userfragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.user.UserMainActivity;
+import com.example.duan1_pro1121.adapter.admin.SpinnerLoaiNVAdapter;
 import com.example.duan1_pro1121.adapter.user.HistoryDatSanAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Order;
@@ -61,7 +63,7 @@ public class HistoryFragment extends Fragment {
         setUp();
 
         ArrayList<String> list = new ArrayList<>(Arrays.asList("Tất cả","Chưa đá","Đang đá","Đang nghỉ","Đã đá"));
-        ArrayAdapter adapter1 = new ArrayAdapter(getContext(), com.airbnb.lottie.R.layout.support_simple_spinner_dropdown_item,list);
+        MyCustomSpinnerAdapter adapter1 = new MyCustomSpinnerAdapter(getContext(),R.layout.line_spinner_loai_nv,list);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -113,8 +115,65 @@ public class HistoryFragment extends Fragment {
     }
 
     public void setUp(){
-        Log.e("123","12345");
         adapter.setData(orders);
         tvCount.setText(orders.size()+"");
+    }
+
+    public class MyCustomSpinnerAdapter extends ArrayAdapter<String>{
+
+        private Context context;
+        private List<String> list;
+
+        public MyCustomSpinnerAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            this.list = objects;
+        }
+
+        @Override
+        public int getCount() {
+            return super.getCount();
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+            ViewHolder viewHolder;
+            if(convertView == null){
+                viewHolder = new ViewHolder();
+                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv,parent,false);
+                viewHolder.tv = convertView.findViewById(R.id.tv_name_loainv_line_spinner);
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            viewHolder.tv.setText(list.get(position));
+
+            return convertView;
+        }
+
+        @Override
+        public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+            ViewHolder viewHolder;
+            if(convertView == null){
+                viewHolder = new ViewHolder();
+                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv_dropdown,parent,false);
+                viewHolder.tv = convertView.findViewById(R.id.tv_name_loainv_line_spinner_dropdown);
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            viewHolder.tv.setText(list.get(position));
+
+            return convertView;
+        }
+
+        public class ViewHolder{
+            TextView tv;
+        }
     }
 }

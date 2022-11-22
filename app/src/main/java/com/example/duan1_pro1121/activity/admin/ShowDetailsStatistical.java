@@ -115,7 +115,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         tvTongDoanhThuService.setText("+"+MyApplication.convertMoneyToString(totalDoanhThuService)+" VNĐ");
         List<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuService,list.get(i).getName()));
+            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuService*100,list.get(i).getName()));
         }
         PieDataSet pieDataSet = new PieDataSet(list1,"");
         Collections.shuffle(myListColor);
@@ -142,7 +142,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
 
         List<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float)list.get(i).getCount()/totalPopularService,list.get(i).getName()));
+            list1.add(new PieEntry((float)list.get(i).getCount()/totalPopularService*100,list.get(i).getName()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(list1,"");
@@ -168,7 +168,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         tvTongPopularPitch.setText(totalPopularPitch+" lượt sử dụng");
         ArrayList<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularPitch,list.get(i).getName()));
+            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularPitch*100,list.get(i).getName()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(list1,"");
@@ -195,7 +195,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         tvTongDoanhThuPitch.setText("+"+MyApplication.convertMoneyToString(totalDoanhThuPitch)+" VNĐ");
         List<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuPitch,list.get(i).getName()));
+            list1.add(new PieEntry((float)list.get(i).getMoney()/totalDoanhThuPitch*100,list.get(i).getName()));
         }
         PieDataSet pieDataSet = new PieDataSet(list1,"");
         Collections.shuffle(myListColor);
@@ -220,7 +220,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         tvTongKhungGioPopular.setText(totalPopularKhungGio+" lượt đặt");
         ArrayList<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularKhungGio,list.get(i).getName()));
+            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularKhungGio*100,list.get(i).getName()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(list1,"");
@@ -246,7 +246,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
         tvTongPopularCategoryPitch.setText(totalPopularCategoryPitch+" lượt đặt");
         ArrayList<PieEntry> list1 = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularCategoryPitch,list.get(i).getName()));
+            list1.add(new PieEntry((float) list.get(i).getCount()/totalPopularCategoryPitch*100,list.get(i).getName()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(list1,"");
@@ -289,7 +289,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutServiceDoanhThu.setVisibility(View.VISIBLE);
                 tvNameDoanhThuServiceSingle.setText(((PieEntry) e).getLabel());
-                double singleTotal = totalDoanhThuService*((PieEntry) e).getValue();
+                double singleTotal = totalDoanhThuService*((PieEntry) e).getValue()/100;
                 if(singleTotal%1000!=0){
                     double f = singleTotal/1000;
                     f = Math.round(f);
@@ -318,7 +318,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutServicePopular.setVisibility(View.VISIBLE);
                 tvNameServicePopularSingle.setText(((PieEntry)e).getLabel());
-                tvSinglePopularService.setText(Math.round(((PieEntry) e).getValue() * totalPopularService)+" lượt sử dụng");
+                tvSinglePopularService.setText(Math.round(((PieEntry) e).getValue() * totalPopularService/100)+" lượt sử dụng");
             }
 
             @Override
@@ -343,7 +343,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutCategoryPopular.setVisibility(View.VISIBLE);
                 tvNameCategoryPopularSingle.setText(((PieEntry) e).getLabel());
-                tvSinglePopularCategoryPitch.setText(Math.round(((PieEntry) e).getValue() * totalPopularCategoryPitch)+" lượt đặt");
+                tvSinglePopularCategoryPitch.setText(Math.round(((PieEntry) e).getValue() * totalPopularCategoryPitch/100)+" lượt đặt");
             }
             @Override
             public void onNothingSelected() {
@@ -368,7 +368,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutPitchDoanhThu.setVisibility(View.VISIBLE);
                 tvNameDoanhThuPitchSingle.setText(((PieEntry) e).getLabel());
-                double singleTotal = totalDoanhThuPitch*((PieEntry) e).getValue();
+                double singleTotal = totalDoanhThuPitch*((PieEntry) e).getValue()/100;
                 if(singleTotal%1000!=0){
                     double f = singleTotal/1000;
                     f = Math.round(f);
@@ -396,7 +396,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutPitchPopular.setVisibility(View.VISIBLE);
                 tvNamePitchPopularSingle.setText(((PieEntry)e).getLabel());
-                tvSinglePopularPitch.setText(Math.round(((PieEntry) e).getValue() * totalPopularPitch)+" lượt sử dụng");
+                tvSinglePopularPitch.setText(Math.round(((PieEntry) e).getValue() * totalPopularPitch/100)+" lượt sử dụng");
             }
 
             @Override
@@ -421,7 +421,7 @@ public class ShowDetailsStatistical extends AppCompatActivity {
             public void onValueSelected(Entry e, Highlight h) {
                 layoutKhunggioPopular.setVisibility(View.VISIBLE);
                 tvNameKhungGioPopularSingle.setText(((PieEntry)e).getLabel());
-                tvSingleKhungGioPopular.setText(Math.round(((PieEntry) e).getValue() * totalPopularKhungGio)+ " lượt đặt");
+                tvSingleKhungGioPopular.setText(Math.round(((PieEntry) e).getValue() * totalPopularKhungGio/100)+ " lượt đặt");
             }
 
             @Override

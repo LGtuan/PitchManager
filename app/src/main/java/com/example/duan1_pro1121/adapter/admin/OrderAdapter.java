@@ -66,6 +66,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         List<MyTime> myTimeList = MyDatabase.getInstance(context)
                 .timeDAO().getTimeWithOrderId(list.get(position).getId());
 
+        int beginStatus = list.get(position).getStatus();
+
         for(int i = 0;i<myTimeList.size();i++){
             int[] arr = getArrayDate(list.get(position).getDatePlay());
             calendarStart.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getStartTime(),0);
@@ -73,29 +75,39 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
             if(i == 0 && calendarStart.after(calendarNow)){
                 list.get(position).setStatus(MyApplication.CHUA_STATUS);
+                holder.tvStatus.setText("Chưa đá");
                 break;
             }else if(i == myTimeList.size()-1 && calendarEnd.before(calendarNow)){
                 list.get(position).setStatus(MyApplication.DA_STATUS);
+                holder.tvStatus.setText("Đã đá");
                 break;
             }else{
                 if(calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)){
                     list.get(position).setStatus(MyApplication.DANG_STATUS);
+                    holder.tvStatus.setText("Đang đá");
                     break;
                 }else{
                     list.get(position).setStatus(MyApplication.NGHI_STATUS);
+                    holder.tvStatus.setText("Đang nghỉ");
                 }
             }
         }
 
-        if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
-            holder.tvStatus.setText("Chưa đá");
-        }else if(list.get(position).getStatus() == MyApplication.DANG_STATUS){
-            holder.tvStatus.setText("Đang đá");
-        }else if(list.get(position).getStatus() == MyApplication.DA_STATUS){
-            holder.tvStatus.setText("Đã đá");
-        }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
-            holder.tvStatus.setText("Đang nghỉ");
+        if(beginStatus != list.get(position).getStatus()){
+            MyDatabase.getInstance(context).orderDAO().update(list.get(position));
+            list.set(position,MyDatabase.getInstance(context).orderDAO().getOrderWithID(list.get(position).getId()).get(0));
+            notifyItemChanged(position);
         }
+
+//        if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
+//            holder.tvStatus.setText("Chưa đá");
+//        }else if(list.get(position).getStatus() == MyApplication.DANG_STATUS){
+//            holder.tvStatus.setText("Đang đá");
+//        }else if(list.get(position).getStatus() == MyApplication.DA_STATUS){
+//            holder.tvStatus.setText("Đã đá");
+//        }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
+//            holder.tvStatus.setText("Đang nghỉ");
+//        }
 
         if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
             holder.btnHuy.setBackground(AppCompatResources.getDrawable(context,R.drawable.btn_background));

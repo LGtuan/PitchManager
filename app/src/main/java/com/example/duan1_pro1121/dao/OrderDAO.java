@@ -58,10 +58,11 @@ public interface OrderDAO {
             "INNER JOIN ORDERS ON PITCH.id = ORDERS.pitchId " +
             "WHERE ORDERS.dateCreate LIKE :date GROUP BY ORDERS.pitchId")
     Cursor getPopularPitch(String date);
-
+    
     @Query("SELECT * FROM ORDERS WHERE customerId == :customerId ORDER BY id DESC")
     List<Order> getOrderWithCustomerId(int customerId);
 
     @Query("SELECT * FROM ORDERS WHERE customerId == :id AND status =:status ORDER BY id DESC")
     List<Order> getOrderWithCustomerIdAndStatus(int id, int status);
+
 }

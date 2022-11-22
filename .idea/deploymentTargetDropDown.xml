@@ -7,23 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\ACER\.android\avd\Pixel_2_API_29_2.avd" />
+            <value value="C:\Users\ACER\.android\avd\Pixel_API_29.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-11-21T07:27:49.773350200Z" />
-    <multipleDevicesSelectedInDropDown value="true" />
-    <runningDeviceTargetsSelectedWithDialog>
-      <Target>
-        <type value="RUNNING_DEVICE_TARGET" />
-        <deviceKey>
-          <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\ACER\.android\avd\Pixel_2_API_29_2.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </runningDeviceTargetsSelectedWithDialog>
+    <timeTargetWasSelectedWithDropDown value="2022-11-22T14:10:02.205223600Z" />
   </component>
 </project>

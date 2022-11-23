@@ -13,7 +13,7 @@ public class MyPercentFormatter extends ValueFormatter
     private PieChart pieChart;
 
     public MyPercentFormatter() {
-        mFormat = new DecimalFormat("###,###,##0.0");
+        mFormat = new DecimalFormat("###,###,##0.00");
     }
 
     // Can be used to remove percent signs if the chart isn't in percent mode

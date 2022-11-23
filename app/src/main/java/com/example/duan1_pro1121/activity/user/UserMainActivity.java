@@ -86,6 +86,7 @@ public class UserMainActivity extends AppCompatActivity {
 
     public void handle(int position){
         if(position == 1 && CURRENT_FRAGMENT!=1){
+            setUp();
             constraintLayout.setVisibility(View.VISIBLE);
             imgAvatar.setVisibility(View.VISIBLE);
             replaceFragment(new DatSanFragment());

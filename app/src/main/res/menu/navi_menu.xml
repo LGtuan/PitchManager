@@ -24,6 +24,10 @@
             android:id="@+id/item_man_hinh_thong_bao"
             android:iconTint="@color/black"
             android:icon="@drawable/ic_notification"/>
+        <item android:title="Yêu cầu nạp tiền"
+            android:id="@+id/item_accept_naptien"
+            android:iconTint="@color/black"
+            android:icon="@drawable/icon_buy_history"/>
         <item android:title="Cá nhân"
             android:id="@+id/item_man_hinh_ca_nhan"
             android:icon="@drawable/ic_screen"/>

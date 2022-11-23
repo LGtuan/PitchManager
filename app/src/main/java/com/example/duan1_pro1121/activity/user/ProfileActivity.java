@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivityForResult(intent,CHANGE_INFO_CODE);
         });
         tvHistory.setOnClickListener(v->{
-            Intent intent = new Intent(this,HistoryActivity.class);
+            Intent intent = new Intent(this, HistoryNapTienActivity.class);
             startActivity(intent);
         });
         tvChangePass.setOnClickListener(v->{

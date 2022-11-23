@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.duan1_pro1121.model.HistoryBuy;
+import com.example.duan1_pro1121.model.Pitch;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface HistoryBuyDAO {
 
     @Delete
     void delete(HistoryBuy historyBuy);
+
+    @Query("SELECT * FROM HistoryBuy WHERE idCustomer = :idCustomer ")
+    List<HistoryBuy> getHistoryBuyWithIdCustomer(int idCustomer);
 }

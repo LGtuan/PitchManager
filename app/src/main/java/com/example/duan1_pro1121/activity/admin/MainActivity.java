@@ -26,6 +26,7 @@ import com.example.duan1_pro1121.fragment.adminfragment.ManHinhCaNhanFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.NhanVienFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.PhieuThongTinFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.SanBongFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.ThongBaoFragmentAdmin;
 import com.example.duan1_pro1121.fragment.adminfragment.ThongKeFrgment;
 import com.example.duan1_pro1121.fragment.adminfragment.TimeFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -119,7 +120,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
                         return false;
                     }
-                }else if(item.getItemId() == R.id.item_dangxuat){
+                }else if(item.getItemId() == R.id.item_man_hinh_thong_bao && CURRENT_FRAGMENT!=9)  {
+                    menu.findItem(item.getItemId()).setChecked(true);
+                    CURRENT_FRAGMENT = 9;
+                    replaceFragment(new ThongBaoFragmentAdmin());
+                    getSupportActionBar().setTitle("Thông báo");
+                } else if(item.getItemId() == R.id.item_dangxuat){
                     finishAffinity();
                     MyApplication.CURRENT_TYPE = -1;
                     Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);

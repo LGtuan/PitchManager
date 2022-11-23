@@ -6,30 +6,17 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "MY_NOTIFICATION",foreignKeys =
-@ForeignKey(entity = Customer.class,parentColumns = "id",childColumns = "customerId", onDelete = CASCADE))
+@Entity(tableName = "MY_NOTIFICATION")
 public class MyNotification {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int customerId;
     private String title;
     private String content;
     private String date;
-    private String toDate;
-    byte[] img;
+    private int status;
 
     public MyNotification(){
 
-    }
-
-    public MyNotification(int id, int customerId, String title, String content, String date, String toDate, byte[] img) {
-        this.id = id;
-        this.customerId = customerId;
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.toDate = toDate;
-        this.img = img;
     }
 
     public int getId() {
@@ -38,14 +25,6 @@ public class MyNotification {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public String getTitle() {
@@ -72,19 +51,11 @@ public class MyNotification {
         this.date = date;
     }
 
-    public String getToDate() {
-        return toDate;
+    public int getStatus() {
+        return status;
     }
 
-    public void setToDate(String toDate) {
-        this.toDate = toDate;
-    }
-
-    public byte[] getImg() {
-        return img;
-    }
-
-    public void setImg(byte[] img) {
-        this.img = img;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

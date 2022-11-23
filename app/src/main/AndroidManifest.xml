@@ -49,7 +49,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.user.HistoryActivity"
+            android:name=".activity.user.HistoryNapTienActivity"
             android:exported="false" />
         <activity
             android:name=".activity.user.ProfileActivity"

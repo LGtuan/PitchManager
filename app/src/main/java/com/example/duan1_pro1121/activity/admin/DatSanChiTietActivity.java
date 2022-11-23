@@ -77,6 +77,8 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     int count = 0;
     int maxCount = 5;
 
+    boolean canEdit = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,11 +100,14 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 setOnClickForImageView();
             }else if(order.getStatus() == MyApplication.DA_STATUS){
                 btnServiceDetails.setEnabled(false);
+//                btnServiceDetails.setEnabled(false);
                 btnDatSan.setEnabled(false);
                 tvDate.setEnabled(false);
                 btnDatSan.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+//                btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                canEdit = false;
             }
             tvCustomer.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             tvCustomer.setEnabled(false);
@@ -600,6 +605,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
             bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
             intent.putExtra("bundle", bundle);
+            intent.putExtra("CAN_EDIT",canEdit);
             startActivityForResult(intent, REQUEST_CODE_SERVICE);
             Animatoo.INSTANCE.animateShrink(this);
         });

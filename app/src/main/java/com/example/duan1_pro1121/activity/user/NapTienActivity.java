@@ -26,9 +26,11 @@ import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Customer;
+import com.example.duan1_pro1121.model.HistoryBuy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class NapTienActivity extends AppCompatActivity {
@@ -43,12 +45,15 @@ public class NapTienActivity extends AppCompatActivity {
     int naptienStatus = -1;
     int customer_id = -1;
 
+    boolean isAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nap_tien);
 
         customer_id = getIntent().getIntExtra("CUSTOMER_ID",-1);
+        isAdmin = getIntent().getBooleanExtra("IS_ADMIN",false);
 
         btnNapTien = findViewById(R.id.btn_nap_tien);
         tvCheck = findViewById(R.id.tvCheckNapTien);
@@ -70,15 +75,28 @@ public class NapTienActivity extends AppCompatActivity {
                     progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     naptienStatus = 0;
 
-                    Customer customer = MyDatabase.getInstance(this).customerDAO().getCustomerWithID(customer_id).get(0);
-                    customer.setCoin(customer.getCoin() + list.get(adapter.getCurrentSelect()));
-                    MyDatabase.getInstance(this).customerDAO().update(customer);
 
                     new Handler().postDelayed(() -> {
+                        HistoryBuy historyBuy = new HistoryBuy();
+                        Calendar calendar = Calendar.getInstance();
+                        historyBuy.setDate(calendar.get(Calendar.DATE)+"-"+calendar.get(Calendar.MONTH)+"-"+calendar.get(Calendar.YEAR));
+                        historyBuy.setIdCustomer(customer_id);
+                        historyBuy.setMoney(list.get(adapter.getCurrentSelect()));
+                        if(isAdmin){
+                            Customer customer = MyDatabase.getInstance(this).customerDAO().getCustomerWithID(customer_id).get(0);
+                            customer.setCoin(customer.getCoin() + list.get(adapter.getCurrentSelect()));
+                            MyDatabase.getInstance(this).customerDAO().update(customer);
+                            historyBuy.setStatus(MyApplication.NAPTIEN_THANHCONG);
+                            Toast.makeText(NapTienActivity.this, "Nạp tiền thành công", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            historyBuy.setStatus(MyApplication.NAPTIEN_CHOXACNHAN);
+                            Toast.makeText(NapTienActivity.this, "Đang chờ xác nhận", Toast.LENGTH_SHORT).show();
+                        }
+                        MyDatabase.getInstance(this).historyBuyDAO().insert(historyBuy);
                         progressDialog.dismiss();
                         adapter.setCurrentSelect(-1);
                         naptienStatus = -1;
-                        Toast.makeText(NapTienActivity.this, "Nạp tiền thành công", Toast.LENGTH_SHORT).show();
                         setResult(RESULT_OK);
                         finish();
                     }, 1000);

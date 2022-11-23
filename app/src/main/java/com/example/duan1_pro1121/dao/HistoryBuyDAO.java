@@ -24,4 +24,10 @@ public interface HistoryBuyDAO {
 
     @Delete
     void delete(HistoryBuy historyBuy);
+
+    @Query("SELECT * FROM HISTORYBUY WHERE idCustomer = :id ORDER BY id DESC")
+    List<HistoryBuy> getALlWithId(int id);
+
+    @Query("SELECT * FROM HISTORYBUY WHERE status = :status ORDER BY id DESC")
+    List<HistoryBuy> getAllWithStatus(int status);
 }

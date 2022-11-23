@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:background="@color/transparent"
+    app:cardCornerRadius="6dp">
+
+    <LinearLayout
+        android:paddingBottom="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title_dialog_add_notification"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:background="@color/dark_blue"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="Thêm Thông Báo"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_title_dialog_add_thongbao"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Tiêu đề"
+            android:drawablePadding="10dp"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_content_dialog_thongbao"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="top"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:hint="Nội dung"
+            android:inputType="textMultiLine"
+            android:drawablePadding="10dp"
+            android:textColor="@color/my_blue"
+            style="@style/edt_style"/>
+
+        <LinearLayout
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:textColor="@color/dark_blue"
+                android:text="Trạng thái :"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:checked="true"
+                    android:id="@+id/rdo_hoatdong_dialog_add_thongbao"
+                    android:layout_marginStart="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    android:text="Hoạt động"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+                <RadioButton
+                    android:id="@+id/rdo_end_dialog_add_thongbao"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/dark_gray"
+                    android:textStyle="bold"
+                    android:text="Kết thúc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_thongbao"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="wrap_content"
+            android:text="Thêm"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:layout_height="35dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

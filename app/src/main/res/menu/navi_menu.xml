@@ -20,6 +20,10 @@
         <item android:id="@+id/item_dichvu"
             android:title="Dịch vụ"
             android:icon="@drawable/service"/>
+        <item android:title="Thông báo"
+            android:id="@+id/item_man_hinh_thong_bao"
+            android:iconTint="@color/black"
+            android:icon="@drawable/ic_notification"/>
         <item android:title="Cá nhân"
             android:id="@+id/item_man_hinh_ca_nhan"
             android:icon="@drawable/ic_screen"/>

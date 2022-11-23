@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
             startActivityForResult(intent,CHANGE_INFO_CODE);
         });
         tvHistory.setOnClickListener(v->{
-            Intent intent = new Intent(this, HistoryNapTienActivity.class);
+            Intent intent = new Intent(this, HistoryActivity.class);
             startActivity(intent);
         });
         tvChangePass.setOnClickListener(v->{

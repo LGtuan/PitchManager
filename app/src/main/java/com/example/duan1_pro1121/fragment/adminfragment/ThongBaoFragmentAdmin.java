@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +97,8 @@ public class ThongBaoFragmentAdmin extends Fragment {
                     int cusId = cursor.getInt(0);
                     NotificationDetails details = new NotificationDetails();
                     details.setCustomerId(cusId);
-                    details.setNotificationId(notification.getId());
+                    details.setNotificationId(MyDatabase.getInstance(getContext()).notificationDAO().getNewNotification());
+                    Log.e("123",cusId+"-"+notification.getId());
                     MyDatabase.getInstance(getContext()).notificationDetailsDAO().insert(details);
                 }
                 Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();

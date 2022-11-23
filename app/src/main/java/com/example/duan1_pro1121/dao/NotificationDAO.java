@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface NotificationDAO {
 
-    @Query("SELECT * FROM MY_NOTIFICATION")
+    @Query("SELECT * FROM MY_NOTIFICATION ORDER BY MY_NOTIFICATION.id DESC")
     List<MyNotification> getALl();
 
 //    @Query("SELECT * FROM MY_NOTIFICATION WHERE customerId = :id")
@@ -28,4 +28,14 @@ public interface NotificationDAO {
     @Delete
     void delete(MyNotification notification);
 
+    @Query("SELECT * FROM MY_NOTIFICATION " +
+            "INNER JOIN NOTIFICATIONDETAILS " +
+            "ON MY_NOTIFICATION.id = NOTIFICATIONDETAILS.notificationId " +
+            "INNER JOIN CUSTOMER " +
+            "ON NOTIFICATIONDETAILS.customerId = CUSTOMER.id " +
+            "WHERE CUSTOMER.id = :id ORDER BY MY_NOTIFICATION.id DESC")
+    List<MyNotification> getNotifiWithCusId(int id);
+
+    @Query("SELECT MAX(id) FROM MY_NOTIFICATION")
+    int getNewNotification();
 }

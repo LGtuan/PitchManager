@@ -16,8 +16,8 @@ public interface NotificationDAO {
     @Query("SELECT * FROM MY_NOTIFICATION")
     List<MyNotification> getALl();
 
-    @Query("SELECT * FROM MY_NOTIFICATION WHERE customerId = :id")
-    List<MyNotification> getAllWithIdCus(int id);
+//    @Query("SELECT * FROM MY_NOTIFICATION WHERE customerId = :id")
+//    List<MyNotification> getAllWithIdCus(int id);
 
     @Update
     void update(MyNotification notification);

@@ -1,5 +1,7 @@
 package com.example.duan1_pro1121.dao;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -33,4 +35,7 @@ public interface CustomerDAO {
 
     @Query("SELECT * FROM CUSTOMER WHERE id LIKE :id")
     List<Customer> getCustomerWithID(int id);
+
+    @Query("SELECT id FROM CUSTOMER")
+    Cursor getAllId();
 }

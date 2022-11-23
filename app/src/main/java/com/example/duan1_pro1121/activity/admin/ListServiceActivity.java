@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.adapter.admin.ServiceAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.ServiceBall;
 
@@ -30,6 +31,7 @@ public class ListServiceActivity extends AppCompatActivity {
     private RecyclerView recy1, recy2;
     private ServiceAdapter adapter;
     private ServiceAdapter2 adapter2;
+    boolean canEdit;
     ImageView img;
 
     @Override
@@ -37,6 +39,7 @@ public class ListServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_service);
 
+        canEdit = getIntent().getBooleanExtra("CAN_EDIT",false);
         list1 = (List<ServiceBall>) getIntent().getBundleExtra("bundle").getSerializable("LIST_SERVICE");
         listNumber = (List<Integer>) getIntent().getBundleExtra("bundle").getSerializable("LIST_NUMBER");
         list2 = MyDatabase.getInstance(this).serviceDAO().getAll();
@@ -49,7 +52,7 @@ public class ListServiceActivity extends AppCompatActivity {
             }
         }
         initView();
-        adapter = new ServiceAdapter(list1, false);
+        adapter = new ServiceAdapter(list1);
         adapter.setNumbers(listNumber);
         adapter2 = new ServiceAdapter2(list2);
 
@@ -63,13 +66,17 @@ public class ListServiceActivity extends AppCompatActivity {
     public void initView() {
         img = findViewById(R.id.img_complete_list_service);
         img.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("LIST_SERVICE", (Serializable) list1);
-            bundle.putSerializable("LIST_NUMBER", (Serializable) listNumber);
-            intent.putExtra("bundle", bundle);
-            setResult(RESULT_OK, intent);
-            finish();
+            if(canEdit) {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("LIST_SERVICE", (Serializable) list1);
+                bundle.putSerializable("LIST_NUMBER", (Serializable) listNumber);
+                intent.putExtra("bundle", bundle);
+                setResult(RESULT_OK, intent);
+                finish();
+            }else{
+                onBackPressed();
+            }
             Animatoo.INSTANCE.animateZoom(this);
         });
         recy1 = findViewById(R.id.recycler_list_service1);
@@ -81,11 +88,9 @@ public class ListServiceActivity extends AppCompatActivity {
 
         private List<ServiceBall> data;
         private List<Integer> numbers;
-        private boolean isAdd;
 
-        public ServiceAdapter(List<ServiceBall> data, boolean isAdd) {
+        public ServiceAdapter(List<ServiceBall> data) {
             this.data = data;
-            this.isAdd = isAdd;
         }
 
         @NonNull
@@ -135,27 +140,29 @@ public class ListServiceActivity extends AppCompatActivity {
                 imgPlus = itemView.findViewById(R.id.img_plus_item_list_service);
                 imgMinus = itemView.findViewById(R.id.img_minus_item_list_service);
 
-                imgPlus.setOnClickListener(v -> {
-                    listNumber.set(getAdapterPosition(), listNumber.get(getAdapterPosition())+1);
-                    adapter.setNumbers(listNumber);
-                    adapter.notifyDataSetChanged();
-                });
-                imgMinus.setOnClickListener(v -> {
-                    if (!(listNumber.get(getAdapterPosition()) <= 1)) {
-                        listNumber.set(getAdapterPosition(), listNumber.get(getAdapterPosition())-1);
+                if(canEdit) {
+                    imgPlus.setOnClickListener(v -> {
+                        listNumber.set(getAdapterPosition(), listNumber.get(getAdapterPosition()) + 1);
                         adapter.setNumbers(listNumber);
                         adapter.notifyDataSetChanged();
-                    }
-                });
+                    });
+                    imgMinus.setOnClickListener(v -> {
+                        if (!(listNumber.get(getAdapterPosition()) <= 1)) {
+                            listNumber.set(getAdapterPosition(), listNumber.get(getAdapterPosition()) - 1);
+                            adapter.setNumbers(listNumber);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
 
-                img.setOnClickListener(v -> {
-                    list2.add(list1.get(getAdapterPosition()));
-                    list1.remove(getAdapterPosition());
-                    listNumber.remove(getAdapterPosition());
+                    img.setOnClickListener(v -> {
+                        list2.add(list1.get(getAdapterPosition()));
+                        list1.remove(getAdapterPosition());
+                        listNumber.remove(getAdapterPosition());
 
-                    adapter.setData(list1);
-                    adapter2.setData(list2);
-                });
+                        adapter.setData(list1);
+                        adapter2.setData(list2);
+                    });
+                }
             }
         }
     }
@@ -205,15 +212,16 @@ public class ListServiceActivity extends AppCompatActivity {
                 tv1 = itemView.findViewById(R.id.tv_name_item_list_service);
                 tv2 = itemView.findViewById(R.id.tv_money_item_list_service);
                 tv5 = itemView.findViewById(R.id.tv_type_item_listservice);
+                if(canEdit) {
+                    img.setOnClickListener(v -> {
+                        list1.add(list2.get(getAdapterPosition()));
+                        listNumber.add(1);
+                        list2.remove(getAdapterPosition());
 
-                img.setOnClickListener(v -> {
-                    list1.add(list2.get(getAdapterPosition()));
-                    listNumber.add(1);
-                    list2.remove(getAdapterPosition());
-
-                    adapter.setData(list1);
-                    adapter2.setData(list2);
-                });
+                        adapter.setData(list1);
+                        adapter2.setData(list2);
+                    });
+                }
             }
         }
     }

@@ -40,7 +40,7 @@ import com.example.duan1_pro1121.model.TimeOrderDetails;
         , NotificationDetails.class}, version = 1)
 public abstract class MyDatabase extends RoomDatabase {
 
-    private static String DB_NAME = "PITCH_MANAGER20";
+    private static String DB_NAME = "PITCH_MANAGER21";
     private static MyDatabase instance;
 
     public static synchronized MyDatabase getInstance(Context context){

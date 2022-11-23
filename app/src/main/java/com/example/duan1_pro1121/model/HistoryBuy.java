@@ -9,6 +9,7 @@ public class HistoryBuy {
     private int id;
     private int idCustomer;
     private int money;
+    private int status;
     private String date;
 
     public int getId() {
@@ -41,5 +42,13 @@ public class HistoryBuy {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

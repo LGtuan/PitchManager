@@ -25,6 +25,7 @@ import com.example.duan1_pro1121.fragment.adminfragment.KhachHangFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.ManHinhCaNhanFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.NhanVienFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.PhieuThongTinFragment;
+import com.example.duan1_pro1121.fragment.adminfragment.RequestBuyFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.SanBongFragment;
 import com.example.duan1_pro1121.fragment.adminfragment.ThongBaoFragmentAdmin;
 import com.example.duan1_pro1121.fragment.adminfragment.ThongKeFrgment;
@@ -125,7 +126,13 @@ public class MainActivity extends AppCompatActivity {
                     CURRENT_FRAGMENT = 9;
                     replaceFragment(new ThongBaoFragmentAdmin());
                     getSupportActionBar().setTitle("Thông báo");
-                } else if(item.getItemId() == R.id.item_dangxuat){
+                }else if(item.getItemId() == R.id.item_accept_naptien && CURRENT_FRAGMENT!=10)  {
+                    menu.findItem(item.getItemId()).setChecked(true);
+                    CURRENT_FRAGMENT = 10;
+                    replaceFragment(new RequestBuyFragment());
+                    getSupportActionBar().setTitle("Yêu cầu nạp tiền");
+                }
+                else if(item.getItemId() == R.id.item_dangxuat){
                     finishAffinity();
                     MyApplication.CURRENT_TYPE = -1;
                     Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);

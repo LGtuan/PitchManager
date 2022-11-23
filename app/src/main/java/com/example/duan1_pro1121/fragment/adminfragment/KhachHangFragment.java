@@ -86,6 +86,7 @@ public class KhachHangFragment extends Fragment {
         adapter.setOnClick(this::createDialogUpdate);
         adapter.setNapTienOnClick(id->{
             Intent intent = new Intent(getContext(), NapTienActivity.class);
+            intent.putExtra("IS_ADMIN",true);
             intent.putExtra("CUSTOMER_ID",id);
             startActivityForResult(intent,NAPTIEN_CODE);
         });

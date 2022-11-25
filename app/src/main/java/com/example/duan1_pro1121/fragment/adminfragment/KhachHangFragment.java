@@ -229,6 +229,7 @@ public class KhachHangFragment extends Fragment {
                     customer.setPhone(phone);
                     customer.setName(name);
                     customer.setCmnd(cmnd);
+                    customer.setCoin(c.getCoin());
                     customer.setAddress(address);
 
                     MyDatabase.getInstance(getContext()).customerDAO().update(customer);

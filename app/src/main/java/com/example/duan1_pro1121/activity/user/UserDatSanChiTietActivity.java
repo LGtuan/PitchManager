@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ import java.util.List;
 public class UserDatSanChiTietActivity extends AppCompatActivity {
 
     public static int REQUEST_CODE_SERVICE = 2;
-    TextView tv_tensan, tvMocTg,
+    TextView tv_tensan, tvMocTg, tvSoluotCapNhat,tvShow,
             tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvShowCaThiDau, tvChiPhi;
     Button btnServiceDetails, btnDatSan;
 
@@ -76,6 +77,8 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
     int count = 0;
     int maxCount = 5;
 
+    boolean canEdit = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +107,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
                 btnDatSan.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                canEdit = false;
             }
 
             isUpdate = true;
@@ -126,7 +130,10 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
             setUpTvMocTg("", type_cancel);
 
             btnDatSan.setText("Cập nhật");
+            tvSoluotCapNhat.setText(order.getSoLanCapNhat() + "");
         } else {
+            tvSoluotCapNhat.setVisibility(View.INVISIBLE);
+            tvShow.setVisibility(View.INVISIBLE);
             setOnClickForImageView();
             pitch = (Pitch) getIntent().getSerializableExtra("PITCH");
             categoryPitch = MyDatabase.getInstance(this).pitchCategoryDAO()
@@ -245,51 +252,58 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
                     showLichHoatDong();
                 }
             } else {
-                if (customer.getCoin() < total) {
-                    Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
-                } else {
-                    customer.setCoin(customer.getCoin() - total);
-                    MyDatabase.getInstance(this).customerDAO().update(customer);
+                if (order.getSoLanCapNhat() > 0) {
+                    if (customer.getCoin() < total) {
+                        Toast.makeText(this, "Tài khoản khách hàng không đủ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        customer.setCoin(customer.getCoin() - total);
+                        MyDatabase.getInstance(this).customerDAO().update(customer);
 
-                    order.setDatePlay(datePlay);
-                    order.setTotalPitchMoney(totalMoneyPitch);
-                    order.setChiPhiKhac(chiPhiKhac);
-                    order.setTotalServiceMoney(totalMoneyService);
-                    order.setTotal(total);
-                    order.setSoCa(count);
+                        order.setDatePlay(datePlay);
+                        order.setTotalPitchMoney(totalMoneyPitch);
+                        order.setChiPhiKhac(chiPhiKhac);
+                        order.setTotalServiceMoney(totalMoneyService);
+                        order.setTotal(total);
+                        order.setSoLanCapNhat(order.getSoLanCapNhat() - 1);
+                        order.setSoCa(count);
 
-                    MyDatabase.getInstance(this).orderDAO().update(order);
+                        MyDatabase.getInstance(this).orderDAO().update(order);
 
-                    MyDatabase.getInstance(this).orderDetailsDAO().deleteWithOrderId(order.getId());
-                    for (int i = 0; i < listService.size(); i++) {
-                        OrderDetails orderDetails = new OrderDetails();
-                        orderDetails.setServiceId(listService.get(i).getId());
-                        orderDetails.setOrderId(order.getId());
-                        orderDetails.setSoLuong(numberOfService.get(i));
-                        orderDetails.setTongTien(listService.get(i).getMoney() * numberOfService.get(i));
+                        MyDatabase.getInstance(this).orderDetailsDAO().deleteWithOrderId(order.getId());
+                        for (int i = 0; i < listService.size(); i++) {
+                            OrderDetails orderDetails = new OrderDetails();
+                            orderDetails.setServiceId(listService.get(i).getId());
+                            orderDetails.setOrderId(order.getId());
+                            orderDetails.setSoLuong(numberOfService.get(i));
+                            orderDetails.setTongTien(listService.get(i).getMoney() * numberOfService.get(i));
 
-                        MyDatabase.getInstance(this).orderDetailsDAO().insert(orderDetails);
-                    }
-
-                    int[] types = new int[12];
-                    List<TimeOrderDetails> timeOrderDetails = MyDatabase.getInstance(this)
-                            .timeOrderDetailsDAO().getTimeOrderWithOrderId(order.getId());
-                    for (int i = 0; i < timeOrderDetails.size(); i++) {
-                        int timeId = timeOrderDetails.get(i).getTimeId();
-                        types[timeId - 1] = 1;
-                    }
-                    for (int i = 0; i < typeSelect.length; i++) {
-                        if (typeSelect[i] == type_cancel && types[i] == 0) {
-                            TimeOrderDetails timeOrderDetails1 = new TimeOrderDetails();
-                            timeOrderDetails1.setOrderId(order.getId());
-                            timeOrderDetails1.setTimeId(i + 1);
-                            MyDatabase.getInstance(this).timeOrderDetailsDAO().insert(timeOrderDetails1);
-                        } else if (typeSelect[i] == type_add && types[i] == 1) {
-                            MyDatabase.getInstance(this).timeOrderDetailsDAO().deleteWithOrderIdAndTimeId(order.getId(), i + 1);
+                            MyDatabase.getInstance(this).orderDetailsDAO().insert(orderDetails);
                         }
+
+                        int[] types = new int[12];
+                        List<TimeOrderDetails> timeOrderDetails = MyDatabase.getInstance(this)
+                                .timeOrderDetailsDAO().getTimeOrderWithOrderId(order.getId());
+                        for (int i = 0; i < timeOrderDetails.size(); i++) {
+                            int timeId = timeOrderDetails.get(i).getTimeId();
+                            types[timeId - 1] = 1;
+                        }
+                        for (int i = 0; i < typeSelect.length; i++) {
+                            if (typeSelect[i] == type_cancel && types[i] == 0) {
+                                TimeOrderDetails timeOrderDetails1 = new TimeOrderDetails();
+                                timeOrderDetails1.setOrderId(order.getId());
+                                timeOrderDetails1.setTimeId(i + 1);
+                                MyDatabase.getInstance(this).timeOrderDetailsDAO().insert(timeOrderDetails1);
+                            } else if (typeSelect[i] == type_add && types[i] == 1) {
+                                MyDatabase.getInstance(this).timeOrderDetailsDAO().deleteWithOrderIdAndTimeId(order.getId(), i + 1);
+                            }
+                        }
+
+                        Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK);
+                        finish();
                     }
-                    Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    finish();
+                }else{
+                    Toast.makeText(this, "Bạn đã sử dụng hết số lần cập nhật", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -383,6 +397,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
             bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
             bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
             intent.putExtra("bundle", bundle);
+            intent.putExtra("CAN_EDIT",canEdit);
             startActivityForResult(intent, REQUEST_CODE_SERVICE);
             Animatoo.INSTANCE.animateShrink(this);
         });
@@ -607,5 +622,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
         tvMocTg = findViewById(R.id.tv_moctg_user_datsanchitiet);
         tvShowCaThiDau = findViewById(R.id.tv_caTime_user_datsanchitiet);
         tvChiPhi = findViewById(R.id.tv_chiphi_user_datsanchitiet);
+        tvSoluotCapNhat = findViewById(R.id.tv_soluotcapnhat);
+        tvShow = findViewById(R.id.tv_show);
     }
 }

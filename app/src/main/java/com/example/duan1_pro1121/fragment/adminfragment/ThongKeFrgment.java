@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -95,7 +96,7 @@ public class ThongKeFrgment extends Fragment{
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setLabelCount(12);
-        xAxis.setValueFormatter(xAxisFormatter);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12"}));
 
         ValueFormatter custom = new MyAxisValueFormatter();
 
@@ -108,6 +109,7 @@ public class ThongKeFrgment extends Fragment{
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         chart.getAxisRight().setEnabled(false);
+        chart.getLegend().setEnabled(false);
 
         setUp();
 
@@ -121,7 +123,6 @@ public class ThongKeFrgment extends Fragment{
             }
             @Override
             public void onNothingSelected() {
-                Toast.makeText(getContext(), "1234", Toast.LENGTH_SHORT).show();
             }
         });
     }

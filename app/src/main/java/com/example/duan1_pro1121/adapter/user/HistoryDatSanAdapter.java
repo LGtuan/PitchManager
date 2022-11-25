@@ -27,6 +27,7 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
 
     private Context context;
     private List<Order> list;
+    private MyOnClick myOnClick;
 
     public HistoryDatSanAdapter(Context context, List<Order> list) {
         this.context = context;
@@ -156,7 +157,14 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
                             .getOrderWithCustomerId(UserMainActivity.customer.getId()));
                 }
             });
+            itemView.setOnClickListener(v->{
+                myOnClick.myOnClick(list.get(getAdapterPosition()));
+            });
         }
+    }
+
+    public void setMyOnClick(MyOnClick myOnClick) {
+        this.myOnClick = myOnClick;
     }
 
     public void setData(List<Order> list){
@@ -164,5 +172,7 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
         notifyDataSetChanged();
     }
 
-
+    public interface MyOnClick{
+        void myOnClick(Order order);
+    }
 }

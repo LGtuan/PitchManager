@@ -60,42 +60,50 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginStart="20dp"
+                android:id="@+id/appCompatImageView5"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/ic_dola"/>
+                android:src="@drawable/ic_dola"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:layout_marginStart="5dp"
                 android:id="@+id/tv_money_profile_activity"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="300.000"
+                android:textColor="@color/dark_blue"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/dark_blue"
-                android:text="300.000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView5"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginEnd="20dp"
                 android:id="@+id/btn_naptien_profile_activity"
-                android:textStyle="bold"
-                android:textSize="14sp"
+                android:layout_width="80dp"
+                android:layout_height="26dp"
+                android:background="@drawable/btn_background"
                 android:text="Nạp tiền"
-                android:layout_marginTop="1dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:layout_marginStart="50dp"
-                android:background="@drawable/btn_background"
-                android:layout_width="80dp"
-                android:layout_height="26dp"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

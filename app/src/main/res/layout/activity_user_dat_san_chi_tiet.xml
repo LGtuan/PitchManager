@@ -658,4 +658,28 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/tv_show"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:text="Số lượt cập nhật còn : "
+        app:layout_constraintBottom_toBottomOf="@+id/btn_datsan_user_datsanchitiet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_datsan_user_datsanchitiet" />
+
+    <TextView
+        android:id="@+id/tv_soluotcapnhat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_datsan_user_datsanchitiet"
+        app:layout_constraintStart_toEndOf="@id/tv_show"
+        app:layout_constraintTop_toTopOf="@+id/btn_datsan_user_datsanchitiet" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

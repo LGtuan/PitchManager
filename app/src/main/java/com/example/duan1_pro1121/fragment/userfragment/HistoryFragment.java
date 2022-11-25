@@ -1,6 +1,8 @@
 package com.example.duan1_pro1121.fragment.userfragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,12 +22,16 @@ import android.widget.TextView;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
+import com.example.duan1_pro1121.activity.user.UserDatSanChiTietActivity;
 import com.example.duan1_pro1121.activity.user.UserMainActivity;
 import com.example.duan1_pro1121.adapter.admin.SpinnerLoaiNVAdapter;
 import com.example.duan1_pro1121.adapter.user.HistoryDatSanAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
 import com.example.duan1_pro1121.model.Order;
+import com.example.duan1_pro1121.model.OrderDetails;
+import com.example.duan1_pro1121.model.ServiceBall;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +44,7 @@ public class HistoryFragment extends Fragment {
     private List<Order> orders;
     private RecyclerView recyclerView;
     HistoryDatSanAdapter adapter;
+    public static int CODE = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +66,28 @@ public class HistoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recy_history_user);
 
         adapter = new HistoryDatSanAdapter(getContext(),orders);
+        adapter.setMyOnClick(order -> {
+            Intent intent = new Intent(getContext(), UserDatSanChiTietActivity.class);
+            intent.putExtra("ORDER",order);
+            Bundle bundle = new Bundle();
+
+            List<ServiceBall> serviceBalls = new ArrayList<>();
+            List<Integer> numbers = new ArrayList<>();
+
+            List<OrderDetails> list = MyDatabase.getInstance(getContext()).orderDetailsDAO().getOrderDetailsByOrderId(order.getId());
+            for(int i = 0;i<list.size();i++){
+                int serviceId = list.get(i).getServiceId();
+                int number = list.get(i).getSoLuong();
+                serviceBalls.add(MyDatabase.getInstance(getContext()).serviceDAO().getServiceWithId(serviceId).get(0));
+                numbers.add(number);
+            }
+
+            bundle.putSerializable("LIST_SERVICE", (Serializable) serviceBalls);
+            bundle.putSerializable("LIST_NUMBER", (Serializable) numbers);
+
+            intent.putExtra("bundle",bundle);
+            startActivityForResult(intent,CODE);
+        });
         recyclerView.setAdapter(adapter);
         setUp();
 
@@ -87,6 +116,14 @@ public class HistoryFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CODE && resultCode == Activity.RESULT_OK){
+            adapter.setData(MyDatabase.getInstance(getContext()).orderDAO().getOrderWithCustomerId(UserMainActivity.customer.getId()));
+        }
     }
 
     public void setDataWithStatus(int status){

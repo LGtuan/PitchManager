@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.model.Manager;
 import com.example.duan1_pro1121.model.Order;
 import com.example.duan1_pro1121.model.OrderDetails;
 import com.example.duan1_pro1121.model.ServiceBall;
@@ -31,6 +32,7 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
     private List<Order> list;
     private RecyclerView recyclerView;
     private TextView tvDate,tvCount,tvTotalRecei;
+    private TextView tvTitle;
     SalaryStaffAdapter adapter;
     private Button btnPre,btnNext;
     int year,month;
@@ -45,10 +47,16 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH)+1;
         year = calendar.get(Calendar.YEAR);
 
-        id = MyDatabase.getInstance(this).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT,-1).get(0).getId();
-        list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year);
-
         initView();
+
+        id = getIntent().getIntExtra("ID_MANAGER",-1);
+        if(id == -1){
+            id = MyDatabase.getInstance(this).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT,-1).get(0).getId();
+        }else{
+            Manager manager = MyDatabase.getInstance(this).managerDAO().getManagerWithID(id).get(0);
+            tvTitle.setText(manager.getName());
+        }
+        list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year);
 
         adapter = new SalaryStaffAdapter(this,list);
         recyclerView.setAdapter(adapter);
@@ -79,6 +87,8 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
         recyclerView = findViewById(R.id.recy_salary_details_staff);
         btnPre = findViewById(R.id.btn_pre_salary_details_staff);
         btnNext = findViewById(R.id.btn_next_salary_details_staff);
+        tvTitle = findViewById(R.id.tv_title_activity_staff);
+
         btnPre.setOnClickListener(v->{
             if(--month<=0){
                 year--;

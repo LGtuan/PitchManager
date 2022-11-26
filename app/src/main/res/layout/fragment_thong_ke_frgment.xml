@@ -91,33 +91,7 @@
         app:layout_constraintTop_toBottomOf="@id/barchar_thongke_fragment">
 
         <LinearLayout
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Tiền lương nhân viên"
-                android:textColor="@color/dark_blue"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="- 600.000 VNĐ"
-                android:textColor="#FF1100"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_marginTop="10dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:layout_width="match_parent"
@@ -135,6 +109,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_doanhthu_sanbong_thongke_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
@@ -144,32 +119,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Doanh thu chi phí"
-                android:textColor="@color/dark_blue"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:text="+ 600.000 VNĐ"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <LinearLayout
             android:paddingTop="2dp"
@@ -189,6 +138,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_doanhthu_service_thongke_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
@@ -218,6 +168,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_total_thongke_fragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"

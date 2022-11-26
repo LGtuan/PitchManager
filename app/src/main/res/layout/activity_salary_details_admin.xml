@@ -4,63 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F6F6"
     tools:context=".activity.admin.SalaryDetailsActivityAdmin">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_blue"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:text="Quản lý tiền lương"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingBottom="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_pre_salary_admin"
+            style="@style/btn_style"
+            android:layout_width="65dp"
+            android:layout_height="32dp"
+            android:background="@drawable/btn_background"
+            android:text="Trước" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:text="Phiếu thông tin của bạn"
-            android:textColor="@color/dark_blue"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_buy_history"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/shapeimg"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_circle_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/circle_img" />
-
-        <TextView
-            android:id="@+id/tv_count_salary_details_staff"
+            android:id="@+id/tv_date_salary_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/shapeimg"
-            app:layout_constraintEnd_toEndOf="@id/shapeimg"
-            app:layout_constraintStart_toStartOf="@id/shapeimg"
-            app:layout_constraintTop_toTopOf="@id/shapeimg" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginBottom="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="2022"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_next_salary_admin"
+            style="@style/btn_style"
+            android:layout_width="65dp"
+            android:layout_height="32dp"
+            android:background="@drawable/btn_background"
+            android:text="Sau" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_salary_admin"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

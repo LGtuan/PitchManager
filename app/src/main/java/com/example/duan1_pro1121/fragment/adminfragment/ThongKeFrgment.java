@@ -1,6 +1,7 @@
 package com.example.duan1_pro1121.fragment.adminfragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
 import com.example.duan1_pro1121.activity.admin.ShowDetailsStatistical;
 import com.example.duan1_pro1121.custom_barchart.custom_barchart.DayAxisValueFormatter;
@@ -41,7 +43,9 @@ public class ThongKeFrgment extends Fragment{
     private TextView tvYear;
     private Button btnPre,btnNext,btnChiTiet;
     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-    private TextView tvLuongNv,tvDichVu,tvChiPhi,tvTotal,tvSanBong;
+    private TextView tvDichVu,tvTotal,tvSanBong;
+
+    int total,dichvu,sanbong;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +62,10 @@ public class ThongKeFrgment extends Fragment{
         tvYear = view.findViewById(R.id.tv_year_fragment_thongke);
         btnNext = view.findViewById(R.id.btn_next_thongke);
         btnChiTiet = view.findViewById(R.id.btn_details_thongke);
+        tvDichVu = view.findViewById(R.id.tv_doanhthu_service_thongke_fragment);
+        tvSanBong = view.findViewById(R.id.tv_doanhthu_sanbong_thongke_fragment);
+        tvTotal = view.findViewById(R.id.tv_total_thongke_fragment);
+
         btnChiTiet.setOnClickListener(v->{
             Intent intent = new Intent(getContext(),ShowDetailsStatistical.class);
             intent.putExtra("IS_YEAR",true);
@@ -131,7 +139,22 @@ public class ThongKeFrgment extends Fragment{
     public void setUp(){
         btnNext.setEnabled(currentYear < Calendar.getInstance().get(Calendar.YEAR));
         tvYear.setText(currentYear+"");
+        getDoanhThu();
+        tvDichVu.setText(MyApplication.convertMoneyToString(dichvu)+" VNĐ");
+        tvSanBong.setText(MyApplication.convertMoneyToString(sanbong)+" VNĐ");
+        tvTotal.setText(MyApplication.convertMoneyToString(total)+" VNĐ");
         setData();
+    }
+
+    public void getDoanhThu(){
+        Cursor cursor = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuService("%-"+currentYear);
+        Cursor cursor1 = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuSanBong("%-"+currentYear);
+        cursor.moveToNext();
+        cursor1.moveToNext();
+
+        dichvu = cursor.getInt(0);
+        sanbong = cursor1.getInt(0);
+        total = dichvu+sanbong;
     }
 
     private void setData() {

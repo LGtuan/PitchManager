@@ -67,4 +67,16 @@ public interface OrderDAO {
 
     @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date")
     List<Order> getOrderWithManagerId(int id,String date);
+
+    @Query("SELECT ORDERS.managerId,(SUM(ORDERS.total)/100)*3 FROM ORDERS " +
+            "INNER JOIN MANAGER ON ORDERS.managerId = MANAGER.id " +
+            "WHERE dateCreate LIKE :s AND MANAGER.phone != :account GROUP BY ORDERS.managerId")
+    Cursor getDoanhThuStaff(String s,String account);
+
+    @Query("SELECT SUM(totalServiceMoney) FROM ORDERS WHERE dateCreate LIKE :s")
+    Cursor getDoanhThuService(String s);
+
+    @Query("SELECT SUM(totalPitchMoney)+SUM(chiPhiKhac) FROM ORDERS WHERE dateCreate LIKE :s")
+    Cursor getDoanhThuSanBong(String s);
+
 }

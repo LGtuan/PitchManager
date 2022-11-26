@@ -275,11 +275,13 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     public void resetData() {
         count = 0;
         totalMoneyPitch = 0;
+        chiPhiKhac = 0;
         order = null;
         listService = new ArrayList<>();
         numberOfService = new ArrayList<>();
         setUpMoneyAndTvService();
         setUpTvMoneyAndTvPitch();
+        changeChiPhiKhac();
         tvMocTg.setText("");
     }
 

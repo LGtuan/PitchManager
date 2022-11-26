@@ -27,6 +27,7 @@ import com.example.duan1_pro1121.activity.user.UserMainActivity;
 import com.example.duan1_pro1121.adapter.admin.SpinnerLoaiNVAdapter;
 import com.example.duan1_pro1121.adapter.user.HistoryDatSanAdapter;
 import com.example.duan1_pro1121.database.MyDatabase;
+import com.example.duan1_pro1121.model.MyTime;
 import com.example.duan1_pro1121.model.Order;
 import com.example.duan1_pro1121.model.OrderDetails;
 import com.example.duan1_pro1121.model.ServiceBall;
@@ -35,6 +36,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class HistoryFragment extends Fragment {
@@ -147,8 +149,61 @@ public class HistoryFragment extends Fragment {
                 orders = MyDatabase.getInstance(getContext()).orderDAO()
                         .getOrderWithCustomerIdAndStatus(UserMainActivity.customer.getId(), MyApplication.DA_STATUS);
             }
+            updateOrder();
             setUp();
         }
+    }
+
+    public void updateOrder(){
+        for(int position = 0;position<orders.size();position++) {
+
+            Calendar calendarStart = Calendar.getInstance();
+            Calendar calendarEnd = Calendar.getInstance();
+            Calendar calendarNow = Calendar.getInstance();
+
+            List<MyTime> myTimeList = MyDatabase.getInstance(getContext())
+                    .timeDAO().getTimeWithOrderId(orders.get(position).getId());
+
+            int beginStatus = orders.get(position).getStatus();
+
+            for (int i = 0; i < myTimeList.size(); i++) {
+                int[] arr = getArrayDate(orders.get(position).getDatePlay());
+                calendarStart.set(arr[2], arr[1] - 1, arr[0], myTimeList.get(i).getStartTime(), 0);
+                calendarEnd.set(arr[2], arr[1] - 1, arr[0], myTimeList.get(i).getEndTime(), 0);
+
+                if (i == 0 && calendarStart.after(calendarNow)) {
+                    orders.get(position).setStatus(MyApplication.CHUA_STATUS);
+                    break;
+                } else if (i == myTimeList.size() - 1 && calendarEnd.before(calendarNow)) {
+                    orders.get(position).setStatus(MyApplication.DA_STATUS);
+                    break;
+                } else {
+                    if (calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)) {
+                        orders.get(position).setStatus(MyApplication.DANG_STATUS);
+                        break;
+                    } else {
+                        orders.get(position).setStatus(MyApplication.NGHI_STATUS);
+                    }
+                }
+            }
+
+            if(beginStatus != orders.get(position).getStatus()){
+                MyDatabase.getInstance(getContext()).orderDAO().update(orders.get(position));
+            }
+        }
+    }
+
+    public int[] getArrayDate(String date){
+        String[] str = date.split("-");
+        int arr[] = new int[str.length];
+        try{
+            for(int i = 0;i<str.length;i++){
+                arr[i] = Integer.parseInt(str[i]);
+            }
+        }catch (NumberFormatException e){
+            return null;
+        }
+        return arr;
     }
 
     public void setUp(){

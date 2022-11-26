@@ -9,10 +9,12 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity(tableName = "ORDERS",foreignKeys = {@ForeignKey(entity = Customer.class,parentColumns = "id",childColumns = "customerId",onDelete = CASCADE),
-        @ForeignKey(entity = Pitch.class,parentColumns = "id",childColumns = "pitchId",onDelete = CASCADE)})
+        @ForeignKey(entity = Pitch.class,parentColumns = "id",childColumns = "pitchId",onDelete = CASCADE),
+        @ForeignKey(entity = Manager.class,parentColumns = "id",childColumns = "managerId",onDelete = CASCADE)})
 public class Order implements Serializable {
     @PrimaryKey
     private int id;
+    private int managerId;
     private int customerId;
     private int pitchId;
     private String dateCreate;
@@ -122,5 +124,13 @@ public class Order implements Serializable {
 
     public void setSoLanCapNhat(int soLanCapNhat) {
         this.soLanCapNhat = soLanCapNhat;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 }

@@ -49,55 +49,55 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
         holder.tvSoCa.setText(list.get(position).getSoCa() + "");
         holder.tvMoney.setText(MyApplication.convertMoneyToString(list.get(position).getTotal())+" VNĐ");
 
-        Calendar calendarStart = Calendar.getInstance();
-        Calendar calendarEnd = Calendar.getInstance();
-        Calendar calendarNow = Calendar.getInstance();
-
-        List<MyTime> myTimeList = MyDatabase.getInstance(context)
-                .timeDAO().getTimeWithOrderId(list.get(position).getId());
-
-        int beginStatus = list.get(position).getStatus();
-
-        for(int i = 0;i<myTimeList.size();i++){
-            int[] arr = getArrayDate(list.get(position).getDatePlay());
-            calendarStart.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getStartTime(),0);
-            calendarEnd.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getEndTime(),0);
-
-            if(i == 0 && calendarStart.after(calendarNow)){
-                list.get(position).setStatus(MyApplication.CHUA_STATUS);
-                holder.tvTrangThai.setText("Chưa đá");
-                break;
-            }else if(i == myTimeList.size()-1 && calendarEnd.before(calendarNow)){
-                list.get(position).setStatus(MyApplication.DA_STATUS);
-                holder.tvTrangThai.setText("Đã đá");
-                break;
-            }else{
-                if(calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)){
-                    list.get(position).setStatus(MyApplication.DANG_STATUS);
-                    holder.tvTrangThai.setText("Đang đá");
-                    break;
-                }else{
-                    list.get(position).setStatus(MyApplication.NGHI_STATUS);
-                    holder.tvTrangThai.setText("Đang nghỉ");
-                }
-            }
-        }
-
-        if(beginStatus != list.get(position).getStatus()){
-            MyDatabase.getInstance(context).orderDAO().update(list.get(position));
-            list.set(position,MyDatabase.getInstance(context).orderDAO().getOrderWithID(list.get(position).getId()).get(0));
-            notifyItemChanged(position);
-        }
-
-//        if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
-//            holder.tvTrangThai.setText("Chưa đá");
-//        }else if(list.get(position).getStatus() == MyApplication.DANG_STATUS){
-//            holder.tvTrangThai.setText("Đang đá");
-//        }else if(list.get(position).getStatus() == MyApplication.DA_STATUS){
-//            holder.tvTrangThai.setText("Đã đá");
-//        }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
-//            holder.tvTrangThai.setText("Đang nghỉ");
+//        Calendar calendarStart = Calendar.getInstance();
+//        Calendar calendarEnd = Calendar.getInstance();
+//        Calendar calendarNow = Calendar.getInstance();
+//
+//        List<MyTime> myTimeList = MyDatabase.getInstance(context)
+//                .timeDAO().getTimeWithOrderId(list.get(position).getId());
+//
+//        int beginStatus = list.get(position).getStatus();
+//
+//        for(int i = 0;i<myTimeList.size();i++){
+//            int[] arr = getArrayDate(list.get(position).getDatePlay());
+//            calendarStart.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getStartTime(),0);
+//            calendarEnd.set(arr[2],arr[1]-1,arr[0], myTimeList.get(i).getEndTime(),0);
+//
+//            if(i == 0 && calendarStart.after(calendarNow)){
+//                list.get(position).setStatus(MyApplication.CHUA_STATUS);
+//                holder.tvTrangThai.setText("Chưa đá");
+//                break;
+//            }else if(i == myTimeList.size()-1 && calendarEnd.before(calendarNow)){
+//                list.get(position).setStatus(MyApplication.DA_STATUS);
+//                holder.tvTrangThai.setText("Đã đá");
+//                break;
+//            }else{
+//                if(calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)){
+//                    list.get(position).setStatus(MyApplication.DANG_STATUS);
+//                    holder.tvTrangThai.setText("Đang đá");
+//                    break;
+//                }else{
+//                    list.get(position).setStatus(MyApplication.NGHI_STATUS);
+//                    holder.tvTrangThai.setText("Đang nghỉ");
+//                }
+//            }
 //        }
+//
+//        if(beginStatus != list.get(position).getStatus()){
+//            MyDatabase.getInstance(context).orderDAO().update(list.get(position));
+//            list.set(position,MyDatabase.getInstance(context).orderDAO().getOrderWithID(list.get(position).getId()).get(0));
+//            notifyItemChanged(position);
+//        }
+
+        if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
+            holder.tvTrangThai.setText("Chưa đá");
+        }else if(list.get(position).getStatus() == MyApplication.DANG_STATUS){
+            holder.tvTrangThai.setText("Đang đá");
+        }else if(list.get(position).getStatus() == MyApplication.DA_STATUS){
+            holder.tvTrangThai.setText("Đã đá");
+        }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
+            holder.tvTrangThai.setText("Đang nghỉ");
+        }
 
         if (list.get(position).getStatus() == MyApplication.CHUA_STATUS) {
             holder.btnHuy.setBackground(AppCompatResources.getDrawable(context, R.drawable.btn_background));
@@ -108,18 +108,18 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
 //        MyDatabase.getInstance(context).orderDAO().update(list.get(position));
     }
 
-    public int[] getArrayDate(String date){
-        String[] str = date.split("-");
-        int arr[] = new int[str.length];
-        try{
-            for(int i = 0;i<str.length;i++){
-                arr[i] = Integer.parseInt(str[i]);
-            }
-        }catch (NumberFormatException e){
-            return null;
-        }
-        return arr;
-    }
+//    public int[] getArrayDate(String date){
+//        String[] str = date.split("-");
+//        int arr[] = new int[str.length];
+//        try{
+//            for(int i = 0;i<str.length;i++){
+//                arr[i] = Integer.parseInt(str[i]);
+//            }
+//        }catch (NumberFormatException e){
+//            return null;
+//        }
+//        return arr;
+//    }
 
     @Override
     public int getItemCount() {

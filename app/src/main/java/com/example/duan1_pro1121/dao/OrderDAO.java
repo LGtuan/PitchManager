@@ -65,4 +65,6 @@ public interface OrderDAO {
     @Query("SELECT * FROM ORDERS WHERE customerId == :id AND status =:status ORDER BY id DESC")
     List<Order> getOrderWithCustomerIdAndStatus(int id, int status);
 
+    @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date")
+    List<Order> getOrderWithManagerId(int id,String date);
 }

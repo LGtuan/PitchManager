@@ -41,8 +41,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     public static int REQUEST_CODE_SERVICE = 2;
 
     TextView tv_tensan, tvCustomer, tvMocTg,
-            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney
-            , tvMoneyCustomer, tvShowCaThiDau, tvChiPhi;
+            tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvMoneyCustomer, tvShowCaThiDau, tvChiPhi;
 
     LinearLayout layoutMoneyCustomer;
     Button btnServiceDetails, btnDatSan;
@@ -78,6 +77,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     int maxCount = 5;
 
     boolean canEdit = true;
+    boolean isShow = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,24 +88,33 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         setUpImageSelect();
 
         order = (Order) getIntent().getSerializableExtra("ORDER");
+        isShow = getIntent().getBooleanExtra("IS_SHOW",false);
 
         setOnCLickForView();
         if (order != null) {
             count = order.getSoCa();
-            if(order.getStatus() ==MyApplication.NGHI_STATUS || order.getStatus() == MyApplication.DANG_STATUS) {
-                setOnClickForImageView();
+            if(isShow){
                 tvDate.setEnabled(false);
                 tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
-            }else if(order.getStatus() == MyApplication.CHUA_STATUS){
-                setOnClickForImageView();
-            }else if(order.getStatus() == MyApplication.DA_STATUS){
-                //btnServiceDetails.setEnabled(false);
                 btnDatSan.setEnabled(false);
-                tvDate.setEnabled(false);
                 btnDatSan.setBackgroundColor(getResources().getColor(R.color.dark_gray));
-                //btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
-                tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 canEdit = false;
+            }else {
+                if (order.getStatus() == MyApplication.NGHI_STATUS || order.getStatus() == MyApplication.DANG_STATUS) {
+                    setOnClickForImageView();
+                    tvDate.setEnabled(false);
+                    tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                } else if (order.getStatus() == MyApplication.CHUA_STATUS) {
+                    setOnClickForImageView();
+                } else if (order.getStatus() == MyApplication.DA_STATUS) {
+                    //btnServiceDetails.setEnabled(false);
+                    btnDatSan.setEnabled(false);
+                    tvDate.setEnabled(false);
+                    btnDatSan.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                    //btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                    tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                    canEdit = false;
+                }
             }
             tvCustomer.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             tvCustomer.setEnabled(false);
@@ -114,7 +123,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             pitch = MyDatabase.getInstance(this).pitchDao().getPitchId(order.getPitchId()).get(0);
             categoryPitch = MyDatabase.getInstance(this).pitchCategoryDAO().getCategoryPitchWithId(pitch.getCategoryId()).get(0);
             customer = MyDatabase.getInstance(this).customerDAO().getCustomerWithID(order.getCustomerId()).get(0);
-            Log.e("123",customer.getCoin()+"+"+order.getTotal());
+            Log.e("123", customer.getCoin() + "+" + order.getTotal());
             customer.setCoin(customer.getCoin() + order.getTotal());
 
             datePlay = order.getDatePlay();
@@ -129,7 +138,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     .getSerializable("LIST_NUMBER");
 
             showLichHoatDong();
-            setUpTvMocTg("",type_cancel);
+            setUpTvMocTg("", type_cancel);
 
             btnDatSan.setText("Cập nhật");
         } else {
@@ -153,9 +162,9 @@ public class DatSanChiTietActivity extends AppCompatActivity {
     }
 
     public void datSan() {
-        if(count <= 0){
+        if (count <= 0) {
             Toast.makeText(this, "Bạn cần chọn ít nhất 1 ca thi đấu", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             if (!isUpdate) {
                 if (customer == null) {
                     Toast.makeText(this, "Vui lòng chọn khách hàng", Toast.LENGTH_SHORT).show();
@@ -169,6 +178,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
                         order = new Order();
                         order.setId(++MainActivity.ID_MAX_ORDER);
+                        order.setManagerId(MyDatabase.getInstance(this).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT,-1).get(0).getId());
                         Calendar calendar = Calendar.getInstance();
                         dateCreate = getStringDate(calendar.get(Calendar.DATE),
                                 calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
@@ -185,10 +195,10 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
                         MyDatabase.getInstance(this).orderDAO().insert(order);
 
-                        for(int i = 0;i<typeSelect.length;i++){
-                            if(typeSelect[i] == type_cancel){
+                        for (int i = 0; i < typeSelect.length; i++) {
+                            if (typeSelect[i] == type_cancel) {
                                 TimeOrderDetails timeOrderDetails = new TimeOrderDetails();
-                                timeOrderDetails.setTimeId(i+1);
+                                timeOrderDetails.setTimeId(i + 1);
                                 timeOrderDetails.setOrderId(order.getId());
                                 MyDatabase.getInstance(this).timeOrderDetailsDAO().insert(timeOrderDetails);
                             }
@@ -240,18 +250,18 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     int[] types = new int[12];
                     List<TimeOrderDetails> timeOrderDetails = MyDatabase.getInstance(this)
                             .timeOrderDetailsDAO().getTimeOrderWithOrderId(order.getId());
-                    for(int i = 0;i<timeOrderDetails.size();i++){
+                    for (int i = 0; i < timeOrderDetails.size(); i++) {
                         int timeId = timeOrderDetails.get(i).getTimeId();
-                        types[timeId-1] = 1;
+                        types[timeId - 1] = 1;
                     }
-                    for(int i = 0;i<typeSelect.length;i++){
-                        if(typeSelect[i] == type_cancel && types[i] == 0){
+                    for (int i = 0; i < typeSelect.length; i++) {
+                        if (typeSelect[i] == type_cancel && types[i] == 0) {
                             TimeOrderDetails timeOrderDetails1 = new TimeOrderDetails();
                             timeOrderDetails1.setOrderId(order.getId());
-                            timeOrderDetails1.setTimeId(i+1);
+                            timeOrderDetails1.setTimeId(i + 1);
                             MyDatabase.getInstance(this).timeOrderDetailsDAO().insert(timeOrderDetails1);
-                        }else if(typeSelect[i] == type_add && types[i] == 1){
-                            MyDatabase.getInstance(this).timeOrderDetailsDAO().deleteWithOrderIdAndTimeId(order.getId(),i+1);
+                        } else if (typeSelect[i] == type_add && types[i] == 1) {
+                            MyDatabase.getInstance(this).timeOrderDetailsDAO().deleteWithOrderIdAndTimeId(order.getId(), i + 1);
                         }
                     }
                     Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
@@ -288,33 +298,28 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     typeSelect[i] = type_addGray;
                 }
             }
-        }else if(checkDate(s)){
-            for(int i = 0;i<12;i++){
+        } else if (checkDate(s)) {
+            for (int i = 0; i < 12; i++) {
                 typeSelect[i] = type_addGray;
             }
         }
         // Kiểm tra thời gian bị full
         List<TimeOrderDetails> timeOrderDetails =
-                MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay,pitch.getId());
-        Log.e("123",datePlay);
-        String a = "";
-        for(TimeOrderDetails timeOrderDetails1 : timeOrderDetails){
-            a+=timeOrderDetails1.getTimeId()+"-";
-        }
-        Log.e("1234",a);
+                MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId());
+
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();
-            if(order!=null) {
-                if(order.getId() == timeOrderDetails.get(i).getOrderId()) {
-                    if (typeSelect[idTime-1] == type_addGray){
+            if (order != null) {
+                if (order.getId() == timeOrderDetails.get(i).getOrderId()) {
+                    if (typeSelect[idTime - 1] == type_addGray) {
                         typeSelect[idTime - 1] = type_cancel_gray;
-                    } else{
-                        typeSelect[idTime-1] = type_cancel;
+                    } else {
+                        typeSelect[idTime - 1] = type_cancel;
                     }
-                }else{
+                } else {
                     typeSelect[idTime - 1] = type_full;
                 }
-            }else{
+            } else {
                 typeSelect[idTime - 1] = type_full;
             }
         }
@@ -322,16 +327,16 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         setResourceForImageSelect();
     }
 
-    public boolean checkDate(String s){
+    public boolean checkDate(String s) {
 
         int[] arr1 = getArrayDate(s);
         int[] arr2 = getArrayDate(datePlay);
 
-        if(arr2[2] < arr1[2]){
+        if (arr2[2] < arr1[2]) {
             return true;
-        }else if(arr2[1] < arr1[1]){
+        } else if (arr2[1] < arr1[1]) {
             return true;
-        }else return arr2[0] < arr1[0];
+        } else return arr2[0] < arr1[0];
     }
 
     public void resetTypeSelect() {
@@ -346,9 +351,9 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 listSelect.get(i).setImageResource(R.drawable.soldout_png);
             } else if (typeSelect[i] == type_addGray) {
                 listSelect.get(i).setImageResource(R.drawable.ic_add_gray);
-            }else if(typeSelect[i] == type_cancel){
+            } else if (typeSelect[i] == type_cancel) {
                 listSelect.get(i).setImageResource(R.drawable.ic_cancel);
-            }else if(typeSelect[i] == type_cancel_gray){
+            } else if (typeSelect[i] == type_cancel_gray) {
                 listSelect.get(i).setImageResource(R.drawable.ic_cancel_gray);
             }
         }
@@ -464,58 +469,58 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         for (int i = 0; i < listSelect.size(); i++) {
             int finalI = i;
             listSelect.get(i).setOnClickListener(v -> {
-                if(typeSelect[finalI] == type_add && count < maxCount){
-                    count+=1;
+                if (typeSelect[finalI] == type_add && count < maxCount) {
+                    count += 1;
                     typeSelect[finalI] = type_cancel;
                     setImageResourceAtPos(finalI);
-                    setUpTvMocTg("Ca"+(finalI+1),type_add);
+                    setUpTvMocTg("Ca" + (finalI + 1), type_add);
 
-                    MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI+1).get(0);
+                    MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI + 1).get(0);
                     chiPhiKhac += time.getMoney();
                     changeChiPhiKhac();
-                    changeTotalMoneyPitch(categoryPitch.getMoney()*2);
-                }else if(typeSelect[finalI] == type_cancel){
-                    count-=1;
+                    changeTotalMoneyPitch(categoryPitch.getMoney() * 2);
+                } else if (typeSelect[finalI] == type_cancel) {
+                    count -= 1;
                     typeSelect[finalI] = type_add;
                     setImageResourceAtPos(finalI);
-                    setUpTvMocTg("",type_cancel);
+                    setUpTvMocTg("", type_cancel);
 
-                    MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI+1).get(0);
+                    MyTime time = MyDatabase.getInstance(this).timeDAO().getTimeWithId(finalI + 1).get(0);
                     chiPhiKhac -= time.getMoney();
                     changeChiPhiKhac();
-                    changeTotalMoneyPitch(-categoryPitch.getMoney()*2);
-                }else if(typeSelect[finalI] == type_cancel_gray){
+                    changeTotalMoneyPitch(-categoryPitch.getMoney() * 2);
+                } else if (typeSelect[finalI] == type_cancel_gray) {
                     Toast.makeText(this, "Bạn không thể hủy mốc thời gian đã đá", Toast.LENGTH_SHORT).show();
-                }else if(typeSelect[finalI] == type_addGray){
+                } else if (typeSelect[finalI] == type_addGray) {
                     Toast.makeText(this, "Mốc thời gian đã quá hạn", Toast.LENGTH_SHORT).show();
-                }else if(typeSelect[finalI] == type_full){
+                } else if (typeSelect[finalI] == type_full) {
                     Toast.makeText(this, "Mốc thời gian đã có khách hàng đặt", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    public void changeChiPhiKhac(){
-        tvChiPhi.setText(MyApplication.convertMoneyToString(chiPhiKhac)+" VNĐ");
+    public void changeChiPhiKhac() {
+        tvChiPhi.setText(MyApplication.convertMoneyToString(chiPhiKhac) + " VNĐ");
         setUpTotalMoney();
     }
 
-    public void changeTotalMoneyPitch(int money){
+    public void changeTotalMoneyPitch(int money) {
         totalMoneyPitch += money;
         setUpTvMoneyAndTvPitch();
     }
 
-    public void setUpTvMocTg(String s,int type){
-        if(type == type_add) {
+    public void setUpTvMocTg(String s, int type) {
+        if (type == type_add) {
             if (tvMocTg.getText().toString().equals("")) {
                 tvMocTg.setText(s);
             } else {
                 tvMocTg.setText(tvMocTg.getText().toString() + "-" + s);
             }
-        }else{
+        } else {
             tvMocTg.setText("");
-            for(int i = 0;i<typeSelect.length;i++){
-                if(typeSelect[i] == type_cancel || typeSelect[i] == type_cancel_gray) {
+            for (int i = 0; i < typeSelect.length; i++) {
+                if (typeSelect[i] == type_cancel || typeSelect[i] == type_cancel_gray) {
                     setUpTvMocTg("Ca" + (i + 1), type_add);
                 }
             }
@@ -585,15 +590,15 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         pickerDialog.show();
     }
 
-    public void setOnCLickForView(){
+    public void setOnCLickForView() {
         tvDate.setOnClickListener(v -> {
-            if(order!=null){
-                if(order.getStatus() == MyApplication.CHUA_STATUS && count > 0) {
-                    Toast.makeText(DatSanChiTietActivity.this,"Bạn cần hủy lịch của ngày "+datePlay,Toast.LENGTH_SHORT).show();
-                }else{
+            if (order != null) {
+                if (order.getStatus() == MyApplication.CHUA_STATUS && count > 0) {
+                    Toast.makeText(DatSanChiTietActivity.this, "Bạn cần hủy lịch của ngày " + datePlay, Toast.LENGTH_SHORT).show();
+                } else {
                     openDateDialogTvDate();
                 }
-            }else{
+            } else {
                 openDateDialogTvDate();
             }
         });
@@ -602,7 +607,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
             bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
-            intent.putExtra("CAN_EDIT",canEdit);
+            intent.putExtra("CAN_EDIT", canEdit);
             intent.putExtra("bundle", bundle);
             startActivityForResult(intent, REQUEST_CODE_SERVICE);
             Animatoo.INSTANCE.animateShrink(this);
@@ -622,8 +627,8 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                 Toast.makeText(this, "Bạn không thể chọn khách hàng khi cập nhật phiếu thông tin", Toast.LENGTH_SHORT).show();
             }
         });
-        tvShowCaThiDau.setOnClickListener(v->{
-            Intent intent = new Intent(this,ShowCaThiDauActivity.class);
+        tvShowCaThiDau.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShowCaThiDauActivity.class);
             startActivity(intent);
             Animatoo.INSTANCE.animateSlideLeft(this);
         });

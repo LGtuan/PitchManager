@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ID_MAX_ORDER = MyDatabase.getInstance(this).orderDAO().getIdMax();
-        Log.e("123","max" + ID_MAX_ORDER);
 
         ACCOUNT = getIntent().getStringExtra("account");
 
@@ -60,87 +59,90 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.openDrawer(GravityCompat.START);
         });
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(!ACCOUNT.equals("Admin")){
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.item_thongke).setVisible(false);
+            menu.findItem(R.id.item_nhanvien).setVisible(false);
+        }
 
-                Menu menu = navigationView.getMenu();
+        navigationView.setNavigationItemSelectedListener(item -> {
 
-                if(item.getItemId() == R.id.item_datsan && CURRENT_FRAGMENT!=0){
+            Menu menu = navigationView.getMenu();
+
+            if(item.getItemId() == R.id.item_datsan && CURRENT_FRAGMENT!=0){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 0;
+                replaceFragment(new DatSanFragment());
+                getSupportActionBar().setTitle("Đặt Sân");
+            }else if(item.getItemId() == R.id.item_sanbong && CURRENT_FRAGMENT!=1){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 1;
+                replaceFragment(new SanBongFragment());
+                getSupportActionBar().setTitle("Sân Bóng");
+            }else if(item.getItemId() == R.id.item_giothidau && CURRENT_FRAGMENT!=2){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 2;
+                replaceFragment(new TimeFragment());
+                getSupportActionBar().setTitle("Giờ thi đấu");
+            } else if(item.getItemId() == R.id.item_khachhang && CURRENT_FRAGMENT!=3){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 3;
+                replaceFragment(new KhachHangFragment());
+                getSupportActionBar().setTitle("Khách Hàng");
+            }else if(item.getItemId() == R.id.item_phieuthongtin && CURRENT_FRAGMENT!=4){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 4;
+                replaceFragment(new PhieuThongTinFragment());
+                getSupportActionBar().setTitle("Phiếu Thông Tin");
+            }else if(item.getItemId() == R.id.item_dichvu && CURRENT_FRAGMENT!=5){
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 5;
+                replaceFragment(new DichVuFrgment());
+                getSupportActionBar().setTitle("Dịch Vụ");
+            }else if(item.getItemId() == R.id.item_nhanvien && CURRENT_FRAGMENT!=6) {
+                if (ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
                     menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 0;
-                    replaceFragment(new DatSanFragment());
-                    getSupportActionBar().setTitle("Đặt Sân");
-                }else if(item.getItemId() == R.id.item_sanbong && CURRENT_FRAGMENT!=1){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 1;
-                    replaceFragment(new SanBongFragment());
-                    getSupportActionBar().setTitle("Sân Bóng");
-                }else if(item.getItemId() == R.id.item_giothidau && CURRENT_FRAGMENT!=2){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 2;
-                    replaceFragment(new TimeFragment());
-                    getSupportActionBar().setTitle("Giờ thi đấu");
-                } else if(item.getItemId() == R.id.item_khachhang && CURRENT_FRAGMENT!=3){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 3;
-                    replaceFragment(new KhachHangFragment());
-                    getSupportActionBar().setTitle("Khách Hàng");
-                }else if(item.getItemId() == R.id.item_phieuthongtin && CURRENT_FRAGMENT!=4){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 4;
-                    replaceFragment(new PhieuThongTinFragment());
-                    getSupportActionBar().setTitle("Phiếu Thông Tin");
-                }else if(item.getItemId() == R.id.item_dichvu && CURRENT_FRAGMENT!=5){
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 5;
-                    replaceFragment(new DichVuFrgment());
-                    getSupportActionBar().setTitle("Dịch Vụ");
-                }else if(item.getItemId() == R.id.item_nhanvien && CURRENT_FRAGMENT!=6) {
-                    if (ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
-                        menu.findItem(item.getItemId()).setChecked(true);
-                        CURRENT_FRAGMENT = 6;
-                        replaceFragment(new NhanVienFragment());
-                        getSupportActionBar().setTitle("Nhân Viên");
-                    } else {
-                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }else if(item.getItemId() == R.id.item_man_hinh_ca_nhan && CURRENT_FRAGMENT!=7)  {
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 7;
-                    replaceFragment(new ManHinhCaNhanFragment());
-                    getSupportActionBar().setTitle("Màn hình cá nhân");
-                }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=8){
-                    if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
-                        menu.findItem(item.getItemId()).setChecked(true);
-                        CURRENT_FRAGMENT = 8;
-                        replaceFragment(new ThongKeFrgment());
-                        getSupportActionBar().setTitle("Thống Kê");
-                    }else{
-                        Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }else if(item.getItemId() == R.id.item_man_hinh_thong_bao && CURRENT_FRAGMENT!=9)  {
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 9;
-                    replaceFragment(new ThongBaoFragmentAdmin());
-                    getSupportActionBar().setTitle("Thông báo");
-                }else if(item.getItemId() == R.id.item_accept_naptien && CURRENT_FRAGMENT!=10)  {
-                    menu.findItem(item.getItemId()).setChecked(true);
-                    CURRENT_FRAGMENT = 10;
-                    replaceFragment(new RequestBuyFragment());
-                    getSupportActionBar().setTitle("Yêu cầu nạp tiền");
-                } else if(item.getItemId() == R.id.item_dangxuat){
-                    finishAffinity();
-                    MyApplication.CURRENT_TYPE = -1;
-                    Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);
-                    startActivity(intent);
+                    CURRENT_FRAGMENT = 6;
+                    replaceFragment(new NhanVienFragment());
+                    getSupportActionBar().setTitle("Nhân Viên");
+                } else {
+                    Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                    return false;
                 }
-
-                drawerLayout.close();
-                return true;
+            }else if(item.getItemId() == R.id.item_man_hinh_ca_nhan && CURRENT_FRAGMENT!=7)  {
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 7;
+                replaceFragment(new ManHinhCaNhanFragment());
+                getSupportActionBar().setTitle("Màn hình cá nhân");
+            }else if(item.getItemId() == R.id.item_thongke && CURRENT_FRAGMENT!=8){
+                if(ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)) {
+                    menu.findItem(item.getItemId()).setChecked(true);
+                    CURRENT_FRAGMENT = 8;
+                    replaceFragment(new ThongKeFrgment());
+                    getSupportActionBar().setTitle("Thống Kê");
+                }else{
+                    Toast.makeText(MainActivity.this, "Bạn không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }else if(item.getItemId() == R.id.item_man_hinh_thong_bao && CURRENT_FRAGMENT!=9)  {
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 9;
+                replaceFragment(new ThongBaoFragmentAdmin());
+                getSupportActionBar().setTitle("Thông báo");
+            }else if(item.getItemId() == R.id.item_accept_naptien && CURRENT_FRAGMENT!=10)  {
+                menu.findItem(item.getItemId()).setChecked(true);
+                CURRENT_FRAGMENT = 10;
+                replaceFragment(new RequestBuyFragment());
+                getSupportActionBar().setTitle("Yêu cầu nạp tiền");
+            } else if(item.getItemId() == R.id.item_dangxuat){
+                finishAffinity();
+                MyApplication.CURRENT_TYPE = -1;
+                Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);
+                startActivity(intent);
             }
+
+            drawerLayout.close();
+            return true;
         });
 
         replaceFragment(new DatSanFragment());

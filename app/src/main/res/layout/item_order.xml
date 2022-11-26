@@ -256,7 +256,7 @@
                 android:id="@+id/tv_status_item_order"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/green"
                 android:text="Chưa đá"
                 android:layout_weight="7"
                 android:layout_width="0dp"

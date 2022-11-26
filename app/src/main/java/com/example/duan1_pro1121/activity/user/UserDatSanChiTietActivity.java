@@ -42,7 +42,7 @@ import java.util.List;
 public class UserDatSanChiTietActivity extends AppCompatActivity {
 
     public static int REQUEST_CODE_SERVICE = 2;
-    TextView tv_tensan, tvMocTg, tvSoluotCapNhat,tvShow,
+    TextView tv_tensan, tvMocTg, tvSoluotCapNhat, tvShow,
             tvDate, tvService, tvServiceMoney, tvSanBongMoney, tvAllMoney, tvShowCaThiDau, tvChiPhi;
     Button btnServiceDetails, btnDatSan;
 
@@ -211,6 +211,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
 
                     order = new Order();
                     order.setId(++MainActivity.ID_MAX_ORDER);
+                    order.setManagerId(MyDatabase.getInstance(this).managerDAO().getManagerWithPhone("Admin",-1).get(0).getId());
                     Calendar calendar = Calendar.getInstance();
                     dateCreate = getStringDate(calendar.get(Calendar.DATE),
                             calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
@@ -302,7 +303,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
                         setResult(RESULT_OK);
                         finish();
                     }
-                }else{
+                } else {
                     Toast.makeText(this, "Bạn đã sử dụng hết số lần cập nhật", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -397,7 +398,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
             bundle.putSerializable("LIST_SERVICE", (Serializable) listService);
             bundle.putSerializable("LIST_NUMBER", (Serializable) numberOfService);
             intent.putExtra("bundle", bundle);
-            intent.putExtra("CAN_EDIT",canEdit);
+            intent.putExtra("CAN_EDIT", canEdit);
             startActivityForResult(intent, REQUEST_CODE_SERVICE);
             Animatoo.INSTANCE.animateShrink(this);
         });
@@ -446,16 +447,15 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
                     typeSelect[i] = type_addGray;
                 }
             }
+        } else if (checkDate(s)) {
+            for (int i = 0; i < 12; i++) {
+                typeSelect[i] = type_addGray;
+            }
         }
         // Kiểm tra thời gian bị full
         List<TimeOrderDetails> timeOrderDetails =
                 MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId());
-        Log.e("123", datePlay);
-        String a = "";
-        for (TimeOrderDetails timeOrderDetails1 : timeOrderDetails) {
-            a += timeOrderDetails1.getTimeId() + "-";
-        }
-        Log.e("1234", a);
+
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();
             if (order != null) {
@@ -474,6 +474,18 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
         }
 
         setResourceForImageSelect();
+    }
+
+    public boolean checkDate(String s) {
+
+        int[] arr1 = getArrayDate(s);
+        int[] arr2 = getArrayDate(datePlay);
+
+        if (arr2[2] < arr1[2]) {
+            return true;
+        } else if (arr2[1] < arr1[1]) {
+            return true;
+        } else return arr2[0] < arr1[0];
     }
 
     public void resetTypeSelect() {
@@ -570,8 +582,8 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
         return d + "-" + m + "-" + y;
     }
 
-    public int[] getArrayDate() {
-        String[] str = datePlay.split("-");
+    public int[] getArrayDate(String s) {
+        String[] str = s.split("-");
         int arr[] = new int[str.length];
         try {
             for (int i = 0; i < str.length; i++) {
@@ -584,7 +596,7 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
     }
 
     public String getThu() {
-        int[] arr = getArrayDate();
+        int[] arr = getArrayDate(datePlay);
         Calendar calendar = Calendar.getInstance();
         if (arr != null) calendar.set(arr[2], arr[1] - 1, arr[0]);
 

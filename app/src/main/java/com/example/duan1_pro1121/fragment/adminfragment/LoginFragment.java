@@ -76,19 +76,23 @@ public class LoginFragment extends Fragment {
                     List<Manager> list = MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(stk, -1);
                     if (list.size() > 0) {
                         Manager manager = list.get(0);
-                        if(password.equals(manager.getPassword())){
-                            tvCheckAccount.setVisibility(View.INVISIBLE);
-                            intent.putExtra("account",stk);
-                            getContext().startActivity(intent);
-                            Animatoo.INSTANCE.animateZoom(getContext());
-                        }else{
+                        if(manager.getStatus() == MyApplication.NGHI_VIEC){
+                            tvCheckAccount.setText("Tài khoản của bạn đã bị vô hiệu hóa");
                             tvCheckAccount.setVisibility(View.VISIBLE);
+                        }else {
+                            if (password.equals(manager.getPassword())) {
+                                tvCheckAccount.setVisibility(View.INVISIBLE);
+                                intent.putExtra("account", stk);
+                                getContext().startActivity(intent);
+                                Animatoo.INSTANCE.animateZoom(getContext());
+                            } else {
+                                tvCheckAccount.setVisibility(View.VISIBLE);
+                            }
                         }
                     } else {
                         tvCheckAccount.setVisibility(View.VISIBLE);
                     }
                 }
-
             }
         });
     }

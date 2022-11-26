@@ -95,8 +95,9 @@ public class ThongKeFrgment extends Fragment{
         xAxis.setAxisLineWidth(1.5f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        //xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12"}));
+        xAxis.setValueFormatter(xAxisFormatter);
         xAxis.setLabelCount(12);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11","T12"}));
 
         ValueFormatter custom = new MyAxisValueFormatter();
 

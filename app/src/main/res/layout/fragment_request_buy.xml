@@ -3,10 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.adminfragment.RequestBuyFragment">
+
+
+    <LinearLayout
+        android:padding="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_searchName_fragment_request"
+            android:hint="Tên khách hàng"
+            android:layout_width="320dp"
+            android:layout_height="48dp"
+            style="@style/edt_style"/>
+
+        <ImageView
+            android:id="@+id/img_search_fragment_request"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/btn_background"
+            android:layout_width="60dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_person_search"
+            android:layout_height="45dp"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recy_request_buy"
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

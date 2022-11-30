@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.duan1_pro1121.model.HistoryBuy;
-import com.example.duan1_pro1121.model.Pitch;
 
 import java.util.List;
 
@@ -31,4 +30,10 @@ public interface HistoryBuyDAO {
 
     @Query("SELECT * FROM HISTORYBUY WHERE status = :status ORDER BY id DESC")
     List<HistoryBuy> getAllWithStatus(int status);
+
+    @Query("SELECT * FROM HISTORYBUY " +
+            "INNER JOIN CUSTOMER ON HISTORYBUY.idCustomer = CUSTOMER.id " +
+            "WHERE status = :status and CUSTOMER.name " +
+            "LIKE :s ORDER BY id DESC")
+    List<HistoryBuy> getAllWithCustommer(String s, int status);
 }

@@ -334,11 +334,12 @@ public class DatSanChiTietActivity extends AppCompatActivity {
         int[] arr1 = getArrayDate(s);
         int[] arr2 = getArrayDate(datePlay);
 
-        if (arr2[2] < arr1[2]) {
-            return true;
-        } else if (arr2[1] < arr1[1]) {
-            return true;
-        } else return arr2[0] < arr1[0];
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendar1 = Calendar.getInstance();
+        calendar.set(arr1[2],arr1[1],arr1[0]);
+        calendar1.set(arr2[2],arr2[1],arr2[0]);
+
+        return calendar1.before(calendar);
     }
 
     public void resetTypeSelect() {

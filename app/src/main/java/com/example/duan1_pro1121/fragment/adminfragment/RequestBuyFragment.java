@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
@@ -25,6 +28,8 @@ public class RequestBuyFragment extends Fragment {
     private RecyclerView recyclerView;
     private AcceptAdapter adapter;
     private List<HistoryBuy> list;
+    private ImageView img;
+    private EditText edt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,17 @@ public class RequestBuyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recy_request_buy);
         adapter = new AcceptAdapter(getContext(),list);
+
+        img = view.findViewById(R.id.img_search_fragment_request);
+        edt = view.findViewById(R.id.edt_searchName_fragment_request);
+
+        img.setOnClickListener(v->{
+            if(!edt.getText().toString().equals("")) {
+                adapter.setData(MyDatabase.getInstance(getContext()).historyBuyDAO().getAllWithCustommer("%"+edt.getText().toString()+"%",MyApplication.NAPTIEN_CHOXACNHAN));
+            }else{
+                adapter.setData(list);
+            }
+        });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));

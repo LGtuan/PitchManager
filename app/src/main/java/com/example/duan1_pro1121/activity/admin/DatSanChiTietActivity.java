@@ -106,7 +106,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 } else if (order.getStatus() == MyApplication.CHUA_STATUS) {
                     setOnClickForImageView();
-                } else if (order.getStatus() == MyApplication.DA_STATUS) {
+                } else if (order.getStatus() == MyApplication.DA_STATUS || order.getStatus() == MyApplication.HUY_STATUS) {
                     //btnServiceDetails.setEnabled(false);
                     btnDatSan.setEnabled(false);
                     tvDate.setEnabled(false);
@@ -306,8 +306,19 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             }
         }
         // Kiểm tra thời gian bị full
-        List<TimeOrderDetails> timeOrderDetails =
-                MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId());
+        List<TimeOrderDetails> timeOrderDetails;
+        if(order!=null){
+            if(order.getStatus() == MyApplication.HUY_STATUS){
+                timeOrderDetails =
+                        MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithOrderId(order.getId());
+            }else {
+                timeOrderDetails =
+                        MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId(), MyApplication.HUY_STATUS);
+            }
+        }else{
+            timeOrderDetails =
+                    MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId(),MyApplication.HUY_STATUS);
+        }
 
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();

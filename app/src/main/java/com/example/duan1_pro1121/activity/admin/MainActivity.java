@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Yêu cầu nạp tiền");
             } else if(item.getItemId() == R.id.item_dangxuat){
                 finishAffinity();
+                CURRENT_FRAGMENT = 0;
                 MyApplication.CURRENT_TYPE = -1;
                 Intent intent = new Intent(MainActivity.this, SelectTypeActivity.class);
                 startActivity(intent);

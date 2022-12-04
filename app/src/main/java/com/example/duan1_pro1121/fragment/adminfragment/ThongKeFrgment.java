@@ -147,8 +147,8 @@ public class ThongKeFrgment extends Fragment{
     }
 
     public void getDoanhThu(){
-        Cursor cursor = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuService("%-"+currentYear);
-        Cursor cursor1 = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuSanBong("%-"+currentYear);
+        Cursor cursor = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuService("%-"+currentYear,MyApplication.HUY_STATUS);
+        Cursor cursor1 = MyDatabase.getInstance(getContext()).orderDAO().getDoanhThuSanBong("%-"+currentYear,MyApplication.HUY_STATUS);
         cursor.moveToNext();
         cursor1.moveToNext();
 

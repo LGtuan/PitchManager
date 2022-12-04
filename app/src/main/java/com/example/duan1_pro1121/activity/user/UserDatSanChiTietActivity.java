@@ -453,8 +453,19 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
             }
         }
         // Kiểm tra thời gian bị full
-        List<TimeOrderDetails> timeOrderDetails =
-                MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId());
+        List<TimeOrderDetails> timeOrderDetails;
+        if(order != null){
+            if(order.getStatus() == MyApplication.HUY_STATUS){
+                timeOrderDetails =
+                        MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithOrderId(order.getId());
+            }else{
+                timeOrderDetails =
+                    MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId(),MyApplication.HUY_STATUS);
+            }
+        }else{
+            timeOrderDetails =
+                    MyDatabase.getInstance(this).timeOrderDetailsDAO().getTimeOrderWithDateAndPitch(datePlay, pitch.getId(),MyApplication.HUY_STATUS);
+        }
 
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();

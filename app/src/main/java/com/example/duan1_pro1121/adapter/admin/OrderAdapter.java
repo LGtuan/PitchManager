@@ -107,6 +107,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             holder.tvStatus.setText("Đã đá");
         }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
             holder.tvStatus.setText("Đang nghỉ");
+        }else if(list.get(position).getStatus() == MyApplication.HUY_STATUS){
+            holder.tvStatus.setText("Đã hủy");
         }
 
         if(list.get(position).getStatus() == MyApplication.CHUA_STATUS){
@@ -167,7 +169,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
                     customer.setCoin(customer.getCoin() + order.getTotal());
                     MyDatabase.getInstance(context).customerDAO().update(customer);
 
-                    MyDatabase.getInstance(context).orderDAO().delete(list.get(getAdapterPosition()));
+                    list.get(getAdapterPosition()).setStatus(MyApplication.HUY_STATUS);
+
+                    MyDatabase.getInstance(context).orderDAO().update(list.get(getAdapterPosition()));
                     Toast.makeText(context, "Hủy đơn thành công", Toast.LENGTH_SHORT).show();
                     setData(MyDatabase.getInstance(context).orderDAO().getAll());
                 }

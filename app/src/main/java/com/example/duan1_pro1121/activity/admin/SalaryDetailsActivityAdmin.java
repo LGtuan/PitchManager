@@ -83,7 +83,7 @@ public class SalaryDetailsActivityAdmin extends AppCompatActivity {
 
     public void setData(){
         list = new ArrayList<>();
-        Cursor cursor = MyDatabase.getInstance(this).orderDAO().getDoanhThuStaff("%-"+month+"-"+year,MyApplication.ADMIN_CATEGORY);
+        Cursor cursor = MyDatabase.getInstance(this).orderDAO().getDoanhThuStaff("%-"+month+"-"+year,MyApplication.ADMIN_CATEGORY,MyApplication.HUY_STATUS);
         while (cursor.moveToNext()){
             StaffSalary staffSalary = new StaffSalary(cursor.getInt(0),cursor.getInt(1));
             list.add(staffSalary);

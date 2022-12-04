@@ -97,6 +97,8 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
             holder.tvTrangThai.setText("Đã đá");
         }else if(list.get(position).getStatus() == MyApplication.NGHI_STATUS){
             holder.tvTrangThai.setText("Đang nghỉ");
+        }else if(list.get(position).getStatus() == MyApplication.HUY_STATUS){
+            holder.tvTrangThai.setText("Đã hủy");
         }
 
         if (list.get(position).getStatus() == MyApplication.CHUA_STATUS) {

@@ -65,18 +65,18 @@ public interface OrderDAO {
     @Query("SELECT * FROM ORDERS WHERE customerId == :id AND status =:status ORDER BY id DESC")
     List<Order> getOrderWithCustomerIdAndStatus(int id, int status);
 
-    @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date")
-    List<Order> getOrderWithManagerId(int id,String date);
+    @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date AND ORDERS.status != :status")
+    List<Order> getOrderWithManagerId(int id,String date,int status);
 
     @Query("SELECT ORDERS.managerId,(SUM(ORDERS.total)/100)*3 FROM ORDERS " +
             "INNER JOIN MANAGER ON ORDERS.managerId = MANAGER.id " +
-            "WHERE dateCreate LIKE :s AND MANAGER.phone != :account GROUP BY ORDERS.managerId")
-    Cursor getDoanhThuStaff(String s,String account);
+            "WHERE dateCreate LIKE :s AND MANAGER.phone != :account AND ORDERS.status != :status GROUP BY ORDERS.managerId")
+    Cursor getDoanhThuStaff(String s,String account,int status);
 
-    @Query("SELECT SUM(totalServiceMoney) FROM ORDERS WHERE dateCreate LIKE :s")
-    Cursor getDoanhThuService(String s);
+    @Query("SELECT SUM(totalServiceMoney) FROM ORDERS WHERE dateCreate LIKE :s AND ORDERS.status != :status")
+    Cursor getDoanhThuService(String s,int status);
 
-    @Query("SELECT SUM(totalPitchMoney)+SUM(chiPhiKhac) FROM ORDERS WHERE dateCreate LIKE :s")
-    Cursor getDoanhThuSanBong(String s);
+    @Query("SELECT SUM(totalPitchMoney)+SUM(chiPhiKhac) FROM ORDERS WHERE dateCreate LIKE :s AND ORDERS.status != :status")
+    Cursor getDoanhThuSanBong(String s,int status);
 
 }

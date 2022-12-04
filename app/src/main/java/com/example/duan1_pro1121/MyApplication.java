@@ -26,6 +26,7 @@ public class MyApplication extends Application {
     public static final int DA_STATUS = 2;
     public static final int CHUA_STATUS = 0;
     public static final int NGHI_STATUS = 3;
+    public static final int HUY_STATUS = 4;
 
     public static final int HOATDONG_STATUS = 0;
     public static final int BAOTRI_STATUS = 1;

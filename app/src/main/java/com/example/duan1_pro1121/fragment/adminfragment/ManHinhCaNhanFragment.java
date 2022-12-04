@@ -42,7 +42,7 @@ public class ManHinhCaNhanFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         String date = (calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR);
         int id = MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT,-1).get(0).getId();
-        List<Order> list = MyDatabase.getInstance(getContext()).orderDAO().getOrderWithManagerId(id,"%-"+date);
+        List<Order> list = MyDatabase.getInstance(getContext()).orderDAO().getOrderWithManagerId(id,"%-"+date,MyApplication.HUY_STATUS);
 
         for(int i =0;i<list.size();i++){
             totalRecei += (list.get(i).getTotal()/100)*3;

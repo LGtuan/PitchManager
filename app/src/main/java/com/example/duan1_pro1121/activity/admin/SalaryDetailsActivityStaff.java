@@ -56,7 +56,7 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
             Manager manager = MyDatabase.getInstance(this).managerDAO().getManagerWithID(id).get(0);
             tvTitle.setText(manager.getName());
         }
-        list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year);
+        list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year,MyApplication.HUY_STATUS);
 
         adapter = new SalaryStaffAdapter(this,list);
         recyclerView.setAdapter(adapter);
@@ -94,7 +94,7 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
                 year--;
                 month =12;
             }
-            list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year);
+            list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year,MyApplication.HUY_STATUS);
             setUp();
             adapter.setData(list);
         });
@@ -103,7 +103,7 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
                 year++;
                 month = 1;
             }
-            list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year);
+            list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year,MyApplication.HUY_STATUS);
             setUp();
             adapter.setData(list);
         });

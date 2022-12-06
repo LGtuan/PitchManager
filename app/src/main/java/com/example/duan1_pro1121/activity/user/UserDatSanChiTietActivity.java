@@ -100,12 +100,12 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
                 tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             } else if (order.getStatus() == MyApplication.CHUA_STATUS) {
                 setOnClickForImageView();
-            } else if (order.getStatus() == MyApplication.DA_STATUS) {
-                btnServiceDetails.setEnabled(false);
+            } else if (order.getStatus() == MyApplication.DA_STATUS || order.getStatus() == MyApplication.HUY_STATUS) {
+                //btnServiceDetails.setEnabled(false);
                 btnDatSan.setEnabled(false);
                 tvDate.setEnabled(false);
                 btnDatSan.setBackgroundColor(getResources().getColor(R.color.dark_gray));
-                btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+                //btnServiceDetails.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 tvDate.setBackgroundColor(getResources().getColor(R.color.dark_gray));
                 canEdit = false;
             }
@@ -470,14 +470,16 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
         for (int i = 0; i < timeOrderDetails.size(); i++) {
             int idTime = timeOrderDetails.get(i).getTimeId();
             if (order != null) {
-                if (order.getId() == timeOrderDetails.get(i).getOrderId()) {
-                    if (typeSelect[idTime - 1] == type_addGray) {
-                        typeSelect[idTime - 1] = type_cancel_gray;
+                if(count != 0) {
+                    if (order.getId() == timeOrderDetails.get(i).getOrderId()) {
+                        if (typeSelect[idTime - 1] == type_addGray) {
+                            typeSelect[idTime - 1] = type_cancel_gray;
+                        } else {
+                            typeSelect[idTime - 1] = type_cancel;
+                        }
                     } else {
-                        typeSelect[idTime - 1] = type_cancel;
+                        typeSelect[idTime - 1] = type_full;
                     }
-                } else {
-                    typeSelect[idTime - 1] = type_full;
                 }
             } else {
                 typeSelect[idTime - 1] = type_full;

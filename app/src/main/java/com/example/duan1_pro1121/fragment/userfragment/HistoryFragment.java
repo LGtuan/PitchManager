@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.duan1_pro1121.MyApplication;
 import com.example.duan1_pro1121.R;
@@ -67,17 +68,17 @@ public class HistoryFragment extends Fragment {
         spinner = view.findViewById(R.id.spn_type_order_user);
         recyclerView = view.findViewById(R.id.recy_history_user);
 
-        adapter = new HistoryDatSanAdapter(getContext(),orders);
+        adapter = new HistoryDatSanAdapter(getContext(), orders);
         adapter.setMyOnClick(order -> {
             Intent intent = new Intent(getContext(), UserDatSanChiTietActivity.class);
-            intent.putExtra("ORDER",order);
+            intent.putExtra("ORDER", order);
             Bundle bundle = new Bundle();
 
             List<ServiceBall> serviceBalls = new ArrayList<>();
             List<Integer> numbers = new ArrayList<>();
 
             List<OrderDetails> list = MyDatabase.getInstance(getContext()).orderDetailsDAO().getOrderDetailsByOrderId(order.getId());
-            for(int i = 0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
                 int serviceId = list.get(i).getServiceId();
                 int number = list.get(i).getSoLuong();
                 serviceBalls.add(MyDatabase.getInstance(getContext()).serviceDAO().getServiceWithId(serviceId).get(0));
@@ -87,55 +88,56 @@ public class HistoryFragment extends Fragment {
             bundle.putSerializable("LIST_SERVICE", (Serializable) serviceBalls);
             bundle.putSerializable("LIST_NUMBER", (Serializable) numbers);
 
-            intent.putExtra("bundle",bundle);
-            startActivityForResult(intent,CODE);
+            intent.putExtra("bundle", bundle);
+            startActivityForResult(intent, CODE);
         });
         recyclerView.setAdapter(adapter);
         setUp();
 
-        ArrayList<String> list = new ArrayList<>(Arrays.asList("Tất cả","Chưa đá","Đang đá","Đang nghỉ","Đã đá"));
-        MyCustomSpinnerAdapter adapter1 = new MyCustomSpinnerAdapter(getContext(),R.layout.line_spinner_loai_nv,list);
+        ArrayList<String> list = new ArrayList<>(Arrays.asList("Tất cả", "Chưa đá", "Đang đá", "Đang nghỉ", "Đã đá"));
+        MyCustomSpinnerAdapter adapter1 = new MyCustomSpinnerAdapter(getContext(), R.layout.line_spinner_loai_nv, list);
         spinner.setAdapter(adapter1);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                if (position == 0) {
                     setDataWithStatus(-1);
-                }else if(position == 1){
+                } else if (position == 1) {
                     setDataWithStatus(MyApplication.CHUA_STATUS);
-                }else if(position == 2){
+                } else if (position == 2) {
                     setDataWithStatus(MyApplication.DANG_STATUS);
-                }else if(position == 3){
+                } else if (position == 3) {
                     setDataWithStatus(MyApplication.NGHI_STATUS);
-                }else if(position == 4){
+                } else if (position == 4) {
                     setDataWithStatus(MyApplication.DA_STATUS);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == CODE && resultCode == Activity.RESULT_OK) {
             adapter.setData(MyDatabase.getInstance(getContext()).orderDAO().getOrderWithCustomerId(UserMainActivity.customer.getId()));
         }
     }
 
-    public void setDataWithStatus(int status){
-        if(status == -1){
+    public void setDataWithStatus(int status) {
+        if (status == -1) {
             orders = MyDatabase.getInstance(getContext()).orderDAO()
                     .getOrderWithCustomerId(UserMainActivity.customer.getId());
-            if(adapter!=null){
+            if (adapter != null) {
                 setUp();
             }
-        }else {
+        } else {
             if (status == MyApplication.CHUA_STATUS) {
                 orders = MyDatabase.getInstance(getContext()).orderDAO()
                         .getOrderWithCustomerIdAndStatus(UserMainActivity.customer.getId(), MyApplication.CHUA_STATUS);
@@ -154,10 +156,16 @@ public class HistoryFragment extends Fragment {
         }
     }
 
-    public void updateOrder(){
-        for(int position = 0;position<orders.size();position++) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
+    }
 
-            if(orders.get(position).getStatus() != MyApplication.HUY_STATUS) {
+    public void updateOrder() {
+        for (int position = 0; position < orders.size(); position++) {
+
+            if (orders.get(position).getStatus() != MyApplication.HUY_STATUS) {
 
                 Calendar calendarStart = Calendar.getInstance();
                 Calendar calendarEnd = Calendar.getInstance();
@@ -176,17 +184,18 @@ public class HistoryFragment extends Fragment {
                     if (i == 0 && calendarStart.after(calendarNow)) {
                         orders.get(position).setStatus(MyApplication.CHUA_STATUS);
                         break;
-                    } else if (i == myTimeList.size() - 1 && calendarEnd.before(calendarNow)) {
+                    }
+                    if (i == myTimeList.size() - 1 && calendarEnd.before(calendarNow)) {
                         orders.get(position).setStatus(MyApplication.DA_STATUS);
                         break;
-                    } else {
-                        if (calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)) {
-                            orders.get(position).setStatus(MyApplication.DANG_STATUS);
-                            break;
-                        } else {
-                            orders.get(position).setStatus(MyApplication.NGHI_STATUS);
-                        }
                     }
+                    if (calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)) {
+                        orders.get(position).setStatus(MyApplication.DANG_STATUS);
+                        break;
+                    } else {
+                        orders.get(position).setStatus(MyApplication.NGHI_STATUS);
+                    }
+
                 }
 
                 if (beginStatus != orders.get(position).getStatus()) {
@@ -196,25 +205,25 @@ public class HistoryFragment extends Fragment {
         }
     }
 
-    public int[] getArrayDate(String date){
+    public int[] getArrayDate(String date) {
         String[] str = date.split("-");
         int arr[] = new int[str.length];
-        try{
-            for(int i = 0;i<str.length;i++){
+        try {
+            for (int i = 0; i < str.length; i++) {
                 arr[i] = Integer.parseInt(str[i]);
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return null;
         }
         return arr;
     }
 
-    public void setUp(){
+    public void setUp() {
         adapter.setData(orders);
-        tvCount.setText(orders.size()+"");
+        tvCount.setText(orders.size() + "");
     }
 
-    public class MyCustomSpinnerAdapter extends ArrayAdapter<String>{
+    public class MyCustomSpinnerAdapter extends ArrayAdapter<String> {
 
         private Context context;
         private List<String> list;
@@ -235,12 +244,12 @@ public class HistoryFragment extends Fragment {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
             ViewHolder viewHolder;
-            if(convertView == null){
+            if (convertView == null) {
                 viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv,parent,false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv, parent, false);
                 viewHolder.tv = convertView.findViewById(R.id.tv_name_loainv_line_spinner);
                 convertView.setTag(viewHolder);
-            }else{
+            } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
@@ -253,12 +262,12 @@ public class HistoryFragment extends Fragment {
         public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
             ViewHolder viewHolder;
-            if(convertView == null){
+            if (convertView == null) {
                 viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv_dropdown,parent,false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.line_spinner_loai_nv_dropdown, parent, false);
                 viewHolder.tv = convertView.findViewById(R.id.tv_name_loainv_line_spinner_dropdown);
                 convertView.setTag(viewHolder);
-            }else{
+            } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
@@ -267,7 +276,7 @@ public class HistoryFragment extends Fragment {
             return convertView;
         }
 
-        public class ViewHolder{
+        public class ViewHolder {
             TextView tv;
         }
     }

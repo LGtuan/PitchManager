@@ -324,10 +324,12 @@ public class DatSanChiTietActivity extends AppCompatActivity {
             int idTime = timeOrderDetails.get(i).getTimeId();
             if (order != null) {
                 if (order.getId() == timeOrderDetails.get(i).getOrderId()) {
-                    if (typeSelect[idTime - 1] == type_addGray) {
-                        typeSelect[idTime - 1] = type_cancel_gray;
-                    } else {
-                        typeSelect[idTime - 1] = type_cancel;
+                    if(count != 0) {
+                        if (typeSelect[idTime - 1] == type_addGray) {
+                            typeSelect[idTime - 1] = type_cancel_gray;
+                        } else {
+                            typeSelect[idTime - 1] = type_cancel;
+                        }
                     }
                 } else {
                     typeSelect[idTime - 1] = type_full;
@@ -672,7 +674,15 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
     public void setUpTvMoneyAndTvCustomer() {
         if (customer != null) {
-            layoutMoneyCustomer.setVisibility(View.VISIBLE);
+            if(order!=null){
+                if(order.getStatus() == MyApplication.DA_STATUS || order.getStatus() == MyApplication.HUY_STATUS){
+                    layoutMoneyCustomer.setVisibility(View.INVISIBLE);
+                }else{
+                    layoutMoneyCustomer.setVisibility(View.VISIBLE);
+                }
+            }else{
+                layoutMoneyCustomer.setVisibility(View.VISIBLE);
+            }
             tvCustomer.setText(customer.getName());
             tvMoneyCustomer.setText(MyApplication.convertMoneyToString(customer.getCoin()) + " VNĐ");
             if (customer.getCoin() >= (chiPhiKhac + totalMoneyService + totalMoneyPitch))

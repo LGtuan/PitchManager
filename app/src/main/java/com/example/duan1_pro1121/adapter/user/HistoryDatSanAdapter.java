@@ -153,10 +153,11 @@ public class HistoryDatSanAdapter extends RecyclerView.Adapter<HistoryDatSanAdap
                     UserMainActivity.customer.setCoin(UserMainActivity.customer.getCoin() + order.getTotal());
                     MyDatabase.getInstance(context).customerDAO().update(UserMainActivity.customer);
 
-                    MyDatabase.getInstance(context).orderDAO().delete(list.get(getAdapterPosition()));
+                    list.get(getAdapterPosition()).setStatus(MyApplication.HUY_STATUS);
+
+                    MyDatabase.getInstance(context).orderDAO().update(list.get(getAdapterPosition()));
                     Toast.makeText(context, "Hủy đơn thành công", Toast.LENGTH_SHORT).show();
-                    setData(MyDatabase.getInstance(context).orderDAO()
-                            .getOrderWithCustomerId(UserMainActivity.customer.getId()));
+                    setData(MyDatabase.getInstance(context).orderDAO().getAll());
                 }
             });
             itemView.setOnClickListener(v->{

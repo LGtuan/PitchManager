@@ -33,8 +33,8 @@ public interface NotificationDAO {
             "ON MY_NOTIFICATION.id = NOTIFICATIONDETAILS.notificationId " +
             "INNER JOIN CUSTOMER " +
             "ON NOTIFICATIONDETAILS.customerId = CUSTOMER.id " +
-            "WHERE CUSTOMER.id = :id ORDER BY MY_NOTIFICATION.id DESC")
-    List<MyNotification> getNotifiWithCusId(int id);
+            "WHERE CUSTOMER.id = :id AND status = :status ORDER BY MY_NOTIFICATION.id DESC")
+    List<MyNotification> getNotifiWithCusId(int id,int status);
 
     @Query("SELECT MAX(id) FROM MY_NOTIFICATION")
     int getNewNotification();

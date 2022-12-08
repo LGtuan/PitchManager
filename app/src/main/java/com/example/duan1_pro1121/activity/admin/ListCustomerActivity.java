@@ -58,6 +58,7 @@ public class ListCustomerActivity extends AppCompatActivity {
         adapter.setNapTienOnClick(id->{
             Intent intent = new Intent(this, NapTienActivity.class);
             intent.putExtra("CUSTOMER_ID",id);
+            intent.putExtra("IS_ADMIN",true);
             startActivityForResult(intent, KhachHangFragment.NAPTIEN_CODE);
         });
         recyclerView.setAdapter(adapter);

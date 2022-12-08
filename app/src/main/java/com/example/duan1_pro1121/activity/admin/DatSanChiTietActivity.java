@@ -608,13 +608,7 @@ public class DatSanChiTietActivity extends AppCompatActivity {
 
     public void setOnCLickForView() {
         tvDate.setOnClickListener(v -> {
-            if (order != null) {
-                if (order.getStatus() == MyApplication.CHUA_STATUS && count > 0) {
-                    Toast.makeText(DatSanChiTietActivity.this, "Bạn cần hủy lịch của ngày " + datePlay, Toast.LENGTH_SHORT).show();
-                } else {
-                    openDateDialogTvDate();
-                }
-            } else {
+            if (!isUpdate) {
                 if(count>0){
                     Toast.makeText(DatSanChiTietActivity.this, "Bạn cần hủy lịch của ngày " + datePlay, Toast.LENGTH_SHORT).show();
                 }else {

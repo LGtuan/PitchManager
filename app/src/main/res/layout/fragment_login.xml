@@ -60,6 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <CheckBox
+        android:id="@+id/cbx_remember"
+        android:layout_marginStart="30dp"
+        android:layout_gravity="start"
+        android:text="Ghi nhớ"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"/>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:gravity="center"

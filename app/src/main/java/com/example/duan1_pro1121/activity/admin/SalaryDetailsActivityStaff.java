@@ -54,6 +54,8 @@ public class SalaryDetailsActivityStaff extends AppCompatActivity {
             id = MyDatabase.getInstance(this).managerDAO().getManagerWithPhone(MainActivity.ACCOUNT,-1).get(0).getId();
         }else{
             Manager manager = MyDatabase.getInstance(this).managerDAO().getManagerWithID(id).get(0);
+            month = getIntent().getIntExtra("MONTH",-1);
+            year = getIntent().getIntExtra("YEAR",-1);
             tvTitle.setText(manager.getName());
         }
         list = MyDatabase.getInstance(this).orderDAO().getOrderWithManagerId(id,"%-"+month+"-"+year,MyApplication.HUY_STATUS);

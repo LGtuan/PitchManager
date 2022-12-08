@@ -136,6 +136,8 @@ public class SalaryDetailsActivityAdmin extends AppCompatActivity {
                 btn.setOnClickListener(v->{
                     Intent intent = new Intent(context,SalaryDetailsActivityStaff.class);
                     intent.putExtra("ID_MANAGER",list.get(getAdapterPosition()).getId());
+                    intent.putExtra("MONTH",month);
+                    intent.putExtra("YEAR",year);
                     context.startActivity(intent);
                 });
             }

@@ -65,12 +65,12 @@ public interface OrderDAO {
     @Query("SELECT * FROM ORDERS WHERE customerId == :id AND status =:status ORDER BY id DESC")
     List<Order> getOrderWithCustomerIdAndStatus(int id, int status);
 
-    @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date AND ORDERS.status != :status")
+    @Query("SELECT * FROM ORDERS WHERE managerId == :id AND dateCreate LIKE :date AND ORDERS.status != :status ORDER BY ORDERS.id DESC")
     List<Order> getOrderWithManagerId(int id,String date,int status);
 
     @Query("SELECT ORDERS.managerId,(SUM(ORDERS.total)/100)*3 FROM ORDERS " +
             "INNER JOIN MANAGER ON ORDERS.managerId = MANAGER.id " +
-            "WHERE dateCreate LIKE :s AND MANAGER.phone != :account AND ORDERS.status != :status GROUP BY ORDERS.managerId")
+            "WHERE dateCreate LIKE :s AND MANAGER.phone != :account AND ORDERS.status != :status GROUP BY ORDERS.managerId ORDER BY ORDERS.id DESC")
     Cursor getDoanhThuStaff(String s,String account,int status);
 
     @Query("SELECT SUM(totalServiceMoney) FROM ORDERS WHERE dateCreate LIKE :s AND ORDERS.status != :status")

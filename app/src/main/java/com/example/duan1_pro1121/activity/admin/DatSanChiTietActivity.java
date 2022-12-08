@@ -615,7 +615,11 @@ public class DatSanChiTietActivity extends AppCompatActivity {
                     openDateDialogTvDate();
                 }
             } else {
-                openDateDialogTvDate();
+                if(count>0){
+                    Toast.makeText(DatSanChiTietActivity.this, "Bạn cần hủy lịch của ngày " + datePlay, Toast.LENGTH_SHORT).show();
+                }else {
+                    openDateDialogTvDate();
+                }
             }
         });
         btnServiceDetails.setOnClickListener(v -> {

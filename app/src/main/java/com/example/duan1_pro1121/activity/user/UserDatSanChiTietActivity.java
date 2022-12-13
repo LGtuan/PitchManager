@@ -423,10 +423,12 @@ public class UserDatSanChiTietActivity extends AppCompatActivity {
         count = 0;
         totalMoneyPitch = 0;
         order = null;
+        chiPhiKhac = 0;
         listService = new ArrayList<>();
         numberOfService = new ArrayList<>();
         setUpMoneyAndTvService();
         setUpTvMoneyAndTvPitch();
+        changeChiPhiKhac();
         tvMocTg.setText("");
     }
 

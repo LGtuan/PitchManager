@@ -232,6 +232,7 @@
                 android:layout_height="1dp"/>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_change_info"
                 app:cardUseCompatPadding="true"
                 app:cardElevation="3dp"
                 app:cardCornerRadius="6dp"

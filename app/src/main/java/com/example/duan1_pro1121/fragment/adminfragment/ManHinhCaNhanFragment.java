@@ -30,7 +30,7 @@ import java.util.List;
 public class ManHinhCaNhanFragment extends Fragment {
 
     private TextView tvName,tvPhone,tvBankName,tvBankNumber,tvLuong,tvShowInfo,tvChangePass,tvLuongNhanVien;
-    private CardView cardView,cardView2;
+    private CardView cardView,cardView2,cardView3;
     private Button btnDetails;
 
     int totalRecei = 0;
@@ -71,6 +71,8 @@ public class ManHinhCaNhanFragment extends Fragment {
         btnDetails = view.findViewById(R.id.btn_details_fragment_canhan);
         cardView = view.findViewById(R.id.cardView_salary_staff);
         cardView2 = view.findViewById(R.id.cardview_luongnv);
+        cardView3 = view.findViewById(R.id.cardview_change_info);
+        cardView3.setVisibility(View.GONE);
         if(MainActivity.ACCOUNT.equals(MyApplication.ADMIN_CATEGORY)){
             cardView.setVisibility(View.GONE);
         }else{

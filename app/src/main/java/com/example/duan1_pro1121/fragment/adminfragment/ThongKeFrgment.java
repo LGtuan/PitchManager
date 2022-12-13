@@ -190,7 +190,7 @@ public class ThongKeFrgment extends Fragment{
             BarData data = new BarData(dataSets);
             ValueFormatter custom = new MyAxisValueFormatter();
             data.setValueFormatter(custom);
-            data.setValueTextSize(14f);
+            data.setValueTextSize(12f);
             data.setBarWidth(0.9f);
 
             chart.setData(data);

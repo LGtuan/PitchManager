@@ -130,16 +130,16 @@ public class PhieuThongTinFragment extends Fragment {
                     if (i == 0 && calendarStart.after(calendarNow)) {
                         ordersList.get(position).setStatus(MyApplication.CHUA_STATUS);
                         break;
-                    } else if (i == myTimeList.size() - 1 && calendarEnd.before(calendarNow)) {
+                    }
+                    if (i == myTimeList.size() - 1 && calendarEnd.before(calendarNow)) {
                         ordersList.get(position).setStatus(MyApplication.DA_STATUS);
                         break;
+                    }
+                    if (calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)) {
+                        ordersList.get(position).setStatus(MyApplication.DANG_STATUS);
+                        break;
                     } else {
-                        if (calendarStart.before(calendarNow) && calendarEnd.after(calendarNow)) {
-                            ordersList.get(position).setStatus(MyApplication.DANG_STATUS);
-                            break;
-                        } else {
-                            ordersList.get(position).setStatus(MyApplication.NGHI_STATUS);
-                        }
+                        ordersList.get(position).setStatus(MyApplication.NGHI_STATUS);
                     }
                 }
 

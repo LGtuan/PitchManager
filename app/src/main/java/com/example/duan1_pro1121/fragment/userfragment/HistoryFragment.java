@@ -160,11 +160,12 @@ public class HistoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
+        updateOrder();
     }
 
     public void updateOrder() {
         for (int position = 0; position < orders.size(); position++) {
-
+            Log.e("123","update status");
             if (orders.get(position).getStatus() != MyApplication.HUY_STATUS) {
 
                 Calendar calendarStart = Calendar.getInstance();

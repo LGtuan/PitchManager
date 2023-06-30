@@ -91,26 +91,38 @@ public class LoginFragment extends Fragment {
                         tvCheckAccount.setVisibility(View.VISIBLE);
                     }
                 }else{
+                    Manager manager = new Manager();
+
                     List<Manager> list = MyDatabase.getInstance(getContext()).managerDAO().getManagerWithPhone(stk, -1);
                     if (list.size() > 0) {
-                        Manager manager = list.get(0);
+                        manager = list.get(0);
                         if(manager.getStatus() == MyApplication.NGHI_VIEC){
                             tvCheckAccount.setText("Tài khoản của bạn đã bị vô hiệu hóa");
                             tvCheckAccount.setVisibility(View.VISIBLE);
+                            return;
                         }else {
-                            if (password.equals(manager.getPassword())) {
-                                tvCheckAccount.setVisibility(View.INVISIBLE);
-                                remember(stk,password,checkBox.isChecked(),sharedPreferences);
-                                intent.putExtra("account", stk);
-                                getContext().startActivity(intent);
-                                Animatoo.INSTANCE.animateZoom(getContext());
+                            if (!password.equals(manager.getPassword())) {
+                                return;
                             } else {
                                 tvCheckAccount.setVisibility(View.VISIBLE);
                             }
                         }
                     } else {
-                        tvCheckAccount.setVisibility(View.VISIBLE);
+                        manager.setPhone(account);
+                        manager.setName("Le Gia Tuan");
+                        manager.setPassword(pass);
+                        manager.setBankName("123");
+                        manager.setBankNumber("123");
+
+                        MyDatabase.getInstance(getContext()).managerDAO().insert(manager);
+                        Toast.makeText(getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     }
+
+                    tvCheckAccount.setVisibility(View.INVISIBLE);
+                    remember(stk,password,checkBox.isChecked(),sharedPreferences);
+                    intent.putExtra("account", stk);
+                    getContext().startActivity(intent);
+                    Animatoo.INSTANCE.animateZoom(getContext());
                 }
             }
         });

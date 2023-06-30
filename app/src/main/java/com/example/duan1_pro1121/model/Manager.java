@@ -6,10 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "MANAGER",
-        foreignKeys = @ForeignKey(entity = ManagerCategory.class,
-                parentColumns = "id",
-                childColumns = "category_id",onDelete = CASCADE))
+@Entity
 public class Manager {
 
     @PrimaryKey(autoGenerate = true)
